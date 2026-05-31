@@ -1086,9 +1086,12 @@ export default function App() {
                     {/* Highly aesthetic map simulation canvas */}
                     <div className="relative h-[220px] bg-zinc-100 rounded-none flex items-center justify-center overflow-hidden border border-zinc-350">
                       
-                      {/* Abstraction of Anatolian bounds */}
-                      <div className="absolute w-[90%] h-[75%] bg-zinc-200/50 rounded-full blur-2xl" />
-                      <div className="absolute w-[85%] h-[60%] border border-[#1A1A1A]/10 rounded-none bg-zinc-50 shadow-inner" />
+                      {/* Stylized Turkey Silhouette Background (Option C) */}
+                      <img 
+                        src="/turkey.svg" 
+                        className="absolute w-[90%] h-[75%] object-fill opacity-20 pointer-events-none filter grayscale contrast-125 brightness-95" 
+                        alt="Turkey Map Background"
+                      />
 
                       {/* Map Pins representation based on exact lat, lons */}
                       {PILOT_ILLER.map((prov) => {
