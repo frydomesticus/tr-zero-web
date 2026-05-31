@@ -152,6 +152,7 @@ const resources = {
           technical: "Teknik Detaylar / MAC"
         },
         comparison: {
+          title: "Öntanımlı 5 Referans Senaryonun Karşılaştırılması",
           summaryDesc: "Aşağıdaki grafiklerde, Türkiye elektrik üretim sektörü (kömür termik santralleri) için 5 farklı alternatif politika senaryosunun 2035 yılına kadar olan projeksiyonları karşılaştırılmaktadır.",
           emissionsTitle: "Sektörel CO₂ Emisyon Patikaları (MtCO₂)",
           priceTitle: "Karbon Fiyat Patikaları (€/tCO₂)",
@@ -452,6 +453,7 @@ const resources = {
           technical: "Technical Details / MAC"
         },
         comparison: {
+          title: "Comparison of 5 Default Reference Scenarios",
           summaryDesc: "The charts below compare 2035 projections for 5 different alternative policy scenarios in the Turkish electricity generation sector (coal-fired thermal power plants).",
           emissionsTitle: "Sectoral CO₂ Emission Pathways (MtCO₂)",
           priceTitle: "Carbon Price Pathways (€/tCO₂)",
