@@ -321,7 +321,7 @@ const resources = {
         summary1: "Turkey's 2053 net-zero emission targets and the European Union's Carbon Border Adjustment Mechanism (CBAM) alignment process demand fundamental changes in industrial and energy structures. Within the scope of this graduation project, an Agent-Based Simulation (ABM) model and Decision Support System (TR-ETS) have been developed, where the 13 largest coal-fired thermal power plants in Turkey's power sector are modeled as autonomous agents.",
         summary2: "Our simulation engine analyzes power plants' green technology investments (boiler efficiency, CCS, solar/wind hybrid integrations, etc.) on an annual basis under carbon price corridors, annual quota decay (Cap Decay), and governmental subsidy mechanisms. The resulting outputs provide a scientific framework aiming to assist decision-makers in choosing the most effective mitigation policy.",
         keywords: "Keywords: Agent-Based Modeling (ABM), Emission Trading System (ETS), Marginal Abatement Cost Curve (MAC), Energy Policy.",
-        cardTitle: "PROJECT DOSSIER",
+        cardTitle: "PROJECT CREDITS",
         advisor: "ADVISOR:",
         advisorName: "Asst. Prof. Dr. Deniz Efendioğlu",
         team: "PROJECT TEAM (AUTHORS):",
