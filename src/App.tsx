@@ -668,7 +668,7 @@ export default function App() {
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           {/* Left Side: School Logo and Name */}
           <div className="flex items-center gap-4 select-none">
-            <img src="/logo.png" alt="AYBÜ Logo" className="h-16 md:h-20 w-auto object-contain" />
+            <img src="/aybu_logo_circular.png" alt="AYBÜ Logo" className="h-16 md:h-20 w-auto object-contain animate-pulse" />
             <div className="flex flex-col border-l border-zinc-300 pl-4 py-1">
               <span className="text-lg md:text-xl font-bold tracking-tight text-[#1b355a] font-serif">Ankara Yıldırım Beyazıt Üniversitesi</span>
               <span className="text-sm md:text-md text-[#00adc4] font-semibold">Endüstri Mühendisliği Bölümü</span>
@@ -677,8 +677,8 @@ export default function App() {
 
           {/* Right Side: Atatürk Banner and Türkiye Yüzyılı */}
           <div className="flex items-center gap-4">
-            <img src="/turkiye_yuzyili.png" alt="Türkiye Yüzyılı" className="h-12 md:h-14 w-auto object-contain" />
-            <img src="/ataturk_flag.png" alt="Atatürk ve Türk Bayrağı" className="h-12 md:h-14 w-auto object-contain rounded-xs border border-zinc-200" />
+            <img src="/turkiye_yuzyili_new.png" alt="Türkiye Yüzyılı" className="h-14 md:h-16 w-auto object-contain" />
+            <img src="/ataturk_flag_square.png" alt="Atatürk ve Türk Bayrağı" className="h-14 md:h-16 w-auto object-contain rounded-xs border border-zinc-200" />
           </div>
         </div>
 
