@@ -755,15 +755,6 @@ export default function App() {
         {/* Main School Navigation Bar */}
         <div className="border-t border-zinc-200 pt-4 flex flex-wrap gap-x-2 gap-y-2 text-xs font-bold uppercase tracking-wider justify-center items-center">
           <button
-            onClick={() => setMainActiveTab("hakkinda")}
-            className={`py-2 px-3 transition-colors cursor-pointer ${
-              mainActiveTab === "hakkinda" ? "bg-[#1b355a] text-white" : "text-zinc-700 hover:text-[#00adc4]"
-            }`}
-          >
-            {t("navbar.about")}
-          </button>
-          <span className="text-zinc-350 self-center">|</span>
-          <button
             onClick={() => setMainActiveTab("simulasyon")}
             className={`py-2 px-3 transition-colors cursor-pointer ${
               mainActiveTab === "simulasyon" ? "bg-[#1b355a] text-white" : "text-zinc-700 hover:text-[#00adc4]"
@@ -779,6 +770,15 @@ export default function App() {
             }`}
           >
             {t("navbar.documents")}
+          </button>
+          <span className="text-zinc-350 self-center">|</span>
+          <button
+            onClick={() => setMainActiveTab("hakkinda")}
+            className={`py-2 px-3 transition-colors cursor-pointer ${
+              mainActiveTab === "hakkinda" ? "bg-[#1b355a] text-white" : "text-zinc-700 hover:text-[#00adc4]"
+            }`}
+          >
+            {t("navbar.about")}
           </button>
           <span className="text-zinc-350 self-center">|</span>
           <button
