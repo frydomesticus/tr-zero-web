@@ -1538,7 +1538,7 @@ export default function App() {
 
                 {/* Col 2: Koridor Mekanizmaları */}
                 <div className="bg-white p-5 rounded-xl shadow-xs border border-slate-200 space-y-5">
-                  <span className="text-xs font-bold text-amber-800 bg-amber-50 border border-amber-200 px-2 py-1 rounded">⚙️ FİYAT İSTİKRAR KORİDORLARI</span>
+                  <span className="text-xs font-bold text-amber-800 bg-amber-50 border border-amber-200 px-2 py-1 rounded">{t("simulator.design.priceCorridorsHeader", "⚙️ FİYAT İSTİKRAR KORİDORLARI")}</span>
                   
                   <div className="space-y-1.5 pt-2">
                     <div className="flex justify-between items-center text-xs">
