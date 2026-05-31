@@ -47,7 +47,8 @@ import {
   ExternalLink,
   Maximize2,
   Minimize2,
-  ArrowLeft
+  ArrowLeft,
+  Linkedin
 } from "lucide-react";
 import {
   GERCEK_KOMUR_SANTRALLERI,
@@ -2087,19 +2088,16 @@ export default function App() {
                   <div>
                     <span className="text-zinc-500 block">DANIŞMAN HOCA:</span>
                     <strong className="text-zinc-800 text-sm block">Dr. Öğr. Üyesi Deniz Efendioğlu</strong>
-                    <div className="flex items-center gap-2 mt-2.5">
+                    <div className="flex items-center gap-2.5 mt-2.5">
                       {/* Google Scholar */}
                       <a 
                         href="https://scholar.google.com.tr/citations?user=yy93eAkAAAAJ" 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="w-7 h-7 rounded-full bg-white border border-zinc-200 shadow-xs flex items-center justify-center transition-all hover:scale-115 hover:shadow-md"
+                        className="w-8 h-8 rounded-full border border-zinc-200 bg-white flex items-center justify-center transition-all hover:scale-115 hover:shadow-md select-none shrink-0"
                         title="Google Akademik"
                       >
-                        <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 text-[#db4437] fill-current" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
-                          <path d="M12 15.5c-2.21 0-4-1.79-4-4h8c0 2.21-1.79 4-4 4z" opacity="0.8"/>
-                        </svg>
+                        <img src="/google_scholar.svg" alt="Google Akademik" className="w-5 h-5 object-contain" />
                       </a>
                       
                       {/* Scopus */}
@@ -2107,10 +2105,10 @@ export default function App() {
                         href="https://www.scopus.com/authid/detail.uri?authorId=57193789785" 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="w-7 h-7 rounded-full bg-[#f68212] text-white flex items-center justify-center font-extrabold text-[10px] font-sans tracking-tight transition-all hover:scale-115 hover:shadow-md select-none"
+                        className="w-8 h-8 rounded-full border border-zinc-200 bg-white flex items-center justify-center transition-all hover:scale-115 hover:shadow-md select-none shrink-0"
                         title="Scopus"
                       >
-                        SC
+                        <img src="/scopus.png" alt="Scopus" className="w-full h-full object-cover rounded-full" />
                       </a>
 
                       {/* ORCID */}
@@ -2118,10 +2116,10 @@ export default function App() {
                         href="https://orcid.org/0000-0002-3710-9187" 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="w-7 h-7 rounded-full bg-[#a6ce39] text-white flex items-center justify-center font-bold text-[10px] font-sans tracking-tighter transition-all hover:scale-115 hover:shadow-md select-none"
+                        className="w-8 h-8 rounded-full border border-zinc-200 bg-white flex items-center justify-center transition-all hover:scale-115 hover:shadow-md select-none shrink-0"
                         title="ORCID"
                       >
-                        iD
+                        <img src="/orcid.svg" alt="ORCID" className="w-full h-full object-cover rounded-full" />
                       </a>
 
                       {/* Publons / Web of Science */}
@@ -2129,10 +2127,10 @@ export default function App() {
                         href="https://publons.com/researcher/HDO-1591-2022" 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="w-7 h-7 rounded-full bg-[#215088] text-white flex items-center justify-center font-bold text-xs font-serif transition-all hover:scale-115 hover:shadow-md select-none"
+                        className="w-8 h-8 rounded-full border border-zinc-200 bg-white flex items-center justify-center transition-all hover:scale-115 hover:shadow-md select-none shrink-0"
                         title="Publons / Web of Science"
                       >
-                        P
+                        <img src="/publons.svg" alt="Publons" className="w-full h-full object-cover rounded-full" />
                       </a>
 
                       {/* YÖKSİS */}
@@ -2140,21 +2138,92 @@ export default function App() {
                         href="https://akademik.yok.gov.tr/AkademikArama/AkademisyenGorevOgrenimBilgileri?islem=direct&authorId=B0C14696B5B1B59E" 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="w-7 h-7 rounded-full bg-white border border-[#d62828] text-[#d62828] flex items-center justify-center font-extrabold text-[8px] font-sans transition-all hover:scale-115 hover:shadow-md select-none"
+                        className="w-8 h-8 rounded-full border border-zinc-200 bg-white flex items-center justify-center transition-all hover:scale-115 hover:shadow-md select-none shrink-0"
                         title="YÖKSİS"
                       >
-                        YÖK
+                        <img src="/yoksis.png" alt="YÖKSİS" className="w-full h-full object-cover rounded-full" />
                       </a>
                     </div>
                   </div>
                   <div className="h-px bg-zinc-200" />
                   <div>
-                    <span className="text-zinc-500 block">PROJE EKİBİ (YAZARLAR):</span>
-                    <ul className="list-disc pl-4 space-y-1 mt-1 text-zinc-850 font-bold text-sm font-sans">
-                      <li>İbrahim Hakkı Keleş</li>
-                      <li>Oğuz Gökdemir</li>
-                      <li>Melis Mağden</li>
-                    </ul>
+                    <span className="text-zinc-500 block mb-2.5">PROJE EKİBİ (YAZARLAR):</span>
+                    <div className="space-y-2.5">
+                      {/* İbrahim Hakkı Keleş */}
+                      <div className="flex items-center justify-between py-1 border-b border-dashed border-zinc-200 last:border-0">
+                        <span className="text-zinc-800 font-bold text-sm font-sans">İbrahim Hakkı Keleş</span>
+                        <div className="flex items-center gap-2">
+                          <a 
+                            href="https://www.linkedin.com/in/ibrahim-hakki-keles/" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="w-[26px] h-[26px] rounded-full border border-zinc-200 bg-white flex items-center justify-center text-[#0a66c2] hover:bg-[#0a66c2] hover:text-white transition-all hover:scale-110 hover:shadow-sm"
+                            title="LinkedIn - İbrahim Hakkı Keleş"
+                          >
+                            <Linkedin size={13} />
+                          </a>
+                          <a 
+                            href="https://orcid.org/0009-0004-7839-2531" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="w-[26px] h-[26px] rounded-full border border-zinc-200 bg-white flex items-center justify-center hover:bg-zinc-50 transition-all hover:scale-110 hover:shadow-sm"
+                            title="ORCID - İbrahim Hakkı Keleş"
+                          >
+                            <img src="/orcid.svg" alt="ORCID" className="w-3.5 h-3.5 object-contain" />
+                          </a>
+                        </div>
+                      </div>
+
+                      {/* Oğuz Gökdemir */}
+                      <div className="flex items-center justify-between py-1 border-b border-dashed border-zinc-200 last:border-0">
+                        <span className="text-zinc-800 font-bold text-sm font-sans">Oğuz Gökdemir</span>
+                        <div className="flex items-center gap-2">
+                          <a 
+                            href="https://www.linkedin.com/in/o%C4%9Fuz-g%C3%B6kdemir-/" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="w-[26px] h-[26px] rounded-full border border-zinc-200 bg-white flex items-center justify-center text-[#0a66c2] hover:bg-[#0a66c2] hover:text-white transition-all hover:scale-110 hover:shadow-sm"
+                            title="LinkedIn - Oğuz Gökdemir"
+                          >
+                            <Linkedin size={13} />
+                          </a>
+                          <a 
+                            href="https://orcid.org/0009-0000-8607-4948" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="w-[26px] h-[26px] rounded-full border border-zinc-200 bg-white flex items-center justify-center hover:bg-zinc-50 transition-all hover:scale-110 hover:shadow-sm"
+                            title="ORCID - Oğuz Gökdemir"
+                          >
+                            <img src="/orcid.svg" alt="ORCID" className="w-3.5 h-3.5 object-contain" />
+                          </a>
+                        </div>
+                      </div>
+
+                      {/* Melis Mağden */}
+                      <div className="flex items-center justify-between py-1 border-b border-dashed border-zinc-200 last:border-0">
+                        <span className="text-zinc-800 font-bold text-sm font-sans">Melis Mağden</span>
+                        <div className="flex items-center gap-2">
+                          <a 
+                            href="https://www.linkedin.com/in/melis-ma%C4%9Fden-127064223/" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="w-[26px] h-[26px] rounded-full border border-zinc-200 bg-white flex items-center justify-center text-[#0a66c2] hover:bg-[#0a66c2] hover:text-white transition-all hover:scale-110 hover:shadow-sm"
+                            title="LinkedIn - Melis Mağden"
+                          >
+                            <Linkedin size={13} />
+                          </a>
+                          <a 
+                            href="https://orcid.org/0009-0002-3758-2764" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="w-[26px] h-[26px] rounded-full border border-zinc-200 bg-white flex items-center justify-center hover:bg-zinc-50 transition-all hover:scale-110 hover:shadow-sm"
+                            title="ORCID - Melis Mağden"
+                          >
+                            <img src="/orcid.svg" alt="ORCID" className="w-3.5 h-3.5 object-contain" />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <div className="h-px bg-zinc-200" />
                   <div>
