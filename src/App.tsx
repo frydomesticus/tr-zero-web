@@ -1872,19 +1872,19 @@ export default function App() {
                   <div className="space-y-3 text-xs">
                     <div className="flex justify-between items-center py-1 border-b border-slate-100">
                       <span>sektorel_emisyonlar_v3.csv</span>
-                      <strong className="text-emerald-700">ENETGRE ✅</strong>
+                      <strong className="text-emerald-700">ENTEGRE ✅</strong>
                     </div>
                     <div className="flex justify-between items-center py-1 border-b border-slate-100 font-sans">
                       <span>pilot_iller_nihai.csv</span>
-                      <strong className="text-emerald-700">ENETGRE ✅</strong>
+                      <strong className="text-emerald-700">ENTEGRE ✅</strong>
                     </div>
                     <div className="flex justify-between items-center py-1 border-b border-slate-100">
                       <span>mac_egrisi_turkey_2024.csv</span>
-                      <strong className="text-emerald-700">ENETGRE ✅</strong>
+                      <strong className="text-emerald-700">ENTEGRE ✅</strong>
                     </div>
                     <div className="flex justify-between items-center py-1 font-sans">
                       <span>ab_ets_fiyat_projeksiyonu.csv</span>
-                      <strong className="text-emerald-700">ENETGRE ✅</strong>
+                      <strong className="text-emerald-700">ENTEGRE ✅</strong>
                     </div>
                     
                     <div className="mt-4 p-3 bg-teal-50 rounded-lg border border-teal-100">
