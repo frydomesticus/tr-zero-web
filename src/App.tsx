@@ -688,18 +688,25 @@ export default function App() {
       {/* 1. AYBÜ Header Section */}
       <header id="aybu-header" className="max-w-7xl w-full mx-auto bg-white border border-[#1A1A1A] shadow-[6px_6px_0px_#1A1A1A] p-4 md:p-6 mb-8 shrink-0 flex flex-col gap-6">
         {/* Top Row: Logos & Branding */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-          {/* Left Side: School Logo and Name */}
-          <div className="flex items-center gap-4 select-none">
+        <div className="grid grid-cols-1 md:grid-cols-3 w-full items-center gap-6">
+          {/* Left Side: School Logo */}
+          <div className="flex justify-center md:justify-start items-center select-none">
             <img src="/aybu_logo_circular.png" alt="AYBÜ Logo" className="h-16 md:h-20 w-auto object-contain animate-pulse" />
-            <div className="flex flex-col border-l border-zinc-300 pl-4 py-1">
-              <span className="text-lg md:text-xl font-bold tracking-tight text-[#1b355a] font-serif">Ankara Yıldırım Beyazıt Üniversitesi</span>
-              <span className="text-sm md:text-md text-[#00adc4] font-semibold">Endüstri Mühendisliği Bölümü</span>
-            </div>
+          </div>
+
+          {/* Center: Large Centered Professional Titles */}
+          <div className="flex flex-col items-center text-center justify-center select-none">
+            <h1 className="text-xl md:text-2xl lg:text-3xl font-extrabold tracking-wide text-[#1b355a] font-serif uppercase leading-tight">
+              Ankara Yıldırım Beyazıt Üniversitesi
+            </h1>
+            <div className="h-[2px] w-20 bg-[#00adc4] my-2 rounded-full" />
+            <h2 className="text-xs md:text-sm lg:text-md text-[#00adc4] font-extrabold uppercase tracking-widest font-sans">
+              Endüstri Mühendisliği Bölümü
+            </h2>
           </div>
 
           {/* Right Side: Atatürk Banner and Türkiye Yüzyılı */}
-          <div className="flex items-center gap-4">
+          <div className="flex justify-center md:justify-end items-center gap-4">
             <img src="/turkiye_yuzyili_new.png" alt="Türkiye Yüzyılı" className="h-14 md:h-16 w-auto object-contain" />
             <img src="/ataturk_flag_square.png" alt="Atatürk ve Türk Bayrağı" className="h-14 md:h-16 w-auto object-contain rounded-xs border border-zinc-200" />
           </div>
