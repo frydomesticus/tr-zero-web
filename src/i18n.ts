@@ -288,7 +288,9 @@ const resources = {
           provinceRegion: "Bölge:",
           provinceSector: "Dominant Sektör:",
           provinceEmissions: "Tahmini ETS Kapsamı:",
-          provinceSelectInfo: "Harita üzerinde renklendirilmiş illere tıklayarak detaylı bölgesel ETS kapsam tahminlerini ve ağır sanayi yapılarını inceleyebilirsiniz. Koyu teal renkli iller yüksek emisyon potansiyeline sahip pilot bölgelerdir."
+          provinceSelectInfo: "Harita üzerinde renklendirilmiş illere tıklayarak detaylı bölgesel ETS kapsam tahminlerini ve ağır sanayi yapılarını inceleyebilirsiniz. Koyu teal renkli iller yüksek emisyon potansiyeline sahip pilot bölgelerdir.",
+          thermalIntegrationHeader: "⚡ TERMİK GÜÇ ENTEGRASYONU",
+          thermalIntegrationDesc: "Bu ildeki termik santraller, tezinizde simüle edilen 13 bağımsız üretim ajanının bir parçası olarak ulusal karbon piyasasında Kocaeli/İzmir gibi sanayi bölgeleriyle doğrudan kota ticareti yapar."
         },
         custom: {
           controlsTitle: "İnteraktif Simülatör Kontrolleri",
@@ -784,7 +786,9 @@ const resources = {
           provinceRegion: "Region:",
           provinceSector: "Dominant Sector:",
           provinceEmissions: "Est. ETS Scope:",
-          provinceSelectInfo: "Click on colored provinces on the map to review detailed regional ETS scope estimates and heavy industrial structures. Darker teal provinces indicate high-emission potential pilot regions."
+          provinceSelectInfo: "Click on colored provinces on the map to review detailed regional ETS scope estimates and heavy industrial structures. Darker teal provinces indicate high-emission potential pilot regions.",
+          thermalIntegrationHeader: "⚡ THERMAL POWER INTEGRATION",
+          thermalIntegrationDesc: "Thermal power plants in this province directly trade quotas in the national carbon market with industrial zones like Kocaeli/Izmir as part of the 13 independent generation agents simulated in your thesis."
         },
         custom: {
           controlsTitle: "Interactive Simulator Controls",
