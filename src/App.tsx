@@ -688,14 +688,14 @@ export default function App() {
       {/* 1. AYBÜ Header Section */}
       <header id="aybu-header" className="max-w-7xl w-full mx-auto bg-white border border-[#1A1A1A] shadow-[6px_6px_0px_#1A1A1A] p-4 md:p-6 mb-8 shrink-0 flex flex-col gap-6">
         {/* Top Row: Logos & Branding */}
-        <div className="grid grid-cols-1 md:grid-cols-3 w-full items-center gap-6">
+        <div className="flex flex-col md:flex-row w-full items-center justify-center gap-8 md:gap-12 lg:gap-16">
           {/* Left Side: School Logo */}
-          <div className="flex justify-center md:justify-start items-center select-none">
+          <div className="flex justify-center items-center select-none shrink-0">
             <img src="/aybu_logo_circular.png" alt="AYBÜ Logo" className="h-16 md:h-20 w-auto object-contain animate-pulse" />
           </div>
 
           {/* Center: Large Centered Professional Titles */}
-          <div className="flex flex-col items-center text-center justify-center select-none">
+          <div className="flex flex-col items-center text-center justify-center select-none max-w-xl">
             <h1 className="text-xl md:text-2xl lg:text-3xl font-extrabold tracking-wide text-[#1b355a] font-serif leading-tight">
               ANKARA YILDIRIM BEYAZIT ÜNİVERSİTESİ
             </h1>
@@ -706,7 +706,7 @@ export default function App() {
           </div>
 
           {/* Right Side: Atatürk Banner and Türkiye Yüzyılı */}
-          <div className="flex justify-center md:justify-end items-center gap-4">
+          <div className="flex justify-center items-center gap-4 shrink-0">
             <img src="/turkiye_yuzyili_new.png" alt="Türkiye Yüzyılı" className="h-14 md:h-16 w-auto object-contain" />
             <img src="/ataturk_flag_square.png" alt="Atatürk ve Türk Bayrağı" className="h-14 md:h-16 w-auto object-contain rounded-xs border border-zinc-200" />
           </div>
