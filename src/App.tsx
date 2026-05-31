@@ -2262,7 +2262,7 @@ export default function App() {
                 <span className="bg-[#1b355a] text-white px-2 py-0.5 self-start font-mono text-[9px] font-bold uppercase tracking-wider mb-2">📍 İNTERAKTİF HARİTA</span>
                 <iframe
                   title="AYBÜ 15 Temmuz Campus Map"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3058.423985474326!2d32.8228303!3d39.976527!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40821de4a4ca6bb7%3A0x6b4cd7d488e040df!2sAYB%C3%9C%2015%20Temmuz%20Yerle%C5%9Fkesi!5e0!3m2!1str!2str!4v1717170000000!5m2!1str!2str"
+                  src="https://maps.google.com/maps?q=39.9708125,32.8184375(AYB%C3%9C%2015%20Temmuz%20Yerle%C5%9Fkesi%20-%20XRC9%2B89)&z=16&output=embed"
                   className="w-full h-56 border border-zinc-200"
                   allowFullScreen={true}
                   loading="lazy"
@@ -2303,7 +2303,7 @@ export default function App() {
                       <Maximize2 size={12} />
                     </button>
                     <a
-                      href="https://www.google.com/maps/@39.976527,32.8228303,3a,75y,310h,90t/data=!3m6!1e1!3m4!1s!2e0!7i16384!8i8128"
+                      href="https://www.google.com/maps/place/XRC9%2B89+Ke%C3%A7i%C3%B6ren%2FAnkara/@39.9708125,32.8184375,17z"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="bg-black/60 hover:bg-[#1b355a] text-white p-1.5 border border-white/10 hover:border-white transition-colors flex items-center justify-center"
@@ -2315,7 +2315,7 @@ export default function App() {
 
                   {/* Orta Yönlendirme Oku */}
                   <a
-                    href="https://www.google.com/maps/@39.976527,32.8228303,3a,75y,310h,90t/data=!3m6!1e1!3m4!1s!2e0!7i16384!8i8128"
+                    href="https://www.google.com/maps/place/XRC9%2B89+Ke%C3%A7i%C3%B6ren%2FAnkara/@39.9708125,32.8184375,17z"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="absolute bottom-1/3 left-1/2 transform -translate-x-1/2 flex flex-col items-center group/arrow cursor-pointer"
@@ -2423,7 +2423,7 @@ export default function App() {
               {/* Sağ Üst Kapatma ve Harita Butonları */}
               <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
                 <a
-                  href="https://www.google.com/maps/@39.976527,32.8228303,3a,75y,310h,90t/data=!3m6!1e1!3m4!1s!2e0!7i16384!8i8128"
+                  href="https://www.google.com/maps/place/XRC9%2B89+Ke%C3%A7i%C3%B6ren%2FAnkara/@39.9708125,32.8184375,17z"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-black/60 hover:bg-black/80 backdrop-blur-md p-2 text-white border border-white/20 hover:border-white/50 transition-colors flex items-center gap-1.5 text-xs font-mono font-bold"
@@ -2455,7 +2455,7 @@ export default function App() {
                 
                 {/* Gezinti Okları */}
                 <a
-                  href="https://www.google.com/maps/@39.976527,32.8228303,3a,75y,310h,90t/data=!3m6!1e1!3m4!1s!2e0!7i16384!8i8128"
+                  href="https://www.google.com/maps/place/XRC9%2B89+Ke%C3%A7i%C3%B6ren%2FAnkara/@39.9708125,32.8184375,17z"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="absolute bottom-1/4 left-1/2 transform -translate-x-1/2 flex flex-col items-center group cursor-pointer"
