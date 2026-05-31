@@ -325,22 +325,6 @@ export default function App() {
   // Tabs: 'sonuclar' | 'mevcut' | 'tasarim' | 'politika' | 'teknik'
   const [activeTab, setActiveTab] = useState<"sonuclar" | "mevcut" | "tasarim" | "politika" | "teknik">("sonuclar");
 
-  // Street View simulation states
-  const [isStreetViewFullscreen, setIsStreetViewFullscreen] = useState(false);
-  const [compassRotation, setCompassRotation] = useState(310);
-
-  const handleStreetViewMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    const angle = Math.atan2(y, x) * (180 / Math.PI) + 90;
-    setCompassRotation(angle);
-  }, []);
-
-  const handleStreetViewMouseLeave = useCallback(() => {
-    setCompassRotation(310);
-  }, []);
-  
   // Custom Simulator Parameters State (Tab 3)
   const [cap, setCap] = useState<number>(85);
   const [azalma, setAzalma] = useState<number>(3.8); // % annual reduction
@@ -2523,117 +2507,18 @@ export default function App() {
               </div>
             </div>
 
-            {/* Sağ Kolon - Harita ve Canlı Sokak Görünümü */}
-            <div className="space-y-6">
+            {/* Sağ Kolon - Harita */}
+            <div className="flex flex-col">
               {/* Harita */}
-              <div className="bg-[#fcfbfa] border border-[#1A1A1A] shadow-[4px_4px_0px_#1A1A1A] p-3 flex flex-col">
-                <span className="bg-[#1b355a] text-white px-2 py-0.5 self-start font-mono text-[9px] font-bold uppercase tracking-wider mb-2">{t("contact.mapTitle", "📍 İNTERAKTİF HARİTA")}</span>
+              <div className="bg-[#fcfbfa] border border-[#1A1A1A] shadow-[4px_4px_0px_#1A1A1A] p-3 flex flex-col h-full justify-between">
+                <span className="bg-[#1b355a] text-white px-2 py-0.5 self-start font-mono text-[9px] font-bold uppercase tracking-wider mb-3">{t("contact.mapTitle", "📍 İNTERAKTİF HARİTA")}</span>
                 <iframe
                   title="AYBÜ 15 Temmuz Campus Map"
                   src="https://maps.google.com/maps?q=39.9708125,32.8184375(AYB%C3%9C%2015%20Temmuz%20Yerle%C5%9Fkesi%20-%20XRC9%2B89)&z=16&output=embed"
-                  className="w-full h-56 border border-zinc-200"
+                  className="w-full flex-1 min-h-[380px] border border-zinc-200"
                   allowFullScreen={true}
                   loading="lazy"
                 />
-              </div>
-
-              {/* Sokak Görünümü (Street View) */}
-              <div className="bg-[#fcfbfa] border border-[#1A1A1A] shadow-[4px_4px_0px_#1A1A1A] p-3 flex flex-col">
-                <span className="bg-[#00adc4] text-white px-2 py-0.5 self-start font-mono text-[9px] font-bold uppercase tracking-wider mb-2">{t("contact.streetViewTitle", "📷 CANLI SOKAK GÖRÜNÜMÜ (STREET VIEW)")}</span>
-                <div 
-                  className="relative w-full h-56 border border-zinc-200 overflow-hidden cursor-crosshair select-none group"
-                  onMouseMove={handleStreetViewMouseMove}
-                  onMouseLeave={handleStreetViewMouseLeave}
-                >
-                  {/* Ana Görsel */}
-                  <img
-                    src="/aybu_street_view.png"
-                    alt="AYBÜ 15 Temmuz Yerleşkesi Sokak Görünümü"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-
-                  {/* Sol Üst Adres Katmanı */}
-                  <div className="absolute top-2 left-2 z-10 flex items-center gap-2 bg-black/65 backdrop-blur-xs px-2.5 py-1 text-white border border-white/10 text-[10px] max-w-[200px] pointer-events-none">
-                    <div className="w-1.5 h-1.5 bg-[#00adc4] rounded-full animate-ping shrink-0" />
-                    <div className="truncate">
-                      <strong className="block text-white text-[10px] tracking-wide font-sans">{t("contact.streetViewTitleText", "Gazze Caddesi")}</strong>
-                      <span className="text-[8px] text-zinc-300 block leading-tight font-sans">{t("contact.streetViewDate", "Keçiören/Ankara · Nis 2024")}</span>
-                    </div>
-                  </div>
-
-                  {/* Sağ Üst Kontrol Grubu */}
-                  <div className="absolute top-2 right-2 z-10 flex gap-1">
-                    <button
-                      onClick={() => setIsStreetViewFullscreen(true)}
-                      className="bg-black/60 hover:bg-[#00adc4] text-white p-1.5 border border-white/10 hover:border-white transition-colors cursor-pointer"
-                      title={t("contact.streetViewTooltipFull", "Tam Ekranda Göster")}
-                    >
-                      <Maximize2 size={12} />
-                    </button>
-                    <a
-                      href="https://www.google.com/maps/place/XRC9%2B89+Ke%C3%A7i%C3%B6ren%2FAnkara/@39.9708125,32.8184375,17z"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-black/60 hover:bg-[#1b355a] text-white p-1.5 border border-white/10 hover:border-white transition-colors flex items-center justify-center"
-                      title={t("contact.streetViewTooltipMaps", "Google Haritalar'da Aç")}
-                    >
-                      <ExternalLink size={12} />
-                    </a>
-                  </div>
-
-                  {/* Orta Yönlendirme Oku */}
-                  <a
-                    href="https://www.google.com/maps/place/XRC9%2B89+Ke%C3%A7i%C3%B6ren%2FAnkara/@39.9708125,32.8184375,17z"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="absolute bottom-1/3 left-1/2 transform -translate-x-1/2 flex flex-col items-center group/arrow cursor-pointer"
-                  >
-                    <div className="w-9 h-9 bg-[#00adc4]/30 border border-[#00adc4] group-hover/arrow:bg-[#00adc4]/70 group-hover/arrow:scale-110 transition-all rounded-full flex items-center justify-center shadow-md">
-                      <ChevronRight className="text-white transform -rotate-90" size={16} />
-                    </div>
-                    <span className="bg-black/85 text-[8px] text-white px-1.5 py-0.5 mt-1 rounded-xs opacity-0 group-hover/arrow:opacity-100 transition-opacity font-mono whitespace-nowrap">
-                      {t("contact.streetViewNext", "Haritada İlerle ↗")}
-                    </span>
-                  </a>
-
-                  {/* Sol Alt Google Filigranı */}
-                  <div className="absolute bottom-2 left-2 z-10 flex flex-col pointer-events-none">
-                    <span className="text-white font-black text-sm tracking-tighter drop-shadow-sm select-none">
-                      <span className="text-blue-500">G</span>
-                      <span className="text-red-500">o</span>
-                      <span className="text-yellow-500">o</span>
-                      <span className="text-blue-500">g</span>
-                      <span className="text-green-500">l</span>
-                      <span className="text-red-500">e</span>
-                    </span>
-                    <span className="text-[7px] text-zinc-300 drop-shadow-xs leading-none">{t("contact.streetViewGoogle", "© 2026 Google")}</span>
-                  </div>
-
-                  {/* Sağ Alt Pusula ve Pegman */}
-                  <div className="absolute bottom-2 right-2 z-10 flex items-end gap-2">
-                    {/* Pusula */}
-                    <div 
-                      className="w-8 h-8 rounded-full bg-black/60 backdrop-blur-xs border border-white/20 flex items-center justify-center relative shadow-md"
-                      style={{ transform: `rotate(${compassRotation}deg)`, transition: 'transform 0.1s ease-out' }}
-                      title={t("contact.streetViewTooltipCompass", "Bakış Açısı Pusulası")}
-                    >
-                      <div className="w-1 h-5 relative flex flex-col justify-between">
-                        <div className="w-0 h-0 border-l-[2px] border-l-transparent border-r-[2px] border-r-transparent border-b-[10px] border-b-red-500" />
-                        <div className="w-0 h-0 border-l-[2px] border-l-transparent border-r-[2px] border-r-transparent border-t-[10px] border-t-white" />
-                      </div>
-                      <span className="absolute top-0 text-[6px] text-red-500 font-bold" style={{ transform: `rotate(${-compassRotation}deg)` }}>N</span>
-                    </div>
-
-                    {/* Pegman */}
-                    <div className="w-6 h-9 flex items-center justify-center cursor-grab hover:scale-110 active:cursor-grabbing transition-transform" title={t("contact.streetViewTooltipPegman", "Sokak Görünümü")}>
-                      <svg className="w-6 h-9 drop-shadow-xs" viewBox="0 0 32 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="16" cy="10" r="5" fill="#FABB05" stroke="#FFFFFF" strokeWidth="1.5" />
-                        <path d="M16 15V32M16 32L11 44M16 32L21 44M11 20H21" stroke="#FABB05" strokeWidth="3" strokeLinecap="round" />
-                        <path d="M16 15V32M16 32L11 44M16 32L21 44M11 20H21" stroke="#FFFFFF" strokeWidth="1" strokeLinecap="round" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -2654,141 +2539,6 @@ export default function App() {
           </div>
         </div>
       </footer>
-
-      {/* Tam Ekran Sokak Görünümü Modalı */}
-      <AnimatePresence>
-        {isStreetViewFullscreen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
-            onClick={() => setIsStreetViewFullscreen(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.95 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.95 }}
-              className="relative bg-[#1A1A1A] border-2 border-white max-w-5xl w-full h-[80vh] flex flex-col overflow-hidden shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Sol Üst Adres Bilgisi */}
-              <div className="absolute top-4 left-4 z-10 flex items-center gap-3 bg-black/60 backdrop-blur-md px-3 py-2 text-white border border-white/20">
-                <button 
-                  onClick={() => setIsStreetViewFullscreen(false)}
-                  className="hover:bg-white/20 p-1.5 transition-colors rounded-full text-white flex items-center justify-center"
-                  title={t("contact.streetViewBack", "Geri Dön")}
-                >
-                  <ArrowLeft size={16} />
-                </button>
-                <div>
-                  <h4 className="font-sans font-bold text-sm tracking-wide text-white">{t("contact.streetViewTitleText", "Gazze Caddesi")}</h4>
-                  <p className="text-[10px] text-zinc-300">{t("contact.streetViewSubText", "Ankara Yıldırım Beyazıt Üniversitesi, 15 Temmuz Yerleşkesi")}</p>
-                  <span className="text-[9px] text-zinc-400">{t("contact.streetViewDate", "Keçiören/Ankara · Nis 2024")}</span>
-                </div>
-              </div>
-
-              {/* Sağ Üst Kapatma ve Harita Butonları */}
-              <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
-                <a
-                  href="https://www.google.com/maps/place/XRC9%2B89+Ke%C3%A7i%C3%B6ren%2FAnkara/@39.9708125,32.8184375,17z"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-black/60 hover:bg-black/80 backdrop-blur-md p-2 text-white border border-white/20 hover:border-white/50 transition-colors flex items-center gap-1.5 text-xs font-mono font-bold"
-                  title={t("contact.streetViewTooltipMaps", "Google Haritalar'da Aç")}
-                >
-                  <ExternalLink size={14} />
-                  <span>{t("contact.streetViewGoLive", "Haritalarda Canlı Gör")}</span>
-                </a>
-                <button
-                  onClick={() => setIsStreetViewFullscreen(false)}
-                  className="bg-black/60 hover:bg-[#00adc4] backdrop-blur-md p-2 text-white border border-white/20 hover:border-white transition-colors cursor-pointer flex items-center justify-center"
-                  title={t("contact.streetViewClose", "Kapat")}
-                >
-                  <Minimize2 size={16} />
-                </button>
-              </div>
-
-              {/* Büyük Görsel Alanı */}
-              <div 
-                className="flex-1 w-full h-full relative cursor-crosshair overflow-hidden"
-                onMouseMove={handleStreetViewMouseMove}
-                onMouseLeave={handleStreetViewMouseLeave}
-              >
-                <img
-                  src="/aybu_street_view.png"
-                  alt="AYBÜ 15 Temmuz Yerleşkesi Sokak Görünümü"
-                  className="w-full h-full object-cover select-none pointer-events-none"
-                />
-                
-                {/* Gezinti Okları */}
-                <a
-                  href="https://www.google.com/maps/place/XRC9%2B89+Ke%C3%A7i%C3%B6ren%2FAnkara/@39.9708125,32.8184375,17z"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="absolute bottom-1/4 left-1/2 transform -translate-x-1/2 flex flex-col items-center group cursor-pointer"
-                >
-                  <div className="w-12 h-12 bg-[#00adc4]/30 border-2 border-[#00adc4] group-hover:bg-[#00adc4]/60 group-hover:scale-110 transition-all rounded-full flex items-center justify-center shadow-lg shadow-cyan-500/20">
-                    <ChevronRight className="text-white transform -rotate-90 animate-bounce" size={24} />
-                  </div>
-                  <span className="bg-black/80 text-[10px] text-white px-2 py-0.5 mt-2 opacity-0 group-hover:opacity-100 transition-opacity font-mono whitespace-nowrap">
-                    {t("contact.streetViewWalk", "Google Haritalar'da Yürü ↗")}
-                  </span>
-                </a>
-
-                {/* Google Logosu ve Telif */}
-                <div className="absolute bottom-3 left-3 z-10 flex flex-col items-start gap-1">
-                  <span className="text-white font-black text-xl tracking-tighter drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                    <span className="text-blue-500">G</span>
-                    <span className="text-red-500">o</span>
-                    <span className="text-yellow-500">o</span>
-                    <span className="text-blue-500">g</span>
-                    <span className="text-green-500">l</span>
-                    <span className="text-red-500">e</span>
-                  </span>
-                  <span className="text-[9px] text-zinc-300 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] font-sans">
-                    {t("contact.streetViewImageDate", "Görüntü tarihi: Nis 2024 © 2026 Google")}
-                  </span>
-                </div>
-
-                {/* Pusula ve Kontroller */}
-                <div className="absolute bottom-4 right-4 z-10 flex items-end gap-3">
-                  {/* Pegman */}
-                  <div className="w-8 h-12 flex items-center justify-center cursor-grab hover:scale-110 transition-transform active:cursor-grabbing" title={t("contact.streetViewTooltipPegman", "Sokak Görünümü")}>
-                    <svg className="w-8 h-12 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]" viewBox="0 0 32 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="16" cy="10" r="5" fill="#FABB05" stroke="#FFFFFF" strokeWidth="1.5" />
-                      <path d="M16 15V32M16 32L11 44M16 32L21 44M11 20H21" stroke="#FABB05" strokeWidth="3" strokeLinecap="round" />
-                      <path d="M16 15V32M16 32L11 44M16 32L21 44M11 20H21" stroke="#FFFFFF" strokeWidth="1" strokeLinecap="round" />
-                    </svg>
-                  </div>
-
-                  {/* Pusula Dairesi */}
-                  <div className="flex flex-col gap-1 items-center">
-                    <div 
-                      className="w-12 h-12 rounded-full bg-black/60 backdrop-blur-md border border-white/20 flex items-center justify-center relative shadow-lg"
-                      style={{ transform: `rotate(${compassRotation}deg)`, transition: 'transform 0.1s ease-out' }}
-                      title={t("contact.streetViewTooltipCompass", "Bakış Açısı Pusulası")}
-                    >
-                      <div className="w-1.5 h-8 relative flex flex-col justify-between">
-                        <div className="w-0 h-0 border-l-[3px] border-l-transparent border-r-[3px] border-r-transparent border-b-[16px] border-b-red-500" />
-                        <div className="w-0 h-0 border-l-[3px] border-l-transparent border-r-[3px] border-r-transparent border-t-[16px] border-t-white" />
-                      </div>
-                      <span className="absolute top-0.5 text-[8px] text-red-500 font-bold select-none" style={{ transform: `rotate(${-compassRotation}deg)` }}>N</span>
-                    </div>
-                    
-                    {/* Yakınlaştırma Tuşları */}
-                    <div className="bg-black/60 backdrop-blur-md border border-white/20 rounded-md flex flex-col overflow-hidden text-white font-bold font-mono">
-                      <button className="w-8 h-8 hover:bg-white/20 transition-colors flex items-center justify-center border-b border-white/10 text-sm">+</button>
-                      <button className="w-8 h-8 hover:bg-white/20 transition-colors flex items-center justify-center text-sm">-</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
     </div>
   );
