@@ -2225,12 +2225,12 @@ export default function App() {
 
                 <div className="flex gap-3">
                   <div className="mt-1 text-[#00adc4] shrink-0">
-                    <Mail size={18} />
+                    <Globe size={18} />
                   </div>
                   <div>
-                    <strong className="text-zinc-800 text-xs font-mono uppercase tracking-wider block">✉️ E-Posta</strong>
-                    <a href="mailto:endustri@ybu.edu.tr" className="font-sans text-zinc-650 text-xs mt-1 hover:underline hover:text-[#1b355a] block font-mono">
-                      endustri@ybu.edu.tr
+                    <strong className="text-zinc-800 text-xs font-mono uppercase tracking-wider block">🌐 Web Sitesi</strong>
+                    <a href="https://aybu.edu.tr/endustrimuh" target="_blank" rel="noopener noreferrer" className="font-sans text-zinc-650 text-xs mt-1 hover:underline hover:text-[#1b355a] block font-mono">
+                      aybu.edu.tr/endustrimuh
                     </a>
                   </div>
                 </div>
