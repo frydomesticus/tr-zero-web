@@ -277,6 +277,20 @@ const getPilotProvinceByPlate = (plate: number) => {
   }
 };
 
+// Province-specific thermal power plant mappings (Option B detailed stats)
+const PROVINCE_POWER_PLANTS: Record<string, { plants: string; mw: number }> = {
+  "Kocaeli": { plants: "Bulunmamaktadır (Sadece Ağır Sanayi)", mw: 0 },
+  "Hatay": { plants: "İskenderun İSKEN", mw: 1320 },
+  "Zonguldak": { plants: "Zonguldak Eren (ZETES)", mw: 2790 },
+  "İzmir": { plants: "Bulunmamaktadır (Sadece Ağır Sanayi)", mw: 0 },
+  "Adana": { plants: "Hunutlu & Tufanbeyli", mw: 1770 },
+  "Kahramanmaraş": { plants: "Afşin-Elbistan A & B", mw: 2795 },
+  "Bursa": { plants: "Bulunmamaktadır (Sadece Ağır Sanayi)", mw: 0 },
+  "Ankara": { plants: "Çayırhan", mw: 620 },
+  "Gaziantep": { plants: "Bulunmamaktadır (Sadece Ağır Sanayi)", mw: 0 },
+  "Mersin": { plants: "Bulunmamaktadır (Sadece Ağır Sanayi)", mw: 0 }
+};
+
 export default function App() {
   // Tabs: 'sonuclar' | 'mevcut' | 'tasarim' | 'politika' | 'teknik'
   const [activeTab, setActiveTab] = useState<"sonuclar" | "mevcut" | "tasarim" | "politika" | "teknik">("sonuclar");
@@ -1188,6 +1202,14 @@ export default function App() {
                                 <span className="text-zinc-400">EST. YILLIK ETS KAPSAMI:</span>
                                 <span className="text-base font-bold text-yellow-400">{selectedProvince.ETS_Kapsam_Tahmini_MtCO2.toFixed(1)} MtCO₂</span>
                               </div>
+                              <div className="flex justify-between items-center py-0.5 border-b border-zinc-800">
+                                <span className="text-zinc-400">İLDEKİ KÖMÜR SANTRALİ:</span>
+                                <span className="font-bold text-teal-400 text-right text-[11px]">{PROVINCE_POWER_PLANTS[selectedProvince.Il_Adi]?.plants || "Bulunmamaktadır"}</span>
+                              </div>
+                              <div className="flex justify-between items-center py-0.5 border-b border-zinc-800">
+                                <span className="text-zinc-400">KURULU TERMİK GÜÇ:</span>
+                                <span className="font-bold text-white">{PROVINCE_POWER_PLANTS[selectedProvince.Il_Adi]?.mw > 0 ? `${PROVINCE_POWER_PLANTS[selectedProvince.Il_Adi]?.mw} MW` : "0 MW"}</span>
+                              </div>
                               <div className="flex justify-between items-center py-0.5">
                                 <span className="text-zinc-400">KOORDİNATLAR:</span>
                                 <span className="text-[10px] text-zinc-350">{selectedProvince.Enlem}° K, {selectedProvince.Boylam}° D</span>
@@ -1195,11 +1217,22 @@ export default function App() {
                             </div>
                           </div>
 
-                          <div className="mt-6 bg-zinc-900 p-4 border border-zinc-800 font-mono">
-                            <span className="text-[9px] uppercase font-bold text-yellow-400 block tracking-wider">NDC HEDEF KAPSAMI</span>
-                            <p className="text-[11px] text-zinc-300 mt-1 leading-relaxed">
-                              {selectedProvince.Il_Adi} genelindeki emisyon hacmi, sanayi yoğunluğuna bağlı olarak öngörülen ulusal pilot ETS denetim kotalarının %{(selectedProvince.ETS_Kapsam_Tahmini_MtCO2 / 90.1 * 100).toFixed(0)} kadarını doğrudan tek başına üstlenir.
-                            </p>
+                          <div className="mt-4 flex flex-col gap-3">
+                            <div className="bg-zinc-900 p-4 border border-zinc-800 font-mono">
+                              <span className="text-[9px] uppercase font-bold text-yellow-400 block tracking-wider">NDC HEDEF KAPSAMI</span>
+                              <p className="text-[11px] text-zinc-300 mt-1 leading-relaxed">
+                                {selectedProvince.Il_Adi} genelindeki emisyon hacmi, sanayi yoğunluğuna bağlı olarak öngörülen ulusal pilot ETS denetim kotalarının %{(selectedProvince.ETS_Kapsam_Tahmini_MtCO2 / 90.1 * 100).toFixed(0)} kadarını doğrudan tek başına üstlenir.
+                              </p>
+                            </div>
+
+                            {PROVINCE_POWER_PLANTS[selectedProvince.Il_Adi]?.mw > 0 && (
+                              <div className="bg-teal-950/40 p-4 border border-teal-900/60 font-mono">
+                                <span className="text-[9px] uppercase font-bold text-teal-400 block tracking-wider">⚡ TERMİK GÜÇ ENTEGRASYONU</span>
+                                <p className="text-[10px] text-teal-200 mt-1 leading-relaxed font-sans">
+                                  Bu ildeki termik santraller, tezinizde simüle edilen 13 bağımsız üretim ajanının bir parçası olarak ulusal karbon piyasasında Kocaeli/İzmir gibi sanayi bölgeleriyle doğrudan kota ticareti yapar.
+                                </p>
+                              </div>
+                            )}
                           </div>
                         </motion.div>
                       ) : (
@@ -1221,30 +1254,41 @@ export default function App() {
                         <th className="p-4">Şehir Adı</th>
                         <th className="p-4">Bulunduğu Bölge</th>
                         <th className="p-4">Öncelikli Sanayi Sınıfı</th>
+                        <th className="p-4">🔌 İldeki Kömür Santralleri / Kapasite</th>
                         <th className="p-4 text-right">Tahmini Kapsam Kotası (MtCO₂)</th>
                         <th className="p-4 text-right">Eylem Haritası</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-zinc-200">
-                      {PILOT_ILLER.map((p) => (
-                        <tr
-                          key={p.id}
-                          className={`hover:bg-zinc-50 cursor-pointer transition-colors ${
-                            selectedProvince?.id === p.id ? "bg-[#F4F1EE] text-[#1A1A1A] font-bold" : ""
-                          }`}
-                          onClick={() => setSelectedProvince(p)}
-                        >
-                          <td className="p-4 font-bold text-[#1A1A1A] flex items-center gap-1.5">
-                            <span className="w-2 h-2 bg-[#1A1A1A]" /> {p.Il_Adi}
-                          </td>
-                          <td className="p-4 text-zinc-650 font-mono">{p.Bolge.toUpperCase()}</td>
-                          <td className="p-4 font-bold text-zinc-700 font-mono text-[11px]">{p.Dominant_Sektor.toUpperCase()}</td>
-                          <td className="p-4 text-right font-mono font-bold text-[#1A1A1A]">{p.ETS_Kapsam_Tahmini_MtCO2.toFixed(1)} Mt</td>
-                          <td className="p-4 text-right text-[10px] text-[#1A1A1A] font-bold font-mono hover:underline">
-                            SEÇ VE İNCELE ➜
-                          </td>
-                        </tr>
-                      ))}
+                      {PILOT_ILLER.map((p) => {
+                        const plantData = PROVINCE_POWER_PLANTS[p.Il_Adi] || { plants: "Bulunmamaktadır", mw: 0 };
+                        return (
+                          <tr
+                            key={p.id}
+                            className={`hover:bg-zinc-50 cursor-pointer transition-colors ${
+                              selectedProvince?.id === p.id ? "bg-[#F4F1EE] text-[#1A1A1A] font-bold" : ""
+                            }`}
+                            onClick={() => setSelectedProvince(p)}
+                          >
+                            <td className="p-4 font-bold text-[#1A1A1A] flex items-center gap-1.5">
+                              <span className="w-2 h-2 bg-[#1A1A1A]" /> {p.Il_Adi}
+                            </td>
+                            <td className="p-4 text-zinc-650 font-mono">{p.Bolge.toUpperCase()}</td>
+                            <td className="p-4 font-bold text-zinc-700 font-mono text-[11px]">{p.Dominant_Sektor.toUpperCase()}</td>
+                            <td className="p-4 text-xs font-mono font-bold text-teal-800">
+                              {plantData.mw > 0 ? (
+                                <span>⚡ {plantData.plants} <span className="text-zinc-500 font-normal">({plantData.mw} MW)</span></span>
+                              ) : (
+                                <span className="text-zinc-400 font-normal">-</span>
+                              )}
+                            </td>
+                            <td className="p-4 text-right font-mono font-bold text-[#1A1A1A]">{p.ETS_Kapsam_Tahmini_MtCO2.toFixed(1)} Mt</td>
+                            <td className="p-4 text-right text-[10px] text-[#1A1A1A] font-bold font-mono hover:underline">
+                              SEÇ VE İNCELE ➜
+                            </td>
+                          </tr>
+                        );
+                      })}
                     </tbody>
                   </table>
                 </div>
