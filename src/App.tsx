@@ -771,7 +771,7 @@ export default function App() {
             <div className="flex-1">
               <p className="text-[10px] uppercase tracking-widest font-bold mb-2 text-[#1A1A1A]/80">AŞAMA 1 ODAK ALANI: ELEKTRİK ÜRETİM SEKTÖRÜ (KÖMÜR YAKITLI TERMİK SANTRALLER)</p>
               <h1 className="text-3xl md:text-5xl font-serif italic tracking-tight leading-none text-[#1A1A1A] font-bold">
-                TR-ETS: <span className="not-italic font-bold uppercase tracking-normal text-2xl md:text-4xl">TÜRKİYE'NİN AJAN-TABANLI EMİSYON TİCARET SİSTEMİ SİMÜLASYONU</span>
+                TR-ETS: <span className="not-italic font-bold uppercase tracking-normal">TÜRKİYE'NİN AJAN-TABANLI EMİSYON TİCARET SİSTEMİ SİMÜLASYONU</span>
               </h1>
               <p className="text-[#1A1A1A]/80 text-sm md:text-[15px] mt-6 max-w-3xl leading-loose font-light italic">
                 Bu Karar Destek Sistemi; AYBÜ Endüstri Mühendisliği bünyesinde İbrahim Hakkı Keleş, Oğuz Gökdemir ve Melis Mağden tarafından 
