@@ -40,7 +40,14 @@ import {
   ChevronRight,
   Database,
   BookOpen,
-  FileText
+  FileText,
+  MapPin,
+  Phone,
+  Mail,
+  ExternalLink,
+  Maximize2,
+  Minimize2,
+  ArrowLeft
 } from "lucide-react";
 import {
   GERCEK_KOMUR_SANTRALLERI,
@@ -298,6 +305,22 @@ export default function App() {
   const [mainActiveTab, setMainActiveTab] = useState<"hakkinda" | "simulasyon" | "belgeler" | "iletisim">("simulasyon");
   // Tabs: 'sonuclar' | 'mevcut' | 'tasarim' | 'politika' | 'teknik'
   const [activeTab, setActiveTab] = useState<"sonuclar" | "mevcut" | "tasarim" | "politika" | "teknik">("sonuclar");
+
+  // Street View simulation states
+  const [isStreetViewFullscreen, setIsStreetViewFullscreen] = useState(false);
+  const [compassRotation, setCompassRotation] = useState(310);
+
+  const handleStreetViewMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    const angle = Math.atan2(y, x) * (180 / Math.PI) + 90;
+    setCompassRotation(angle);
+  }, []);
+
+  const handleStreetViewMouseLeave = useCallback(() => {
+    setCompassRotation(310);
+  }, []);
   
   // Custom Simulator Parameters State (Tab 3)
   const [cap, setCap] = useState<number>(85);
@@ -2174,41 +2197,176 @@ export default function App() {
           </h2>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div className="space-y-4 text-sm font-mono leading-relaxed text-zinc-700 font-sans">
-              <div>
-                <h3 className="font-bold text-[#1b355a] text-md uppercase">Ankara Yıldırım Beyazıt Üniversitesi</h3>
-                <p className="text-zinc-650 font-sans">Mühendislik ve Doğa Bilimleri Fakültesi</p>
-                <p className="text-zinc-700 font-sans font-bold mt-1">Endüstri Mühendisliği Bölümü</p>
+            {/* Sol Kolon - Bölüm Bilgileri */}
+            <div className="space-y-6">
+              <div className="bg-[#fcfbfa] border border-[#1A1A1A] shadow-[4px_4px_0px_#1A1A1A] p-5">
+                <span className="bg-[#1b355a] text-white px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider block w-fit mb-4">
+                  BÖLÜM BİLGİLERİ
+                </span>
+                <h3 className="font-serif italic font-bold text-[#1b355a] text-xl">Ankara Yıldırım Beyazıt Üniversitesi</h3>
+                <p className="text-zinc-650 font-sans text-xs mt-1">Mühendislik ve Doğa Bilimleri Fakültesi</p>
+                <p className="text-zinc-800 font-sans text-sm font-bold mt-1">Endüstri Mühendisliği Bölümü</p>
               </div>
 
-              <div className="h-px bg-zinc-200" />
+              <div className="bg-[#fcfbfa] border border-[#1A1A1A] shadow-[4px_4px_0px_#1A1A1A] p-5 space-y-4">
+                <div className="flex gap-3">
+                  <div className="mt-1 text-[#00adc4] shrink-0">
+                    <MapPin size={18} />
+                  </div>
+                  <div>
+                    <strong className="text-zinc-800 text-xs font-mono uppercase tracking-wider block">📍 Yerleşke Adresi</strong>
+                    <p className="font-sans text-zinc-650 text-xs mt-1 leading-relaxed">
+                      15 Temmuz Şehitleri Yerleşkesi, Ayvalı Mah., Gazze Cad., 150. Sokak, Antares AVM Yanı Etlik, Keçiören / Ankara
+                    </p>
+                  </div>
+                </div>
 
-              <div>
-                <strong className="text-zinc-800">📍 ADRES:</strong>
-                <p className="font-sans text-zinc-650 mt-1">
-                  AYBÜ Esenboğa Külliyesi, Dumlupınar Mahallesi, Esenboğa Yolu / Çubuk, Ankara, Türkiye
-                </p>
+                <div className="h-px bg-zinc-200" />
+
+                <div className="flex gap-3">
+                  <div className="mt-1 text-[#00adc4] shrink-0">
+                    <Mail size={18} />
+                  </div>
+                  <div>
+                    <strong className="text-zinc-800 text-xs font-mono uppercase tracking-wider block">✉️ E-Posta</strong>
+                    <a href="mailto:endustri@ybu.edu.tr" className="font-sans text-zinc-650 text-xs mt-1 hover:underline hover:text-[#1b355a] block font-mono">
+                      endustri@ybu.edu.tr
+                    </a>
+                  </div>
+                </div>
+
+                <div className="h-px bg-zinc-200" />
+
+                <div className="flex gap-3">
+                  <div className="mt-1 text-[#00adc4] shrink-0">
+                    <Phone size={18} />
+                  </div>
+                  <div>
+                    <strong className="text-zinc-800 text-xs font-mono uppercase tracking-wider block">📞 Telefon</strong>
+                    <a href="tel:+903129062263" className="font-sans text-zinc-650 text-xs mt-1 hover:underline hover:text-[#1b355a] block font-bold font-mono">
+                      +90 (312) 906 22 63
+                    </a>
+                  </div>
+                </div>
               </div>
 
-              <div>
-                <strong className="text-zinc-800">✉️ E-POSTA:</strong>
-                <p className="font-sans text-zinc-650">endustri@ybu.edu.tr</p>
-              </div>
-
-              <div>
-                <strong className="text-zinc-800">📞 TELEFON:</strong>
-                <p className="font-sans text-zinc-650">+90 312 906 1000</p>
+              <div className="bg-[#f5fbfd] border border-[#00adc4]/30 p-4 font-mono text-[11px] text-[#1b355a]/90 leading-relaxed shadow-sm">
+                <strong>💡 Ziyaretçi Bilgisi:</strong> Bölümümüz 15 Temmuz Şehitleri Yerleşkesi A Blok binası 3. katında yer almaktadır. Toplu taşıma ile Etlik Metro / Otobüs güzergahları kullanılarak ulaşım sağlanabilir.
               </div>
             </div>
 
-            <div className="border border-zinc-300 p-2 bg-zinc-50 flex items-center justify-center min-h-[220px]">
-              <iframe
-                title="AYBÜ Esenboğa Campus Map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3049.8055442576395!2d33.0039239!3d40.146603!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4082260655555555%3A0xe54e3d7a8d05e32a!2sAnkara%20Y%C4%B1ld%C4%B1r%C4%B1m%20Beyaz%C4%B1t%20%C3%9Cniversitesi%20Esenbo%C4%9Fa%20K%C3%BClliyesi!5e0!3m2!1str!2str!4v1717170000000!5m2!1str!2str"
-                className="w-full h-64 border-0"
-                allowFullScreen={true}
-                loading="lazy"
-              />
+            {/* Sağ Kolon - Harita ve Canlı Sokak Görünümü */}
+            <div className="space-y-6">
+              {/* Harita */}
+              <div className="bg-[#fcfbfa] border border-[#1A1A1A] shadow-[4px_4px_0px_#1A1A1A] p-3 flex flex-col">
+                <span className="bg-[#1b355a] text-white px-2 py-0.5 self-start font-mono text-[9px] font-bold uppercase tracking-wider mb-2">📍 İNTERAKTİF HARİTA</span>
+                <iframe
+                  title="AYBÜ 15 Temmuz Campus Map"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3058.423985474326!2d32.8228303!3d39.976527!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40821de4a4ca6bb7%3A0x6b4cd7d488e040df!2sAYB%C3%9C%2015%20Temmuz%20Yerle%C5%9Fkesi!5e0!3m2!1str!2str!4v1717170000000!5m2!1str!2str"
+                  className="w-full h-56 border border-zinc-200"
+                  allowFullScreen={true}
+                  loading="lazy"
+                />
+              </div>
+
+              {/* Sokak Görünümü (Street View) */}
+              <div className="bg-[#fcfbfa] border border-[#1A1A1A] shadow-[4px_4px_0px_#1A1A1A] p-3 flex flex-col">
+                <span className="bg-[#00adc4] text-white px-2 py-0.5 self-start font-mono text-[9px] font-bold uppercase tracking-wider mb-2">📷 CANLI SOKAK GÖRÜNÜMÜ (STREET VIEW)</span>
+                <div 
+                  className="relative w-full h-56 border border-zinc-200 overflow-hidden cursor-crosshair select-none group"
+                  onMouseMove={handleStreetViewMouseMove}
+                  onMouseLeave={handleStreetViewMouseLeave}
+                >
+                  {/* Ana Görsel */}
+                  <img
+                    src="/aybu_street_view.png"
+                    alt="AYBÜ 15 Temmuz Yerleşkesi Sokak Görünümü"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+
+                  {/* Sol Üst Adres Katmanı */}
+                  <div className="absolute top-2 left-2 z-10 flex items-center gap-2 bg-black/65 backdrop-blur-xs px-2.5 py-1 text-white border border-white/10 text-[10px] max-w-[200px] pointer-events-none">
+                    <div className="w-1.5 h-1.5 bg-[#00adc4] rounded-full animate-ping shrink-0" />
+                    <div className="truncate">
+                      <strong className="block text-white text-[10px] tracking-wide font-sans">Gazze Caddesi</strong>
+                      <span className="text-[8px] text-zinc-300 block leading-tight font-sans">Keçiören/Ankara · Nis 2024</span>
+                    </div>
+                  </div>
+
+                  {/* Sağ Üst Kontrol Grubu */}
+                  <div className="absolute top-2 right-2 z-10 flex gap-1">
+                    <button
+                      onClick={() => setIsStreetViewFullscreen(true)}
+                      className="bg-black/60 hover:bg-[#00adc4] text-white p-1.5 border border-white/10 hover:border-white transition-colors cursor-pointer"
+                      title="Tam Ekranda Göster"
+                    >
+                      <Maximize2 size={12} />
+                    </button>
+                    <a
+                      href="https://www.google.com/maps/@39.976527,32.8228303,3a,75y,310h,90t/data=!3m6!1e1!3m4!1s!2e0!7i16384!8i8128"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-black/60 hover:bg-[#1b355a] text-white p-1.5 border border-white/10 hover:border-white transition-colors flex items-center justify-center"
+                      title="Google Haritalar'da Aç"
+                    >
+                      <ExternalLink size={12} />
+                    </a>
+                  </div>
+
+                  {/* Orta Yönlendirme Oku */}
+                  <a
+                    href="https://www.google.com/maps/@39.976527,32.8228303,3a,75y,310h,90t/data=!3m6!1e1!3m4!1s!2e0!7i16384!8i8128"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute bottom-1/3 left-1/2 transform -translate-x-1/2 flex flex-col items-center group/arrow cursor-pointer"
+                  >
+                    <div className="w-9 h-9 bg-[#00adc4]/30 border border-[#00adc4] group-hover/arrow:bg-[#00adc4]/70 group-hover/arrow:scale-110 transition-all rounded-full flex items-center justify-center shadow-md">
+                      <ChevronRight className="text-white transform -rotate-90" size={16} />
+                    </div>
+                    <span className="bg-black/85 text-[8px] text-white px-1.5 py-0.5 mt-1 rounded-xs opacity-0 group-hover/arrow:opacity-100 transition-opacity font-mono whitespace-nowrap">
+                      Haritada İlerle ↗
+                    </span>
+                  </a>
+
+                  {/* Sol Alt Google Filigranı */}
+                  <div className="absolute bottom-2 left-2 z-10 flex flex-col pointer-events-none">
+                    <span className="text-white font-black text-sm tracking-tighter drop-shadow-sm select-none">
+                      <span className="text-blue-500">G</span>
+                      <span className="text-red-500">o</span>
+                      <span className="text-yellow-500">o</span>
+                      <span className="text-blue-500">g</span>
+                      <span className="text-green-500">l</span>
+                      <span className="text-red-500">e</span>
+                    </span>
+                    <span className="text-[7px] text-zinc-300 drop-shadow-xs leading-none">© 2026 Google</span>
+                  </div>
+
+                  {/* Sağ Alt Pusula ve Pegman */}
+                  <div className="absolute bottom-2 right-2 z-10 flex items-end gap-2">
+                    {/* Pusula */}
+                    <div 
+                      className="w-8 h-8 rounded-full bg-black/60 backdrop-blur-xs border border-white/20 flex items-center justify-center relative shadow-md"
+                      style={{ transform: `rotate(${compassRotation}deg)`, transition: 'transform 0.1s ease-out' }}
+                      title="Bakış Açısı Pusulası"
+                    >
+                      <div className="w-1 h-5 relative flex flex-col justify-between">
+                        <div className="w-0 h-0 border-l-[2px] border-l-transparent border-r-[2px] border-r-transparent border-b-[10px] border-b-red-500" />
+                        <div className="w-0 h-0 border-l-[2px] border-l-transparent border-r-[2px] border-r-transparent border-t-[10px] border-t-white" />
+                      </div>
+                      <span className="absolute top-0 text-[6px] text-red-500 font-bold" style={{ transform: `rotate(${-compassRotation}deg)` }}>N</span>
+                    </div>
+
+                    {/* Pegman */}
+                    <div className="w-6 h-9 flex items-center justify-center cursor-grab hover:scale-110 active:cursor-grabbing transition-transform" title="Sokak Görünümü">
+                      <svg className="w-6 h-9 drop-shadow-xs" viewBox="0 0 32 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="16" cy="10" r="5" fill="#FABB05" stroke="#FFFFFF" strokeWidth="1.5" />
+                        <path d="M16 15V32M16 32L11 44M16 32L21 44M11 20H21" stroke="#FABB05" strokeWidth="3" strokeLinecap="round" />
+                        <path d="M16 15V32M16 32L11 44M16 32L21 44M11 20H21" stroke="#FFFFFF" strokeWidth="1" strokeLinecap="round" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -2228,6 +2386,141 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* Tam Ekran Sokak Görünümü Modalı */}
+      <AnimatePresence>
+        {isStreetViewFullscreen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+            onClick={() => setIsStreetViewFullscreen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.95 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.95 }}
+              className="relative bg-[#1A1A1A] border-2 border-white max-w-5xl w-full h-[80vh] flex flex-col overflow-hidden shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Sol Üst Adres Bilgisi */}
+              <div className="absolute top-4 left-4 z-10 flex items-center gap-3 bg-black/60 backdrop-blur-md px-3 py-2 text-white border border-white/20">
+                <button 
+                  onClick={() => setIsStreetViewFullscreen(false)}
+                  className="hover:bg-white/20 p-1.5 transition-colors rounded-full text-white flex items-center justify-center"
+                  title="Geri Dön"
+                >
+                  <ArrowLeft size={16} />
+                </button>
+                <div>
+                  <h4 className="font-sans font-bold text-sm tracking-wide text-white">Gazze Caddesi</h4>
+                  <p className="text-[10px] text-zinc-300">Ankara Yıldırım Beyazıt Üniversitesi, 15 Temmuz Yerleşkesi</p>
+                  <span className="text-[9px] text-zinc-400">Google · Nisan 2024</span>
+                </div>
+              </div>
+
+              {/* Sağ Üst Kapatma ve Harita Butonları */}
+              <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
+                <a
+                  href="https://www.google.com/maps/@39.976527,32.8228303,3a,75y,310h,90t/data=!3m6!1e1!3m4!1s!2e0!7i16384!8i8128"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-black/60 hover:bg-black/80 backdrop-blur-md p-2 text-white border border-white/20 hover:border-white/50 transition-colors flex items-center gap-1.5 text-xs font-mono font-bold"
+                  title="Google Haritalar'da Aç"
+                >
+                  <ExternalLink size={14} />
+                  <span>Haritalarda Canlı Gör</span>
+                </a>
+                <button
+                  onClick={() => setIsStreetViewFullscreen(false)}
+                  className="bg-black/60 hover:bg-[#00adc4] backdrop-blur-md p-2 text-white border border-white/20 hover:border-white transition-colors cursor-pointer flex items-center justify-center"
+                  title="Kapat"
+                >
+                  <Minimize2 size={16} />
+                </button>
+              </div>
+
+              {/* Büyük Görsel Alanı */}
+              <div 
+                className="flex-1 w-full h-full relative cursor-crosshair overflow-hidden"
+                onMouseMove={handleStreetViewMouseMove}
+                onMouseLeave={handleStreetViewMouseLeave}
+              >
+                <img
+                  src="/aybu_street_view.png"
+                  alt="AYBÜ 15 Temmuz Yerleşkesi Sokak Görünümü"
+                  className="w-full h-full object-cover select-none pointer-events-none"
+                />
+                
+                {/* Gezinti Okları */}
+                <a
+                  href="https://www.google.com/maps/@39.976527,32.8228303,3a,75y,310h,90t/data=!3m6!1e1!3m4!1s!2e0!7i16384!8i8128"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute bottom-1/4 left-1/2 transform -translate-x-1/2 flex flex-col items-center group cursor-pointer"
+                >
+                  <div className="w-12 h-12 bg-[#00adc4]/30 border-2 border-[#00adc4] group-hover:bg-[#00adc4]/60 group-hover:scale-110 transition-all rounded-full flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                    <ChevronRight className="text-white transform -rotate-90 animate-bounce" size={24} />
+                  </div>
+                  <span className="bg-black/80 text-[10px] text-white px-2 py-0.5 mt-2 opacity-0 group-hover:opacity-100 transition-opacity font-mono whitespace-nowrap">
+                    Google Haritalar'da Yürü ↗
+                  </span>
+                </a>
+
+                {/* Google Logosu ve Telif */}
+                <div className="absolute bottom-3 left-3 z-10 flex flex-col items-start gap-1">
+                  <span className="text-white font-black text-xl tracking-tighter drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                    <span className="text-blue-500">G</span>
+                    <span className="text-red-500">o</span>
+                    <span className="text-yellow-500">o</span>
+                    <span className="text-blue-500">g</span>
+                    <span className="text-green-500">l</span>
+                    <span className="text-red-500">e</span>
+                  </span>
+                  <span className="text-[9px] text-zinc-300 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] font-sans">
+                    Görüntü tarihi: Nis 2024 © 2026 Google
+                  </span>
+                </div>
+
+                {/* Pusula ve Kontroller */}
+                <div className="absolute bottom-4 right-4 z-10 flex items-end gap-3">
+                  {/* Pegman */}
+                  <div className="w-8 h-12 flex items-center justify-center cursor-grab hover:scale-110 transition-transform active:cursor-grabbing" title="Sokak Görünümü Pegman">
+                    <svg className="w-8 h-12 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]" viewBox="0 0 32 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="16" cy="10" r="5" fill="#FABB05" stroke="#FFFFFF" strokeWidth="1.5" />
+                      <path d="M16 15V32M16 32L11 44M16 32L21 44M11 20H21" stroke="#FABB05" strokeWidth="3" strokeLinecap="round" />
+                      <path d="M16 15V32M16 32L11 44M16 32L21 44M11 20H21" stroke="#FFFFFF" strokeWidth="1" strokeLinecap="round" />
+                    </svg>
+                  </div>
+
+                  {/* Pusula Dairesi */}
+                  <div className="flex flex-col gap-1 items-center">
+                    <div 
+                      className="w-12 h-12 rounded-full bg-black/60 backdrop-blur-md border border-white/20 flex items-center justify-center relative shadow-lg"
+                      style={{ transform: `rotate(${compassRotation}deg)`, transition: 'transform 0.1s ease-out' }}
+                      title="Pusula (Görüş Yönü)"
+                    >
+                      <div className="w-1.5 h-8 relative flex flex-col justify-between">
+                        <div className="w-0 h-0 border-l-[3px] border-l-transparent border-r-[3px] border-r-transparent border-b-[16px] border-b-red-500" />
+                        <div className="w-0 h-0 border-l-[3px] border-l-transparent border-r-[3px] border-r-transparent border-t-[16px] border-t-white" />
+                      </div>
+                      <span className="absolute top-0.5 text-[8px] text-red-500 font-bold select-none" style={{ transform: `rotate(${-compassRotation}deg)` }}>N</span>
+                    </div>
+                    
+                    {/* Yakınlaştırma Tuşları */}
+                    <div className="bg-black/60 backdrop-blur-md border border-white/20 rounded-md flex flex-col overflow-hidden text-white font-bold font-mono">
+                      <button className="w-8 h-8 hover:bg-white/20 transition-colors flex items-center justify-center border-b border-white/10 text-sm">+</button>
+                      <button className="w-8 h-8 hover:bg-white/20 transition-colors flex items-center justify-center text-sm">-</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </div>
   );
