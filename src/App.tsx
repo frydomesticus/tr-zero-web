@@ -48,7 +48,8 @@ import {
   Maximize2,
   Minimize2,
   ArrowLeft,
-  Linkedin
+  Linkedin,
+  Folder
 } from "lucide-react";
 import {
   GERCEK_KOMUR_SANTRALLERI,
@@ -302,8 +303,8 @@ const PROVINCE_POWER_PLANTS: Record<string, { plants: string; mw: number }> = {
 };
 
 export default function App() {
-  // Main Tabs: 'hakkinda' | 'simulasyon' | 'belgeler' | 'iletisim'
-  const [mainActiveTab, setMainActiveTab] = useState<"hakkinda" | "simulasyon" | "belgeler" | "iletisim">("simulasyon");
+  // Main Tabs: 'hakkinda' | 'simulasyon' | 'belgeler' | 'kaynakca' | 'iletisim'
+  const [mainActiveTab, setMainActiveTab] = useState<"hakkinda" | "simulasyon" | "belgeler" | "kaynakca" | "iletisim">("simulasyon");
   // Tabs: 'sonuclar' | 'mevcut' | 'tasarim' | 'politika' | 'teknik'
   const [activeTab, setActiveTab] = useState<"sonuclar" | "mevcut" | "tasarim" | "politika" | "teknik">("sonuclar");
 
@@ -748,6 +749,15 @@ export default function App() {
             }`}
           >
             Belgeler
+          </button>
+          <span className="text-zinc-350 self-center">|</span>
+          <button
+            onClick={() => setMainActiveTab("kaynakca")}
+            className={`py-2 px-3 transition-colors cursor-pointer ${
+              mainActiveTab === "kaynakca" ? "bg-[#1b355a] text-white" : "text-zinc-700 hover:text-[#00adc4]"
+            }`}
+          >
+            Kaynakça
           </button>
           <span className="text-zinc-350 self-center">|</span>
           <button
@@ -2366,6 +2376,86 @@ export default function App() {
                   className="mt-4 text-center border border-zinc-300 hover:border-[#1A1A1A] hover:bg-zinc-100 text-zinc-700 hover:text-zinc-900 font-mono font-bold text-[10px] py-1.5 transition-colors"
                 >
                   BELGEYİ İNDİR ⬇
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </main>
+    ) : mainActiveTab === "kaynakca" ? (
+      <main className="max-w-7xl w-full mx-auto flex-1 py-4 space-y-8">
+        <div className="bg-white border border-[#1A1A1A] shadow-[6px_6px_0px_#1A1A1A] p-6 md:p-8">
+          <h2 className="text-xl font-serif italic font-bold text-[#1b355a] border-b border-zinc-200 pb-3 mb-6 flex items-center gap-2">
+            <Folder size={20} className="text-[#00adc4]" /> Proje Kaynakçası (Literatür Bankası)
+          </h2>
+          
+          <p className="text-xs text-zinc-500 mb-8 font-sans leading-relaxed">
+            Ajan-Tabanlı Türkiye ETS Simülasyonu ve Karar Destek Sistemi projesinin metodolojik tasarımında, matematiksel arka planında ve politika analizlerinde faydalanılan geniş akademik literatür havuzudur. İlgili makalelere aşağıdaki tematik klasörler üzerinden Google Drive aracılığıyla erişebilirsiniz:
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                id: "01",
+                name: "KARBON EMİSYON MODELLEME YAKLAŞIMLARI",
+                desc: "Küresel ve ulusal ölçekte emisyon tahmin modelleri, sektörel salınım senaryoları ve simülasyon metodolojilerini içeren akademik çalışmalar.",
+                link: "https://drive.google.com/drive/folders/1hGD7GdbNWPDDQStDICZa1KTeoFzXg7HP?usp=sharing"
+              },
+              {
+                id: "02",
+                name: "KARBON FİYATLANDIRMA VE ETS (EMİSYON TİCARET SİSTEMLERİ)",
+                desc: "Emisyon ticaret sistemlerinin (ETS) teorik yapısı, karbon vergisi, cap-and-trade piyasaları ve fiyat istikrar mekanizmaları üzerine literatür.",
+                link: "https://drive.google.com/drive/folders/1OWego7b_U4xew-gHpiJyR7HpmnkPTt4H?usp=drive_link"
+              },
+              {
+                id: "03",
+                name: "AJAN TABANLI MODELLEME (ABM) - İKLİM VE ENERJİ",
+                desc: "Enerji piyasaları ve iklim politikalarında ajan-tabanlı modelleme (ABM) uygulamaları, davranışsal iktisat ve simülasyon teorisi.",
+                link: "https://drive.google.com/drive/folders/182LcYraNGZC0nRXfV-XxJl43A5ngPVD3?usp=drive_link"
+              },
+              {
+                id: "04",
+                name: "TÜRKİYE'DE KARBON EMİSYONLARI VE POLİTİKA ÇALIŞMALARI",
+                desc: "Türkiye'nin net-sıfır emisyon hedefleri, iklim kanunu taslakları, ulusal kalkınma planları ve sektörel azaltım potansiyeli makaleleri.",
+                link: "https://drive.google.com/drive/folders/1LP6mCVv2opkn7O83VxlkOr7A9F5-iFBr?usp=drive_link"
+              },
+              {
+                id: "05",
+                name: "HİBRİT MODELLEME VE TEKNOLOJİ YAYILIMI",
+                desc: "Sanayide temiz teknoloji yatırımları, dekarbonizasyon teknolojilerinin (CCS, GES, verimlilik) yayılımı ve dekarbonizasyon modelleri.",
+                link: "https://drive.google.com/drive/folders/1peAzaXSDtUhdEIzOL9sS66c5SvQdPzbq?usp=drive_link"
+              }
+            ].map((folder) => (
+              <div 
+                key={folder.id} 
+                className="bg-[#fcfbfa] border border-[#1A1A1A] shadow-[4px_4px_0px_#1A1A1A] p-5 flex flex-col justify-between hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#1A1A1A] transition-all min-h-[250px]"
+              >
+                <div>
+                  <div className="flex justify-between items-center mb-4">
+                    <div className="flex items-center gap-2">
+                      <span className="w-8 h-8 rounded-xs bg-[#00adc4]/10 border border-[#00adc4]/20 flex items-center justify-center text-[#00adc4]">
+                        <Folder size={16} />
+                      </span>
+                      <span className="bg-[#1b355a] text-white px-2 py-0.5 text-[9px] font-mono font-bold tracking-wider rounded-xs">
+                        KLASÖR {folder.id}
+                      </span>
+                    </div>
+                    <span className="text-[10px] text-zinc-400 font-mono">DRIVE</span>
+                  </div>
+                  <h4 className="font-serif italic text-md text-zinc-900 mt-2 font-bold leading-tight uppercase">
+                    {folder.name}
+                  </h4>
+                  <p className="text-xs text-zinc-650 mt-3 font-mono leading-relaxed">
+                    {folder.desc}
+                  </p>
+                </div>
+                <a
+                  href={folder.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-6 w-full text-center bg-[#1b355a] hover:bg-[#00adc4] text-white font-mono font-bold text-xs py-2 px-4 transition-colors border border-[#1A1A1A] shadow-[2px_2px_0px_#1A1A1A] block uppercase"
+                >
+                  Klasörü Drive'da Aç ↗
                 </a>
               </div>
             ))}
