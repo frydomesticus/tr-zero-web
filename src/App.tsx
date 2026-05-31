@@ -725,10 +725,6 @@ export default function App() {
             Proje Hakkında
           </button>
           <span className="text-zinc-350 self-center">|</span>
-          <span className="py-2 px-3 text-zinc-400 cursor-not-allowed select-none">Öğrenim</span>
-          <span className="text-zinc-350 self-center">|</span>
-          <span className="py-2 px-3 text-zinc-400 cursor-not-allowed select-none">Akademik</span>
-          <span className="text-zinc-350 self-center">|</span>
           <button
             onClick={() => setMainActiveTab("simulasyon")}
             className={`py-2 px-3 transition-colors cursor-pointer ${
@@ -737,10 +733,6 @@ export default function App() {
           >
             Araştırma / Simülatör
           </button>
-          <span className="text-zinc-350 self-center">|</span>
-          <span className="py-2 px-3 text-zinc-400 cursor-not-allowed select-none">Çalıştay</span>
-          <span className="text-zinc-350 self-center">|</span>
-          <span className="py-2 px-3 text-zinc-400 cursor-not-allowed select-none">Üniversite Sanayi İşbirliği</span>
           <span className="text-zinc-350 self-center">|</span>
           <button
             onClick={() => setMainActiveTab("belgeler")}
