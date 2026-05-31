@@ -696,12 +696,12 @@ export default function App() {
 
           {/* Center: Large Centered Professional Titles */}
           <div className="flex flex-col items-center text-center justify-center select-none">
-            <h1 className="text-xl md:text-2xl lg:text-3xl font-extrabold tracking-wide text-[#1b355a] font-serif uppercase leading-tight">
-              Ankara Yıldırım Beyazıt Üniversitesi
+            <h1 className="text-xl md:text-2xl lg:text-3xl font-extrabold tracking-wide text-[#1b355a] font-serif leading-tight">
+              ANKARA YILDIRIM BEYAZIT ÜNİVERSİTESİ
             </h1>
             <div className="h-[2px] w-20 bg-[#00adc4] my-2 rounded-full" />
-            <h2 className="text-xs md:text-sm lg:text-md text-[#00adc4] font-extrabold uppercase tracking-widest font-sans">
-              Endüstri Mühendisliği Bölümü
+            <h2 className="text-xs md:text-sm lg:text-md text-[#00adc4] font-extrabold tracking-widest font-sans">
+              ENDÜSTRİ MÜHENDİSLİĞİ BÖLÜMÜ
             </h2>
           </div>
 
