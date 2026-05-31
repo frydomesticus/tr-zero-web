@@ -232,8 +232,8 @@ const CustomSimPriceTooltip = ({ active, payload, label }: any) => {
 const CustomPreventedTooltip = ({ active, payload, label }: any) => {
   const { t } = useTranslation();
   if (active && payload && payload.length) {
-    const sikiVal = payload.find((x: any) => x.name === "Sıkı ETS")?.value || 0;
-    const tesvikVal = payload.find((x: any) => x.name === "ETS + Teşvik")?.value || 0;
+    const sikiVal = payload.find((x: any) => x.dataKey === "Sıkı ETS Tasarrufu")?.value || 0;
+    const tesvikVal = payload.find((x: any) => x.dataKey === "ETS + Teşvik Tasarrufu")?.value || 0;
     return (
       <div className="bg-white/95 backdrop-blur-xs border-2 border-[#1A1A1A] p-2.5 shadow-[4px_4px_0px_#1A1A1A] z-40 text-left text-[11px] w-[180px] font-mono pointer-events-none">
         <div className="font-extrabold text-center border-b border-zinc-300 pb-1 mb-1.5 text-zinc-900 bg-zinc-100 py-0.5 font-mono">
@@ -264,8 +264,8 @@ const CustomPreventedTooltip = ({ active, payload, label }: any) => {
 const CustomRevenueTooltip = ({ active, payload, label }: any) => {
   const { t } = useTranslation();
   if (active && payload && payload.length) {
-    const sikiVal = payload.find((x: any) => x.name === "Sıkı ETS")?.value || 0;
-    const vergiVal = payload.find((x: any) => x.name === "Karbon Vergisi")?.value || 0;
+    const sikiVal = payload.find((x: any) => x.dataKey === "Sıkı ETS")?.value || 0;
+    const vergiVal = payload.find((x: any) => x.dataKey === "Karbon Vergisi")?.value || 0;
     return (
       <div className="bg-white/95 backdrop-blur-xs border-2 border-[#1A1A1A] p-2.5 shadow-[4px_4px_0px_#1A1A1A] z-40 text-left text-[11px] w-[185px] font-mono pointer-events-none">
         <div className="font-extrabold text-center border-b border-zinc-300 pb-1 mb-1.5 text-zinc-900 bg-zinc-100 py-0.5 font-mono">
@@ -1857,7 +1857,7 @@ export default function App() {
                       {t("simulator.policy.kpiCumulativeSavings", "Kümülatif Çevre Tasarrufu:")} <span className="font-mono text-emerald-300 font-bold">{(customBauLast.Toplam_Emisyon - customLast.Toplam_Emisyon).toFixed(1)} Mt CO₂ / {i18n.language === "tr" ? "Yıl" : "Year"}</span>
                     </div>
                     <div className="bg-sky-950/50 px-3.5 py-2 rounded-lg border border-sky-800">
-                      {t("simulator.policy.kpiEmploymentImpact", "Est. İstihdam Dönüşüm Etkisi:")} <span className="font-mono text-emerald-300 font-bold">%{((customLast.Temiz_Tesis / GERCEK_KOMUR_SANTRALLERI.length) * 100).toFixed(0)} {i18n.language === "tr" ? "Sürdürülebilir" : "Sustainable"}</span>
+                      {t("simulator.policy.kpiEmploymentImpact", "Est. İstihdam Dönüşüm Etkisi:")} <span className="font-mono text-emerald-300 font-bold">{i18n.language === "tr" ? `%${((customLast.Temiz_Tesis / GERCEK_KOMUR_SANTRALLERI.length) * 100).toFixed(0)} Sürdürülebilir` : `${((customLast.Temiz_Tesis / GERCEK_KOMUR_SANTRALLERI.length) * 100).toFixed(0)}% Sustainable`}</span>
                     </div>
                     <div className="bg-sky-950/50 px-3.5 py-2 rounded-lg border border-sky-800">
                       {t("simulator.policy.kpiCbamBalance", "Sınırda karbon (SKDM) dengesi:")} <span className="font-mono text-emerald-300 font-bold">

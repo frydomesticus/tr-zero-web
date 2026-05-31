@@ -11,6 +11,16 @@ const resources = {
         bibliography: "Kaynakça",
         contact: "İletişim"
       },
+      "Yıl": "Yıl",
+      "Kamu Geliri": "Kamu Geliri",
+      "Fazla Tasarruf": "Fazla Tasarruf",
+      "Net Fark": "Net Fark",
+      "Toplam": "Toplam",
+      "Emisyon": "Emisyon",
+      "Oran": "Oran",
+      "Enerji Sektörü": "Enerji Sektörü",
+      "Sanayi (IPPU)": "Sanayi (IPPU)",
+      "Tarımsal Salınım": "Tarımsal Salınım",
       // Bölgeler
       "Marmara": "Marmara",
       "Akdeniz": "Akdeniz",
@@ -399,7 +409,28 @@ const resources = {
           c3_title: "3. HİBRİTLEŞME VE YENİLENEBİLİR ENERJİ ENTEGRASYONU",
           c3_desc: "Linyit ve ithal kömür tesislerinde kurulu güç kapasitelerinin bir kısmının rüzgar ve güneş enerjisi (RES/GES) hibrit yapılarına dönüştürülmesi, emisyonları düşürürken santralin liyakat sırası (merit-order) kâr marjını korumaktadır. Devlet teşviklerinin doğrudan GES/RES hibritleşmesine yönlendirilmesi emisyon hedeflerine ulaşmayı kolaylaştıracaktır.",
           
-          footerNote: "Not: Bu çıkarımlar, 10 yıllık Monte Carlo simülasyon çıktılarının istatistiksel analizlerine ve Türkiye İklim Kanunu taslaklarındaki piyasa yapısına dayanmaktadır."
+          footerNote: "Not: Bu çıkarımlar, 10 yıllık Monte Carlo simülasyon çıktılarının istatistiksel analizlerine ve Türkiye İklim Kanunu taslaklarındaki piyasa yapısına dayanmaktadır.",
+
+          customScenarioIndicator: "ÖZEL SENARYO RAPOR GÖSTERGESİ",
+          summaryTitle: "Tasarladığınız Sürgülere Göre Politika Etki Özeti ({{year}} Vadesi)",
+          descText: "Sistemde tasarlamış olduğunuz kombinasyon, referans yıla kıyasla emisyonları %{{percent}} oranında {{action}}. Bu politika yolu, sanayide ve enerji tesislerinde {{cleanCount}} temiz hidrojen & CCUS dönüşümü tetiklerken, koridor tavan fiyatı nedeniyle ekonomik ömrünü sürdüremeyen {{closedCount}} linyit santralinin lisans bitiminden önce kapanmasına zemin hazırlar.",
+          kpiCumulativeSavings: "Kümülatif Çevre Tasarrufu:",
+          kpiEmploymentImpact: "Est. İstihdam Dönüşüm Etkisi:",
+          kpiCbamBalance: "Sınırda karbon (SKDM) dengesi:",
+          cbamResultTax: "Ab'ye Ek Vergimiz Var (€{{cost}})",
+          cbamResultProtected: "SKDM Koruması Sağlandı",
+          chartPreventedEmissionsTitle: "POLİTİKALAR TARAFINDAN ÖNLENEN KÜMÜLATİF EMİSYONLAR (Mt)",
+          chartStrictEtsSavings: "Sıkı ETS Tasarrufu",
+          chartEtsSubsidySavings: "ETS + Teşvik Tasarrufu",
+          legendStrictEtsSavings: "Sıkı ETS Tasarrufu",
+          legendEtsSubsidySavings: "ETS + Teşvik Tasarrufu",
+          chartRevenueTitle: "DÖNEMSEL BİRİKEN TOPLAM KAMU GELİR AKIŞI (M€)",
+          chartStrictEtsFlow: "Sıkı ETS",
+          chartTaxFlow: "Karbon Vergisi",
+          legendStrictEtsFlow: "Sıkı ETS Fon Akışı (M€)",
+          legendTaxFlow: "Karbon Vergisi Hazine Akışı (M€)",
+          warningTitle: "Politika Kısıt Koruması İkazı:",
+          warningDesc: "Bu simülasyondaki emisyon azaltımları, Türkiye elektrik sektöründeki emisyonların yaklaşık %31'ini doğrudan oluşturan 13 büyük kömür santrali kapsamında geçerlidir. NDC 2030 Ulusal Taahhütü (%41 Azaltım) tüm sanayi, binalar, ulaşım ve ormancılık faaliyetlerini kapsayan ulusal düzeydedir. Bu nedenle, termik santral dekarbonizasyonu ulusal eylem planının ana lokomotifidir ancak diğer sektörlerle desteklenmesi şarttır."
         },
         technical: {
           title: "Teknik Detaylar: Marjinal Azaltım Maliyet Eğrisi (MAC) ve Model Varsayımları",
@@ -437,6 +468,16 @@ const resources = {
         bibliography: "Bibliography",
         contact: "Contact"
       },
+      "Yıl": "Year",
+      "Kamu Geliri": "Public Revenue",
+      "Fazla Tasarruf": "Excess Savings",
+      "Net Fark": "Net Difference",
+      "Toplam": "Total",
+      "Emisyon": "Emission",
+      "Oran": "Ratio",
+      "Enerji Sektörü": "Energy Sector",
+      "Sanayi (IPPU)": "Industry (IPPU)",
+      "Tarımsal Salınım": "Agricultural Emissions",
       // Regions
       "Marmara": "Marmara",
       "Akdeniz": "Mediterranean",
@@ -827,7 +868,28 @@ const resources = {
           c3_title: "3. HYBRIDIZATION AND RENEWABLE ENERGY INTEGRATION",
           c3_desc: "Converting a portion of installed capacity in lignite and imported coal power plants into wind and solar hybrid structures (WPP/SPP) reduces emissions while maintaining plants' merit-order profit margins. Directing state incentives specifically towards hybridization will ease the path to emission targets.",
           
-          footerNote: "Note: These recommendations are based on statistical analyses of 10-year Monte Carlo simulation outputs and the market structure in Turkey's Draft Climate Law."
+          footerNote: "Note: These recommendations are based on statistical analyses of 10-year Monte Carlo simulation outputs and the market structure in Turkey's Draft Climate Law.",
+
+          customScenarioIndicator: "CUSTOM SCENARIO REPORT INDICATOR",
+          summaryTitle: "Policy Impact Summary Based on Designed Sliders ({{year}} Horizon)",
+          descText: "The combination you designed in the system {{action}} emissions by {{percent}}% compared to the reference year. While this policy pathway triggers {{cleanCount}} clean hydrogen & CCUS transformations in industry and energy facilities, it paves the way for the closure of {{closedCount}} lignite power plants that cannot sustain their economic life due to the ceiling price before their license expiration.",
+          kpiCumulativeSavings: "Cumulative Environmental Savings:",
+          kpiEmploymentImpact: "Est. Employment Transition Impact:",
+          kpiCbamBalance: "Border Carbon (CBAM) Balance:",
+          cbamResultTax: "We Have Additional EU Tax (€{{cost}})",
+          cbamResultProtected: "CBAM Protection Provided",
+          chartPreventedEmissionsTitle: "CUMULATIVE EMISSIONS PREVENTED BY POLICIES (Mt)",
+          chartStrictEtsSavings: "Tight ETS Savings",
+          chartEtsSubsidySavings: "ETS + Subsidy Savings",
+          legendStrictEtsSavings: "Tight ETS Savings",
+          legendEtsSubsidySavings: "ETS + Subsidy Savings",
+          chartRevenueTitle: "PERIODIC ACCUMULATED TOTAL PUBLIC REVENUE STREAM (M€)",
+          chartStrictEtsFlow: "Tight ETS",
+          chartTaxFlow: "Carbon Tax",
+          legendStrictEtsFlow: "Tight ETS Fund Flow (M€)",
+          legendTaxFlow: "Carbon Tax Treasury Flow (M€)",
+          warningTitle: "Policy Constraint Protection Warning:",
+          warningDesc: "Emission reductions in this simulation apply to the 13 large coal-fired power plants that directly account for approximately 31% of emissions in Turkey's electricity sector. The NDC 2030 National Commitment (41% Reduction) is at the national level covering all industry, buildings, transportation, and forestry activities. Therefore, thermal power plant decarbonization is the main locomotive of the national action plan, but it must be supported by other sectors."
         },
         technical: {
           title: "Technical Details: Marginal Abatement Cost Curve (MAC) and Model Assumptions",
