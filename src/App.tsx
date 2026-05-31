@@ -881,34 +881,42 @@ export default function App() {
                 <div id="rev-bar" className="bg-white p-6 border border-[#1A1A1A] shadow-[6px_6px_0px_#1A1A1A] flex flex-col justify-between">
                   <h3 className="text-xs font-bold text-[#1A1A1A] mb-5 uppercase tracking-wider font-mono">DÖNEM SONU KAMU VE ETS FON BİRİKİMİ (M€)</h3>
                   <div className="flex items-end justify-around h-[160px] pt-4.5">
-                    {[
-                      { key: "Yumusak_ETS", label: "YUMUŞAK", etsVal: referenceData.Yumusak_ETS[referenceData.Yumusak_ETS.length - 1].ETS_Gelir_MEUR, taxVal: 0, color: "bg-blue-600" },
-                      { key: "Siki_ETS", label: "SIKI ETS", etsVal: referenceData.Siki_ETS[referenceData.Siki_ETS.length - 1].ETS_Gelir_MEUR, taxVal: 0, color: "bg-emerald-600" },
-                      { key: "ETS_Tesvik", label: "ETS+TEŞVİK", etsVal: referenceData.ETS_Tesvik[referenceData.ETS_Tesvik.length - 1].ETS_Gelir_MEUR, taxVal: 0, color: "bg-violet-600" },
-                      { key: "Karbon_Vergisi", label: "K. VERGİSİ", etsVal: 0, taxVal: referenceData.Karbon_Vergisi[referenceData.Karbon_Vergisi.length - 1].Vergi_Gelir_MEUR, color: "bg-amber-600" }
-                    ].map((item) => {
-                      const total = item.etsVal + item.taxVal;
-                      const heightPercent = Math.min(100, (total / 3500) * 100);
-
-                      return (
-                        <div key={item.key} className="flex flex-col items-center gap-1.5 w-1/5 group">
-                          <div className="opacity-0 group-hover:opacity-100 bg-[#1A1A1A] text-[#F4F1EE] text-[10px] px-2 py-0.5 rounded-none mb-1 absolute -translate-y-9 transition-opacity font-mono border border-zinc-700">
-                            {total.toFixed(0)} M€
-                          </div>
-                          <div className="w-8 bg-zinc-100 border border-[#1A1A1A] relative flex flex-col justify-end" style={{ height: `120px` }}>
-                            {/* ETS allocation */}
-                            {item.etsVal > 0 && (
-                              <div className={`${item.color} w-full`} style={{ height: `${(item.etsVal / 3500) * 120}px` }} />
-                            )}
-                            {/* Tax valuation */}
-                            {item.taxVal > 0 && (
-                              <div className="bg-amber-500 w-full" style={{ height: `${(item.taxVal / 3500) * 120}px` }} />
-                            )}
-                          </div>
-                          <span className="text-[9px] font-bold text-[#1A1A1A] font-mono truncate max-w-full">{item.label}</span>
-                        </div>
+                    {(() => {
+                      const maxRevenue = Math.max(
+                        referenceData.Yumusak_ETS[referenceData.Yumusak_ETS.length - 1].ETS_Gelir_MEUR,
+                        referenceData.Siki_ETS[referenceData.Siki_ETS.length - 1].ETS_Gelir_MEUR,
+                        referenceData.ETS_Tesvik[referenceData.ETS_Tesvik.length - 1].ETS_Gelir_MEUR,
+                        referenceData.Karbon_Vergisi[referenceData.Karbon_Vergisi.length - 1].Vergi_Gelir_MEUR,
+                        1
                       );
-                    })}
+                      return [
+                        { key: "Yumusak_ETS", label: "YUMUŞAK", etsVal: referenceData.Yumusak_ETS[referenceData.Yumusak_ETS.length - 1].ETS_Gelir_MEUR, taxVal: 0, color: "bg-blue-600" },
+                        { key: "Siki_ETS", label: "SIKI ETS", etsVal: referenceData.Siki_ETS[referenceData.Siki_ETS.length - 1].ETS_Gelir_MEUR, taxVal: 0, color: "bg-emerald-600" },
+                        { key: "ETS_Tesvik", label: "ETS+TEŞVİK", etsVal: referenceData.ETS_Tesvik[referenceData.ETS_Tesvik.length - 1].ETS_Gelir_MEUR, taxVal: 0, color: "bg-violet-600" },
+                        { key: "Karbon_Vergisi", label: "K. VERGİSİ", etsVal: 0, taxVal: referenceData.Karbon_Vergisi[referenceData.Karbon_Vergisi.length - 1].Vergi_Gelir_MEUR, color: "bg-amber-600" }
+                      ].map((item) => {
+                        const total = item.etsVal + item.taxVal;
+
+                        return (
+                          <div key={item.key} className="flex flex-col items-center gap-1.5 w-1/5 group">
+                            <div className="opacity-0 group-hover:opacity-100 bg-[#1A1A1A] text-[#F4F1EE] text-[10px] px-2 py-0.5 rounded-none mb-1 absolute -translate-y-9 transition-opacity font-mono border border-zinc-700">
+                              {total.toFixed(0)} M€
+                            </div>
+                            <div className="w-8 bg-zinc-100 border border-[#1A1A1A] relative flex flex-col justify-end" style={{ height: `120px` }}>
+                              {/* ETS allocation */}
+                              {item.etsVal > 0 && (
+                                <div className={`${item.color} w-full`} style={{ height: `${(item.etsVal / maxRevenue) * 120}px` }} />
+                              )}
+                              {/* Tax valuation */}
+                              {item.taxVal > 0 && (
+                                <div className="bg-amber-500 w-full" style={{ height: `${(item.taxVal / maxRevenue) * 120}px` }} />
+                              )}
+                            </div>
+                            <span className="text-[9px] font-bold text-[#1A1A1A] font-mono truncate max-w-full">{item.label}</span>
+                          </div>
+                        );
+                      });
+                    })()}
                   </div>
                   <div className="flex gap-4 justify-center mt-3 pt-3 border-t border-zinc-200 text-[10px] font-mono">
                     <div className="flex items-center gap-1.5 text-zinc-700">
