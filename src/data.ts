@@ -36,6 +36,11 @@ export interface MacCurveOption {
   sure: number; // yıl
 }
 
+// KÖMÜR SANTRALLERİ — en büyük 13 tesis (ulusal filonun alt-kümesi, tüm filo değil).
+// kapasite_mw/komisyon_yili/yakit: EPDK Lisans & GEM Ocak 2026 Turkey Coal Plant Tracker.
+// emisyon_mt: tesis bazlı CO2 resmi kaynaklarda kamuya açık DEĞİL → TÜRETİLMİŞ TAHMİN
+//   (kapasite × kapasite faktörü × emisyon yoğunluğu; linyit ~1.0-1.2, ithal ~0.85-1.0 tCO2/MWh).
+//   13 tesis toplamı ~90.1 Mt; ulusal kömür toplamı (~111 Mt, Ember 2023) değildir.
 export const GERCEK_KOMUR_SANTRALLERI: PowerPlant[] = [
   { id: "T005", tesis_adi: "Zonguldak Eren", yakit: "Ithal_Komur", kapasite_mw: 2790, emisyon_mt: 17.0, komisyon_yili: 2010, lisans_bitis: 2053 },
   { id: "T002", tesis_adi: "Afşin-Elbistan B", yakit: "Linyit", kapasite_mw: 1440, emisyon_mt: 11.3, komisyon_yili: 1984, lisans_bitis: 2052 },

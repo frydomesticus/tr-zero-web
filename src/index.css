@@ -5,6 +5,8 @@
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Playfair Display", Georgia, Cambria, "Times New Roman", Times, serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --color-aybu-blue: #1b355a;
+  --color-aybu-cyan: #00adc4;
 }
 
 /* Türkiye Haritası Tooltip Özelleştirmesi */

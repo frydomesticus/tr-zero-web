@@ -38,7 +38,9 @@ import {
   Scale,
   Award,
   ChevronRight,
-  Database
+  Database,
+  BookOpen,
+  FileText
 } from "lucide-react";
 import {
   GERCEK_KOMUR_SANTRALLERI,
@@ -292,6 +294,8 @@ const PROVINCE_POWER_PLANTS: Record<string, { plants: string; mw: number }> = {
 };
 
 export default function App() {
+  // Main Tabs: 'hakkinda' | 'simulasyon' | 'belgeler' | 'iletisim'
+  const [mainActiveTab, setMainActiveTab] = useState<"hakkinda" | "simulasyon" | "belgeler" | "iletisim">("simulasyon");
   // Tabs: 'sonuclar' | 'mevcut' | 'tasarim' | 'politika' | 'teknik'
   const [activeTab, setActiveTab] = useState<"sonuclar" | "mevcut" | "tasarim" | "politika" | "teknik">("sonuclar");
   
@@ -658,78 +662,120 @@ export default function App() {
   return (
     <div id="app-container" className="min-h-screen bg-[#F4F1EE] text-[#1A1A1A] antialiased font-sans flex flex-col justify-between p-4 md:p-8 lg:p-12">
       
-      {/* 1. Header Section */}
-      <header id="hero-header" className="max-w-7xl w-full mx-auto flex flex-col md:flex-row justify-between items-end border-b border-[#1A1A1A] pb-6 mb-8 shrink-0">
-        <div className="flex-1">
-          <p className="text-[10px] uppercase tracking-widest font-bold mb-2 text-[#1A1A1A]/80">Phase 1 Focus: Electricity Generation Sector (Coal-Fired Thermal Power Plants)</p>
-          <h1 className="text-3xl md:text-5xl font-serif italic tracking-tight leading-none text-[#1A1A1A] font-bold">
-            TR-ETS: <span className="not-italic font-bold uppercase tracking-normal text-2xl md:text-4xl">SIMULATION OF AGENT-BASED EMISSION TRADING SYSTEM OF TURKEY</span>
-          </h1>
-          <p className="text-[#1A1A1A]/80 text-sm md:text-[15px] mt-6 max-w-3xl leading-loose font-light italic">
-            Bu Karar Destek Sistemi; AYBÜ Endüstri Mühendisliği bünyesinde İbrahim Hakkı Keleş, Oğuz Gökdemir ve Melis Mağden tarafından 
-            Dr. Deniz Efendioğlu danışmanlığında geliştirilen Ajan-Tabanlı Türkiye ETS Simülasyon modelidir.
-          </p>
+      {/* 1. AYBÜ Header Section */}
+      <header id="aybu-header" className="max-w-7xl w-full mx-auto bg-white border border-[#1A1A1A] shadow-[6px_6px_0px_#1A1A1A] p-4 md:p-6 mb-8 shrink-0 flex flex-col gap-6">
+        {/* Top Row: Logos & Branding */}
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          {/* Left Side: School Logo and Name */}
+          <div className="flex items-center gap-4 select-none">
+            <img src="/logo.png" alt="AYBÜ Logo" className="h-16 md:h-20 w-auto object-contain" />
+            <div className="flex flex-col border-l border-zinc-300 pl-4 py-1">
+              <span className="text-lg md:text-xl font-bold tracking-tight text-[#1b355a] font-serif">Ankara Yıldırım Beyazıt Üniversitesi</span>
+              <span className="text-sm md:text-md text-[#00adc4] font-semibold">Endüstri Mühendisliği Bölümü</span>
+            </div>
+          </div>
+
+          {/* Right Side: Atatürk Banner and Türkiye Yüzyılı */}
+          <div className="flex items-center gap-4">
+            <img src="/turkiye_yuzyili.png" alt="Türkiye Yüzyılı" className="h-12 md:h-14 w-auto object-contain" />
+            <img src="/ataturk_flag.png" alt="Atatürk ve Türk Bayrağı" className="h-12 md:h-14 w-auto object-contain rounded-xs border border-zinc-200" />
+          </div>
         </div>
-        <div className="text-right flex flex-col gap-1.5 mt-6 md:mt-0 bg-white p-4 border border-[#1A1A1A] shadow-[4px_4px_0px_#1A1A1A] font-mono text-xs max-w-xs w-full">
-          <span className="bg-[#1A1A1A] text-white px-2 py-1 font-bold uppercase tracking-wider text-center block leading-none">SİMÜLASYON KAPSAMI</span>
-          <div className="flex justify-between gap-6 text-[11px] text-[#1A1A1A] border-b border-zinc-200 pb-1 pt-1">
-            <span>Kömür Santralleri:</span>
-            <span className="font-bold font-mono">{GERCEK_KOMUR_SANTRALLERI.length} Tesis</span>
-          </div>
-          <div className="flex justify-between gap-6 text-[11px] text-[#1A1A1A] border-b border-zinc-200 pb-1">
-            <span>Pilot Bölge:</span>
-            <span className="font-bold font-mono">10 Kritik İl</span>
-          </div>
-          <div className="flex justify-between gap-6 text-[11px] text-[#1A1A1A] pb-0.5">
-            <span>Çözüm Motoru:</span>
-            <span className="font-bold  font-mono">Ajan-Tabanlı</span>
-          </div>
+
+        {/* Main School Navigation Bar */}
+        <div className="border-t border-zinc-200 pt-4 flex flex-wrap gap-x-2 gap-y-2 text-xs font-bold uppercase tracking-wider justify-start items-center">
+          <button
+            onClick={() => setMainActiveTab("hakkinda")}
+            className={`py-2 px-3 transition-colors cursor-pointer ${
+              mainActiveTab === "hakkinda" ? "bg-[#1b355a] text-white" : "text-zinc-700 hover:text-[#00adc4]"
+            }`}
+          >
+            Bölüm Hakkında
+          </button>
+          <span className="text-zinc-350 self-center">|</span>
+          <span className="py-2 px-3 text-zinc-400 cursor-not-allowed select-none">Öğrenim</span>
+          <span className="text-zinc-350 self-center">|</span>
+          <span className="py-2 px-3 text-zinc-400 cursor-not-allowed select-none">Akademik</span>
+          <span className="text-zinc-350 self-center">|</span>
+          <button
+            onClick={() => setMainActiveTab("simulasyon")}
+            className={`py-2 px-3 transition-colors cursor-pointer ${
+              mainActiveTab === "simulasyon" ? "bg-[#1b355a] text-white" : "text-zinc-700 hover:text-[#00adc4]"
+            }`}
+          >
+            Araştırma / Simülatör
+          </button>
+          <span className="text-zinc-350 self-center">|</span>
+          <span className="py-2 px-3 text-zinc-400 cursor-not-allowed select-none">Çalıştay</span>
+          <span className="text-zinc-350 self-center">|</span>
+          <span className="py-2 px-3 text-zinc-400 cursor-not-allowed select-none">Üniversite Sanayi İşbirliği</span>
+          <span className="text-zinc-350 self-center">|</span>
+          <button
+            onClick={() => setMainActiveTab("belgeler")}
+            className={`py-2 px-3 transition-colors cursor-pointer ${
+              mainActiveTab === "belgeler" ? "bg-[#1b355a] text-white" : "text-zinc-700 hover:text-[#00adc4]"
+            }`}
+          >
+            Belgeler
+          </button>
+          <span className="text-zinc-350 self-center">|</span>
+          <button
+            onClick={() => setMainActiveTab("iletisim")}
+            className={`py-2 px-3 transition-colors cursor-pointer ${
+              mainActiveTab === "iletisim" ? "bg-[#1b355a] text-white" : "text-zinc-700 hover:text-[#00adc4]"
+            }`}
+          >
+            İletişim
+          </button>
         </div>
       </header>
 
-      {/* 2. Main Navigation Tabs */}
-      <nav className="max-w-7xl w-full mx-auto mb-8 shrink-0">
-        <div className="flex flex-wrap gap-2 border-b border-[#1A1A1A] pb-4">
-          {[
-            { id: "sonuclar", label: "Senaryo Karşılaştırma", icon: BarChart3 },
-            { id: "mevcut", label: "Mevcut Durum (NIR)", icon: Map },
-            { id: "tasarim", label: "Kendi ETS'nizi Tasarlayın", icon: Sliders },
-            { id: "politika", label: "Politika Çıktıları", icon: Compass },
-            { id: "teknik", label: "Teknik Detaylar / MAC", icon: HelpCircle },
-          ].map((tab) => {
-            const Icon = tab.icon;
-            const isSelected = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                id={`tab-${tab.id}`}
-                onClick={() => setActiveTab(tab.id as any)}
-                className={`py-2.5 px-4 text-xs font-bold uppercase tracking-wider border transition-all duration-150 flex items-center gap-2 cursor-pointer ${
-                  isSelected
-                    ? "bg-[#1A1A1A] text-[#F4F1EE] border-[#1A1A1A] shadow-[2px_2px_0px_#1A1A1A]"
-                    : "bg-white text-[#1A1A1A] border-zinc-300 hover:border-[#1A1A1A] hover:shadow-[1px_1px_0px_#1A1A1A]"
-                }`}
-              >
-                <Icon size={14} />
-                <span>{tab.label}</span>
-              </button>
-            );
-          })}
-        </div>
-      </nav>
-
-      {/* 3. Global Information Banner */}
-      <div className="max-w-7xl w-full mx-auto mb-8 shrink-0">
-        <div className="bg-white p-6 border border-[#1A1A1A] shadow-[4px_4px_0px_#1A1A1A] flex items-start gap-4">
-          <Scale className="text-[#1A1A1A] shrink-0 mt-0.5" size={18} />
-          <div className="text-xs text-[#1A1A1A]/90 leading-relaxed italic">
-            <strong>Akademik Değerlendirme Modu:</strong> Bu interaktif panel, gerçek termik santral emisyon profillerini ve Türkiye Marjinal Azaltım Maliyetleri (MAC) eğrisini temel alan Monte Carlo ajan tabanlı model motorunu çalıştırır. Simülasyon, tavan/taban fiyat istikrar mekanizmaları ve CBAM (SKDM) maliyet yüklerini anlık çözer.
+      {/* Page Content based on mainActiveTab */}
+      {mainActiveTab === "simulasyon" ? (
+        <>
+          {/* 3. Global Information Banner */}
+          <div className="max-w-7xl w-full mx-auto mb-8 shrink-0">
+            <div className="bg-white p-6 border border-[#1A1A1A] shadow-[4px_4px_0px_#1A1A1A] flex items-start gap-4">
+              <Scale className="text-[#1A1A1A] shrink-0 mt-0.5" size={18} />
+              <div className="text-xs text-[#1A1A1A]/90 leading-relaxed italic">
+                <strong>Akademik Değerlendirme Modu:</strong> Bu interaktif panel, gerçek termik santral emisyon profillerini ve Türkiye Marjinal Azaltım Maliyetleri (MAC) eğrisini temel alan Monte Carlo ajan tabanlı model motorunu çalıştırır. Simülasyon, tavan/taban fiyat istikrar mekanizmaları ve CBAM (SKDM) maliyet yüklerini anlık çözer.
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      {/* 4. Active Tab Workspace */}
-      <main className="max-w-7xl w-full mx-auto flex-1">
+          {/* 4. Main Navigation Tabs */}
+          <nav className="max-w-7xl w-full mx-auto mb-8 shrink-0">
+            <div className="flex flex-wrap gap-2 border-b border-[#1A1A1A] pb-4">
+              {[
+                { id: "sonuclar", label: "Senaryo Karşılaştırma", icon: BarChart3 },
+                { id: "mevcut", label: "Mevcut Durum (NIR)", icon: Map },
+                { id: "tasarim", label: "Kendi ETS'nizi Tasarlayın", icon: Sliders },
+                { id: "politika", label: "Politika Çıktıları", icon: Compass },
+                { id: "teknik", label: "Teknik Detaylar / MAC", icon: HelpCircle },
+              ].map((tab) => {
+                const Icon = tab.icon;
+                const isSelected = activeTab === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    id={`tab-${tab.id}`}
+                    onClick={() => setActiveTab(tab.id as any)}
+                    className={`py-2.5 px-4 text-xs font-bold uppercase tracking-wider border transition-all duration-150 flex items-center gap-2 cursor-pointer ${
+                      isSelected
+                        ? "bg-[#1A1A1A] text-[#F4F1EE] border-[#1A1A1A] shadow-[2px_2px_0px_#1A1A1A]"
+                        : "bg-white text-[#1A1A1A] border-zinc-300 hover:border-[#1A1A1A] hover:shadow-[1px_1px_0px_#1A1A1A]"
+                    }`}
+                  >
+                    <Icon size={14} />
+                    <span>{tab.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </nav>
+
+          {/* 5. Active Tab Workspace */}
+          <main className="max-w-7xl w-full mx-auto flex-1">
         
         <AnimatePresence mode="wait">
           
@@ -1948,6 +1994,198 @@ export default function App() {
         </AnimatePresence>
 
       </main>
+      </>
+    ) : mainActiveTab === "hakkinda" ? (
+      <main className="max-w-7xl w-full mx-auto flex-1 py-4">
+        <div className="bg-white border border-[#1A1A1A] shadow-[6px_6px_0px_#1A1A1A] p-6 md:p-8 space-y-6">
+          <h2 className="text-2xl font-serif italic font-bold text-[#1b355a] border-b border-zinc-200 pb-3">
+            AYBÜ Endüstri Mühendisliği Lisans Bitirme Projesi
+          </h2>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2 space-y-4 text-sm leading-relaxed text-zinc-700 font-sans">
+              <h3 className="text-md font-bold text-[#1b355a] uppercase font-mono">Proje Özeti (Tez Özet - Abstract)</h3>
+              <p className="italic">
+                "Türkiye'nin 2053 net sıfır emisyon hedefleri ve Avrupa Birliği Sınırda Karbon Düzenleme Mekanizması (SKDM) uyum süreci, 
+                sanayi ve enerji üretim yapısında köklü değişiklikler gerektirmektedir. Bu bitirme projesi kapsamında, Türkiye elektrik 
+                üretim sektöründeki en büyük 13 kömür termik santralinin bağımsız ajanlar olarak modellendiği <strong>Ajan-Tabanlı Simülasyon (ABM) modeli</strong> 
+                ve Karar Destek Sistemi (TR-ETS) geliştirilmiştir."
+              </p>
+              <p>
+                Simülasyon motorumuz, santrallerin yeşil teknoloji yatırımlarını (Kazan verimliliği, CCS, GES hibritleşmesi vb.) 
+                karbon fiyat koridorları, yıllık kota azaltımları (Cap Decay) ve devlet teşvik mekanizmaları kapsamında yıllık periyotlarla analiz eder. 
+                Elde edilen sonuçlar, karar vericilerin en efektif azaltım politikasını seçmesine yardımcı olmayı amaçlayan bilimsel bir altyapı sunmaktadır.
+              </p>
+              
+              <div className="bg-[#f0f8ff] border-l-4 border-[#00adc4] p-4 font-mono text-xs">
+                <strong>Anahtar Kelimeler:</strong> Ajan-Tabanlı Modelleme (ABM), Emisyon Ticaret Sistemi (ETS), Marjinal Azaltım Maliyet Eğrisi (MAC), Enerji Politikası.
+              </div>
+            </div>
+
+            <div className="bg-[#fcfbfa] border border-[#1A1A1A] shadow-[4px_4px_0px_#1A1A1A] p-6 flex flex-col justify-between">
+              <div className="space-y-4">
+                <span className="bg-[#1A1A1A] text-white px-2 py-1 font-mono text-[10px] font-bold uppercase tracking-wider">PROJE KÜNYESİ</span>
+                <div className="text-xs space-y-3 font-mono">
+                  <div>
+                    <span className="text-zinc-500 block">DANIŞMAN HOCA:</span>
+                    <strong className="text-zinc-800 text-sm">Dr. Öğr. Üyesi Deniz Efendioğlu</strong>
+                  </div>
+                  <div className="h-px bg-zinc-200" />
+                  <div>
+                    <span className="text-zinc-500 block">PROJE EKİBİ (YAZARLAR):</span>
+                    <ul className="list-disc pl-4 space-y-1 mt-1 text-zinc-850 font-bold text-sm font-sans">
+                      <li>İbrahim Hakkı Keleş</li>
+                      <li>Oğuz Gökdemir</li>
+                      <li>Melis Mağden</li>
+                    </ul>
+                  </div>
+                  <div className="h-px bg-zinc-200" />
+                  <div>
+                    <span className="text-zinc-500 block">AKADEMİK DÖNEM:</span>
+                    <strong className="text-zinc-800">2025 - 2026 Eğitim-Öğretim Yılı</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    ) : mainActiveTab === "belgeler" ? (
+      <main className="max-w-7xl w-full mx-auto flex-1 py-4 space-y-8">
+        <div className="bg-white border border-[#1A1A1A] shadow-[6px_6px_0px_#1A1A1A] p-6 md:p-8">
+          <h2 className="text-xl font-serif italic font-bold text-[#1b355a] border-b border-zinc-200 pb-3 mb-6 flex items-center gap-2">
+            <FileText size={20} /> Akademik Çıktılar (Tez & Sunum Raporları)
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="border border-[#1A1A1A] p-5 shadow-[4px_4px_0px_#1A1A1A] flex flex-col justify-between bg-white hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#1A1A1A] transition-all">
+              <div>
+                <div className="flex justify-between items-start">
+                  <span className="bg-[#1b355a] text-white px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider">LİSANS TEZİ</span>
+                  <span className="text-[10px] text-zinc-500 font-mono">PDF (875 KB)</span>
+                </div>
+                <h4 className="font-serif italic text-lg text-zinc-900 mt-3 font-bold">AYBÜ Endüstri Mühendisliği Lisans Tez Raporu</h4>
+                <p className="text-xs text-zinc-600 mt-2 font-mono">
+                  Ajan-Tabanlı Modelleme ile Türkiye ETS Simülasyonu ve Karar Destek Sistemi Tezi (Nihai Rapor).
+                </p>
+              </div>
+              <a
+                href="/COMPLETE_THESIS_v2.pdf"
+                download
+                className="mt-6 w-full text-center bg-[#1b355a] hover:bg-[#00adc4] text-white font-mono font-bold text-xs py-2 px-4 transition-colors border border-[#1A1A1A] shadow-[2px_2px_0px_#1A1A1A]"
+              >
+                TEZ RAPORUNU İNDİR (.PDF)
+              </a>
+            </div>
+
+            <div className="border border-[#1A1A1A] p-5 shadow-[4px_4px_0px_#1A1A1A] flex flex-col justify-between bg-white hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#1A1A1A] transition-all">
+              <div>
+                <div className="flex justify-between items-start">
+                  <span className="bg-[#00adc4] text-white px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider">SUNUM DOSYASI</span>
+                  <span className="text-[10px] text-zinc-500 font-mono">PDF (10.5 MB)</span>
+                </div>
+                <h4 className="font-serif italic text-lg text-zinc-900 mt-3 font-bold">Bitirme Projesi 1. Dönem Sunumu</h4>
+                <p className="text-xs text-zinc-650 mt-2 font-mono">
+                  Tez literatür taraması, metodoloji tasarımı ve ilk simülasyon sonuçlarını içeren savunma sunumu.
+                </p>
+              </div>
+              <a
+                href="/Graduation_Presentation_Term1.pdf"
+                download
+                className="mt-6 w-full text-center bg-[#00adc4] hover:bg-[#1b355a] text-white font-mono font-bold text-xs py-2 px-4 transition-colors border border-[#1A1A1A] shadow-[2px_2px_0px_#1A1A1A]"
+              >
+                SUNUM DOSYASINI İNDİR (.PDF)
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white border border-[#1A1A1A] shadow-[6px_6px_0px_#1A1A1A] p-6 md:p-8">
+          <h2 className="text-xl font-serif italic font-bold text-[#1b355a] border-b border-zinc-200 pb-3 mb-6 flex items-center gap-2">
+            <BookOpen size={20} /> Resmi Mevzuat, Kanunlar & Anlaşmalar Kütüphanesi
+          </h2>
+          <p className="text-xs text-zinc-500 mb-4 font-sans leading-relaxed">
+            Bu portalda çalışan simülasyon modelleri, T.C. Çevre, Şehircilik ve İklim Değişikliği Bakanlığı İklim Değişikliği Başkanlığı tarafından hazırlanan 
+            yönetmelik taslakları ve uluslararası sözleşmeler ile tam uyumlu olarak tasarlanmıştır. İlgili yasal dayanak belgelerini aşağıdan inceleyebilirsiniz:
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { name: "İklim Kanunu Taslağı", file: "/IKLIM_KANUNU.doc", ext: "DOC", size: "133 KB", desc: "Sera gazı azaltım kotaları ve Karbon Piyasası Kurulu yapısını düzenleyen İklim Kanunu taslak metni." },
+              { name: "Sera Gazı Takip Yönetmeliği", file: "/SERA_GAZI_TAKIP_YONETMELIK.pdf", ext: "PDF", size: "700 KB", desc: "Tesis bazlı sera gazı emisyonlarının izlenmesi, raporlanması ve doğrulanması (MRV) mevzuatı." },
+              { name: "TR-ETS Yönetmelik Taslağı", file: "/TR_ETS_YONETMELIK_TASLAGI.docx", ext: "DOCX", size: "173 KB", desc: "Türkiye Emisyon Ticaret Sistemi tahsisat ve borsa kurallarını içeren yönetmelik taslağı." },
+              { name: "Denkleştirme Yönetmeliği", file: "/TASLAK_DENKLESTIRME_YONETMELIK.pdf", ext: "PDF", size: "293 KB", desc: "Karbon piyasalarında kredilendirme ve offset (denkleştirme) mekanizmalarına ait teknik esaslar." },
+              { name: "Paris Anlaşması", file: "/PARIS_ANLASMASI.docx", ext: "DOCX", size: "18 KB", desc: "Küresel ısınmayı 1.5°C ile sınırlandırma hedeflerini içeren uluslararası Paris Anlaşması metni." },
+              { name: "BM İklim Çerçeve Sözleşmesi", file: "/BM_IKLIM_DEGISIKLIGI_CERCEVE_SOZLESME.pdf", ext: "PDF", size: "122 KB", desc: "BMİDÇS (UNFCCC) resmi Türkçe ana sözleşme metni." }
+            ].map((doc, idx) => (
+              <div key={idx} className="border border-zinc-200 p-4 bg-zinc-50 flex flex-col justify-between hover:shadow-xs transition-shadow">
+                <div>
+                  <div className="flex justify-between items-center text-[9px] font-mono font-bold text-zinc-500">
+                    <span>{doc.ext} BELGESİ</span>
+                    <span>{doc.size}</span>
+                  </div>
+                  <h5 className="font-bold text-zinc-800 text-sm mt-2">{doc.name}</h5>
+                  <p className="text-[11px] text-zinc-650 mt-2 font-mono leading-relaxed">{doc.desc}</p>
+                </div>
+                <a
+                  href={doc.file}
+                  download
+                  className="mt-4 text-center border border-zinc-300 hover:border-[#1A1A1A] hover:bg-zinc-100 text-zinc-700 hover:text-zinc-900 font-mono font-bold text-[10px] py-1.5 transition-colors"
+                >
+                  BELGEYİ İNDİR ⬇
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </main>
+    ) : (
+      <main className="max-w-7xl w-full mx-auto flex-1 py-4">
+        <div className="bg-white border border-[#1A1A1A] shadow-[6px_6px_0px_#1A1A1A] p-6 md:p-8 space-y-6">
+          <h2 className="text-2xl font-serif italic font-bold text-[#1b355a] border-b border-zinc-200 pb-3">
+            İletişim ve Yerleşke Bilgileri
+          </h2>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="space-y-4 text-sm font-mono leading-relaxed text-zinc-700 font-sans">
+              <div>
+                <h3 className="font-bold text-[#1b355a] text-md uppercase">Ankara Yıldırım Beyazıt Üniversitesi</h3>
+                <p className="text-zinc-650 font-sans">Mühendislik ve Doğa Bilimleri Fakültesi</p>
+                <p className="text-zinc-700 font-sans font-bold mt-1">Endüstri Mühendisliği Bölümü</p>
+              </div>
+
+              <div className="h-px bg-zinc-200" />
+
+              <div>
+                <strong className="text-zinc-800">📍 ADRES:</strong>
+                <p className="font-sans text-zinc-650 mt-1">
+                  AYBÜ Esenboğa Külliyesi, Dumlupınar Mahallesi, Esenboğa Yolu / Çubuk, Ankara, Türkiye
+                </p>
+              </div>
+
+              <div>
+                <strong className="text-zinc-800">✉️ E-POSTA:</strong>
+                <p className="font-sans text-zinc-650">endustri@ybu.edu.tr</p>
+              </div>
+
+              <div>
+                <strong className="text-zinc-800">📞 TELEFON:</strong>
+                <p className="font-sans text-zinc-650">+90 312 906 1000</p>
+              </div>
+            </div>
+
+            <div className="border border-zinc-300 p-2 bg-zinc-50 flex items-center justify-center min-h-[220px]">
+              <iframe
+                title="AYBÜ Esenboğa Campus Map"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3049.8055442576395!2d33.0039239!3d40.146603!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4082260655555555%3A0xe54e3d7a8d05e32a!2sAnkara%20Y%C4%B1ld%C4%B1r%C4%B1m%20Beyaz%C4%B1t%20%C3%9Cniversitesi%20Esenbo%C4%9Fa%20K%C3%BClliyesi!5e0!3m2!1str!2str!4v1717170000000!5m2!1str!2str"
+                className="w-full h-64 border-0"
+                allowFullScreen={true}
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </main>
+    )}
 
       {/* 5. Clean Professional Footer */}
       <footer id="app-footer" className="bg-white border-t border-slate-200 p-6 tracking-wide shrink-0">

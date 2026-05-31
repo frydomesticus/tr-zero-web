@@ -41,7 +41,7 @@ export const REFERENCE_SCENARIOS_CFG: Record<string, Partial<SimulationParams>> 
     tesvik_katsayi: 1.0,
   },
   Yumusak_ETS: {
-    baslangic_cap: 90.1,    // TÜİK (2024) / UNFCCC CRT: Section 1.A.1.a Coal Electricity base year emissions
+    baslangic_cap: 90.1,    // Modellenen 13 santralin TAHMİNİ emisyon alt-toplamı (~90.1 Mt) — ulusal kömür toplamı (~111 Mt) DEĞİL; tesis CO2'si yoğunluk×kapasite ile türetilmiştir (bkz. data.ts notu)
     cap_azalma_orani: 0.02, // Aşıcı (2024): Soft mitigation rate to avoid 17 Mt quota surplus risks in Turkey ETS (METU Studies 2025)
     tesvik_miktari: 30000,
     taban_fiyat: 20,
@@ -71,7 +71,7 @@ export const REFERENCE_SCENARIOS_CFG: Record<string, Partial<SimulationParams>> 
     fiyat_katsayi: 300,
     ab_skdm: 82,
     dogal_buyume: 0.02,
-    tesvik_katsayi: 0.70, // Bassart-i-Loré (2026: Tech. Forecasting & Social Change 222:124372) & IDASEP E-S.1.x: Dual policy renewables multiplier (subsidies + carbon pricing)
+    tesvik_katsayi: 0.70, // YAZAR VARSAYIMI (%30 sübvansiyon): Bassart-i-Loré (2026, TF&SC 222:124372) "politika karışımı > tek enstrüman" + İDASEP E-S.1.x kavramsal dayanak; 0.70 modelcinin kabulüdür
   },
   Karbon_Vergisi: {
     baslangic_cap: 9999.0,
@@ -96,8 +96,9 @@ export const KARBON_VERGISI_PATIKASI: Record<number, number> = {
 const PILOT_BASLANGIC = 2026;
 const PILOT_BITIS = 2027;
 const TAM_UYGULAMA = 2028;
-const UYGULAMA_UCRETSIZ_ORAN = 0.7;
+const UYGULAMA_UCRETSIZ_ORAN = 0.7; // YAZAR VARSAYIMI: Yönetmelik oranı Karbon Piyasası Kurulu'na bırakır (Md.13); %70 AB-ETS benzeri kabul
 const EUR_TRY = 40.22; // derived from OVP USD_TRY (37.0) / parite (0.92)
+// NOT (cap tasarımı): Bu model AB-ETS tipi MUTLAK azalan cap kullanır; gerçek TR-ETS yoğunluk-bazlı benchmark cap öngörür. Normatif/karşı-olgusal test (bkz. DENETİM_RAPORU Bölüm H.3).
 
 interface PlantSimState {
   id: string;
