@@ -2086,7 +2086,66 @@ export default function App() {
                 <div className="text-xs space-y-3 font-mono">
                   <div>
                     <span className="text-zinc-500 block">DANIŞMAN HOCA:</span>
-                    <strong className="text-zinc-800 text-sm">Dr. Öğr. Üyesi Deniz Efendioğlu</strong>
+                    <strong className="text-zinc-800 text-sm block">Dr. Öğr. Üyesi Deniz Efendioğlu</strong>
+                    <div className="flex items-center gap-2 mt-2.5">
+                      {/* Google Scholar */}
+                      <a 
+                        href="https://scholar.google.com.tr/citations?user=yy93eAkAAAAJ" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="w-7 h-7 rounded-full bg-white border border-zinc-200 shadow-xs flex items-center justify-center transition-all hover:scale-115 hover:shadow-md"
+                        title="Google Akademik"
+                      >
+                        <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 text-[#db4437] fill-current" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+                          <path d="M12 15.5c-2.21 0-4-1.79-4-4h8c0 2.21-1.79 4-4 4z" opacity="0.8"/>
+                        </svg>
+                      </a>
+                      
+                      {/* Scopus */}
+                      <a 
+                        href="https://www.scopus.com/authid/detail.uri?authorId=57193789785" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="w-7 h-7 rounded-full bg-[#f68212] text-white flex items-center justify-center font-extrabold text-[10px] font-sans tracking-tight transition-all hover:scale-115 hover:shadow-md select-none"
+                        title="Scopus"
+                      >
+                        SC
+                      </a>
+
+                      {/* ORCID */}
+                      <a 
+                        href="https://orcid.org/0000-0002-3710-9187" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="w-7 h-7 rounded-full bg-[#a6ce39] text-white flex items-center justify-center font-bold text-[10px] font-sans tracking-tighter transition-all hover:scale-115 hover:shadow-md select-none"
+                        title="ORCID"
+                      >
+                        iD
+                      </a>
+
+                      {/* Publons / Web of Science */}
+                      <a 
+                        href="https://publons.com/researcher/HDO-1591-2022" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="w-7 h-7 rounded-full bg-[#215088] text-white flex items-center justify-center font-bold text-xs font-serif transition-all hover:scale-115 hover:shadow-md select-none"
+                        title="Publons / Web of Science"
+                      >
+                        P
+                      </a>
+
+                      {/* YÖKSİS */}
+                      <a 
+                        href="https://akademik.yok.gov.tr/AkademikArama/AkademisyenGorevOgrenimBilgileri?islem=direct&authorId=B0C14696B5B1B59E" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="w-7 h-7 rounded-full bg-white border border-[#d62828] text-[#d62828] flex items-center justify-center font-extrabold text-[8px] font-sans transition-all hover:scale-115 hover:shadow-md select-none"
+                        title="YÖKSİS"
+                      >
+                        YÖK
+                      </a>
+                    </div>
                   </div>
                   <div className="h-px bg-zinc-200" />
                   <div>
