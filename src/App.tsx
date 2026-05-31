@@ -715,7 +715,7 @@ export default function App() {
         </div>
 
         {/* Main School Navigation Bar */}
-        <div className="border-t border-zinc-200 pt-4 flex flex-wrap gap-x-2 gap-y-2 text-xs font-bold uppercase tracking-wider justify-start items-center">
+        <div className="border-t border-zinc-200 pt-4 flex flex-wrap gap-x-2 gap-y-2 text-xs font-bold uppercase tracking-wider justify-center items-center">
           <button
             onClick={() => setMainActiveTab("hakkinda")}
             className={`py-2 px-3 transition-colors cursor-pointer ${
@@ -806,7 +806,7 @@ export default function App() {
 
           {/* 4. Main Navigation Tabs */}
           <nav className="max-w-7xl w-full mx-auto mb-8 shrink-0">
-            <div className="flex flex-wrap gap-2 border-b border-[#1A1A1A] pb-4">
+            <div className="flex flex-wrap gap-2 border-b border-[#1A1A1A] pb-4 justify-center">
               {[
                 { id: "sonuclar", label: "Senaryo Karşılaştırma", icon: BarChart3 },
                 { id: "mevcut", label: "Mevcut Durum (NIR)", icon: Map },
