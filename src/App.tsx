@@ -2221,7 +2221,7 @@ export default function App() {
                     <MapPin size={18} />
                   </div>
                   <div>
-                    <strong className="text-zinc-800 text-xs font-mono uppercase tracking-wider block">📍 Yerleşke Adresi</strong>
+                    <strong className="text-zinc-800 text-xs font-mono uppercase tracking-wider block">Yerleşke Adresi</strong>
                     <p className="font-sans text-zinc-650 text-xs mt-1 leading-relaxed">
                       15 Temmuz Şehitleri Yerleşkesi, Ayvalı Mah., Gazze Cad., 150. Sokak, Antares AVM Yanı Etlik, Keçiören / Ankara
                     </p>
@@ -2235,7 +2235,7 @@ export default function App() {
                     <Globe size={18} />
                   </div>
                   <div>
-                    <strong className="text-zinc-800 text-xs font-mono uppercase tracking-wider block">🌐 Web Sitesi</strong>
+                    <strong className="text-zinc-800 text-xs font-mono uppercase tracking-wider block">Web Sitesi</strong>
                     <a href="https://aybu.edu.tr/endustrimuh" target="_blank" rel="noopener noreferrer" className="font-sans text-zinc-650 text-xs mt-1 hover:underline hover:text-[#1b355a] block font-mono">
                       aybu.edu.tr/endustrimuh
                     </a>
@@ -2249,7 +2249,7 @@ export default function App() {
                     <Phone size={18} />
                   </div>
                   <div>
-                    <strong className="text-zinc-800 text-xs font-mono uppercase tracking-wider block">📞 Telefon</strong>
+                    <strong className="text-zinc-800 text-xs font-mono uppercase tracking-wider block">Telefon</strong>
                     <a href="tel:+903129062263" className="font-sans text-zinc-650 text-xs mt-1 hover:underline hover:text-[#1b355a] block font-bold font-mono">
                       +90 (312) 906 22 63
                     </a>
