@@ -1,4 +1,5 @@
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, cloneElement } from "react";
+import TurkeyMap from "turkey-map-react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   ResponsiveContainer,
@@ -259,6 +260,23 @@ const CustomRevenueTooltip = ({ active, payload, label }: any) => {
   return null;
 };
 
+// Plate number lookup for pilot provinces (Option B Map integration)
+const getPilotProvinceByPlate = (plate: number) => {
+  switch (plate) {
+    case 1: return PILOT_ILLER.find(p => p.Il_Adi === "Adana");
+    case 6: return PILOT_ILLER.find(p => p.Il_Adi === "Ankara");
+    case 16: return PILOT_ILLER.find(p => p.Il_Adi === "Bursa");
+    case 27: return PILOT_ILLER.find(p => p.Il_Adi === "Gaziantep");
+    case 31: return PILOT_ILLER.find(p => p.Il_Adi === "Hatay");
+    case 33: return PILOT_ILLER.find(p => p.Il_Adi === "Mersin");
+    case 35: return PILOT_ILLER.find(p => p.Il_Adi === "İzmir");
+    case 41: return PILOT_ILLER.find(p => p.Il_Adi === "Kocaeli");
+    case 46: return PILOT_ILLER.find(p => p.Il_Adi === "Kahramanmaraş");
+    case 67: return PILOT_ILLER.find(p => p.Il_Adi === "Zonguldak");
+    default: return undefined;
+  }
+};
+
 export default function App() {
   // Tabs: 'sonuclar' | 'mevcut' | 'tasarim' | 'politika' | 'teknik'
   const [activeTab, setActiveTab] = useState<"sonuclar" | "mevcut" | "tasarim" | "politika" | "teknik">("sonuclar");
@@ -277,6 +295,48 @@ export default function App() {
 
   // Province Highlight on Map (Tab 2)
   const [selectedProvince, setSelectedProvince] = useState<PilotProvince | null>(PILOT_ILLER[0]);
+
+  // turkey-map-react city wrapper function for premium visual styling
+  const renderCity = (cityComponent: React.ReactElement, cityData: any) => {
+    const pilotProv = getPilotProvinceByPlate(cityData.plateNumber);
+    const isSelected = selectedProvince && pilotProv && selectedProvince.id === pilotProv.id;
+
+    let fill = "#f4f4f5"; // open gray background for passive cities
+    let stroke = "#d4d4d8"; // light gray boundary for passive cities
+    let strokeWidth = "1";
+    let cursor = "default";
+
+    if (pilotProv) {
+      cursor = "pointer";
+      if (isSelected) {
+        fill = "#1a1a1a"; // premium charcoal black for active selected pilot province
+        stroke = "#ffffff";
+        strokeWidth = "2";
+      } else {
+        fill = "#0f766e"; // premium deep teal for pilot provinces
+        stroke = "#ffffff";
+        strokeWidth = "1.5";
+      }
+    }
+
+    return cloneElement(cityComponent, {
+      style: {
+        fill,
+        stroke,
+        strokeWidth,
+        cursor,
+        transition: "all 0.2s ease",
+      },
+      className: pilotProv ? "hover:opacity-85 filter drop-shadow-sm" : "opacity-60 pointer-events-none"
+    });
+  };
+
+  const handleCityClick = (cityData: any) => {
+    const pilotProv = getPilotProvinceByPlate(cityData.plateNumber);
+    if (pilotProv) {
+      setSelectedProvince(pilotProv);
+    }
+  };
 
   // Interactive Hover states for all SVG Charts
   const [hoveredIndex1, setHoveredIndex1] = useState<number | null>(null); // For Comparative Trajectory & Price Charts (Tab 1)
@@ -1076,62 +1136,26 @@ export default function App() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
                   
-                  {/* Custom Interative Map representation using clean styled interactive grid */}
+                  {/* Interactive Turkey Map Integration (Option B) */}
                   <div className="lg:col-span-8 bg-zinc-50 p-5 border border-zinc-300 flex flex-col justify-between min-h-[300px]">
                     <div className="text-center py-2 text-[10px] text-zinc-500 font-bold uppercase tracking-wider border-b border-zinc-200 mb-4 flex justify-between items-center font-mono">
                       <span>COĞRAFİ DAĞILIM PANELİ</span>
-                      <span className="text-zinc-600 font-mono italic">ETKİLEŞİMLİ PROJEKSİYON VİZÜALİZASYONU</span>
+                      <span className="text-zinc-600 font-mono italic">ETKİLEŞİMLİ TÜRKİYE VE PİLOT İLLER HARİTASI</span>
                     </div>
 
-                    {/* Highly aesthetic map simulation canvas */}
-                    <div className="relative h-[220px] bg-zinc-100 rounded-none flex items-center justify-center overflow-hidden border border-zinc-350">
-                      
-                      {/* Stylized Turkey Silhouette Background (Option C) */}
-                      <img 
-                        src="/turkey.svg" 
-                        className="absolute w-[90%] h-[75%] object-fill opacity-20 pointer-events-none filter grayscale contrast-125 brightness-95" 
-                        alt="Turkey Map Background"
-                      />
-
-                      {/* Map Pins representation based on exact lat, lons */}
-                      {PILOT_ILLER.map((prov) => {
-                        // Rescaling Turkey lat coordinates: 36.0 (bottom) - 42.0 (top)
-                        // Rescaling Turkey lon coordinates: 26.0 (left) - 45.0 (right)
-                        const mapY = 100 - ((prov.Enlem - 35.8) / (42.2 - 35.8)) * 100;
-                        const mapX = ((prov.Boylam - 25.5) / (44.5 - 25.5)) * 100;
-
-                        const isSelected = selectedProvince?.id === prov.id;
-
-                        return (
-                          <button
-                            key={prov.id}
-                            onClick={() => setSelectedProvince(prov)}
-                            className="absolute -translate-x-1/2 -translate-y-1/2 group z-20 cursor-pointer"
-                            style={{ top: `${mapY}%`, left: `${mapX}%` }}
-                          >
-                            <span className="relative flex h-5 w-5 items-center justify-center">
-                              {isSelected && (
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-none bg-zinc-900 opacity-25" />
-                              )}
-                              <span className={`relative inline-flex rounded-none h-4 w-4 items-center justify-center transition-all ${
-                                isSelected ? "bg-[#1A1A1A] border border-white scale-125 shadow-[2px_2px_0px_#fff]" : "bg-zinc-400 border border-[#1A1A1A] hover:scale-110"
-                              }`} />
-                            </span>
-                            <span className="hidden group-hover:block absolute bg-[#1A1A1A] text-[#F4F1EE] text-[10px] font-mono py-1 px-2 rounded-none -translate-y-9 -translate-x-1/2 left-1/2 whitespace-nowrap shadow-[3px_3px_0px_#000] z-30 border border-zinc-800">
-                              {prov.Il_Adi.toUpperCase()} ({prov.ETS_Kapsam_Tahmini_MtCO2} Mt)
-                            </span>
-                          </button>
-                        );
-                      })}
-
-                      {/* Map boundaries references */}
-                      <span className="absolute bottom-1.5 left-4 text-[9px] font-mono font-bold text-zinc-400 tracking-widest">EGE DENİZİ</span>
-                      <span className="absolute top-1.5 left-1/2 -translate-x-1/2 text-[9px] font-mono font-bold text-zinc-400 tracking-widest">KARADENİZ</span>
-                      <span className="absolute bottom-1.5 left-1/2 -translate-x-1/2 text-[9px] font-mono font-bold text-zinc-400 tracking-widest">AKDENİZ</span>
+                    {/* Premium interactive map wrapper */}
+                    <div className="relative w-full overflow-hidden border border-zinc-350 p-2 bg-zinc-100 flex items-center justify-center min-h-[220px]">
+                      <div className="w-full max-w-[550px] h-auto aspect-[1050/585]">
+                        <TurkeyMap 
+                          showTooltip={true}
+                          cityWrapper={renderCity}
+                          onClick={handleCityClick}
+                        />
+                      </div>
                     </div>
 
                     <div className="text-[9px] text-zinc-500 mt-2 block border-t border-zinc-200 pt-2 text-center font-mono">
-                      * İLLERİN DAİRESEL BÜYÜKLÜKLERİ VE PİN DURUMLARI SANAYİ YOĞUNLUKLARINA GÖRE ORANTILANMIŞTIR.
+                      * PİLOT ETS BÖLGELERİ YEŞİL TONLARDA, DİĞER İLLER İSE PASİF OLARAK GRİ GÖSTERİLMİŞTİR. SEÇİLİ İL SİYAH RENKTE VURGULANIR.
                     </div>
                   </div>
 

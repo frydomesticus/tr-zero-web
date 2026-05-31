@@ -6,3 +6,18 @@
   --font-serif: "Playfair Display", Georgia, Cambria, "Times New Roman", Times, serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
+
+/* Türkiye Haritası Tooltip Özelleştirmesi */
+#svg-turkiye-haritasi-container-tooltip {
+  background-color: #1a1a1a !important;
+  color: #f4f1ee !important;
+  font-family: "JetBrains Mono", monospace !important;
+  font-size: 11px !important;
+  border: 1px solid #1a1a1a !important;
+  border-radius: 0px !important;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15) !important;
+  padding: 6px 12px !important;
+  pointer-events: none !important;
+  z-index: 50 !important;
+}
+
