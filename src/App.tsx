@@ -2160,27 +2160,6 @@ export default function App() {
 
             {/* Sağ Sütun - 1. Dönem Hazırlık Çalışmaları (İndirilebilir) */}
             <div className="space-y-6">
-              {/* 1. Dönem Sunumu */}
-              <div className="border border-[#1A1A1A] p-5 shadow-[4px_4px_0px_#1A1A1A] flex flex-col justify-between bg-white hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#1A1A1A] transition-all min-h-[220px]">
-                <div>
-                  <div className="flex justify-between items-start">
-                    <span className="bg-[#00adc4] text-white px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider">SUNUM DOSYASI (1. DÖNEM)</span>
-                    <span className="text-[10px] text-zinc-500 font-mono">PDF (10.5 MB)</span>
-                  </div>
-                  <h4 className="font-serif italic text-lg text-zinc-900 mt-3 font-bold">Bitirme Projesi 1. Dönem Sunumu</h4>
-                  <p className="text-xs text-zinc-650 mt-2 font-mono">
-                    Tez literatür taraması, metodoloji tasarımı ve ilk simülasyon sonuçlarını içeren savunma sunumu.
-                  </p>
-                </div>
-                <a
-                  href="/Graduation_Presentation_Term1.pdf"
-                  download
-                  className="mt-6 w-full text-center bg-[#00adc4] hover:bg-[#1b355a] text-white font-mono font-bold text-xs py-2 px-4 transition-colors border border-[#1A1A1A] shadow-[2px_2px_0px_#1A1A1A] block"
-                >
-                  SUNUM DOSYASINI İNDİR (.PDF)
-                </a>
-              </div>
-
               {/* 1. Dönem Tez Raporu */}
               <div className="border border-[#1A1A1A] p-5 shadow-[4px_4px_0px_#1A1A1A] flex flex-col justify-between bg-white hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#1A1A1A] transition-all min-h-[220px]">
                 <div>
@@ -2199,6 +2178,27 @@ export default function App() {
                   className="mt-6 w-full text-center bg-[#1b355a] hover:bg-[#00adc4] text-white font-mono font-bold text-xs py-2 px-4 transition-colors border border-[#1A1A1A] shadow-[2px_2px_0px_#1A1A1A] block"
                 >
                   TEZ RAPORUNU İNDİR (.DOCX)
+                </a>
+              </div>
+
+              {/* 1. Dönem Sunumu */}
+              <div className="border border-[#1A1A1A] p-5 shadow-[4px_4px_0px_#1A1A1A] flex flex-col justify-between bg-white hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#1A1A1A] transition-all min-h-[220px]">
+                <div>
+                  <div className="flex justify-between items-start">
+                    <span className="bg-[#00adc4] text-white px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider">SUNUM DOSYASI (1. DÖNEM)</span>
+                    <span className="text-[10px] text-zinc-500 font-mono">PDF (10.5 MB)</span>
+                  </div>
+                  <h4 className="font-serif italic text-lg text-zinc-900 mt-3 font-bold">Bitirme Projesi 1. Dönem Sunumu</h4>
+                  <p className="text-xs text-zinc-650 mt-2 font-mono">
+                    Tez literatür taraması, metodoloji tasarımı ve ilk simülasyon sonuçlarını içeren savunma sunumu.
+                  </p>
+                </div>
+                <a
+                  href="/Graduation_Presentation_Term1.pdf"
+                  download
+                  className="mt-6 w-full text-center bg-[#00adc4] hover:bg-[#1b355a] text-white font-mono font-bold text-xs py-2 px-4 transition-colors border border-[#1A1A1A] shadow-[2px_2px_0px_#1A1A1A] block"
+                >
+                  SUNUM DOSYASINI İNDİR (.PDF)
                 </a>
               </div>
             </div>
