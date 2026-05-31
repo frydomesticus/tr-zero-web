@@ -1,0 +1,6 @@
+{
+  "name": "SIMULATION OF AGENT-BASED EMISSION TRADING SYSTEM OF TURKEY | Karar Destek Sistemi",
+  "description": "Ankara Yıldırım Beyazıt Üniversitesi Endüstri Mühendisliği Bitirme Tezi kapsamında geliştirilen Türkiye ETS Ajan-Tabanlı Simülasyon Karar Destek Paneli.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
