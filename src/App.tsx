@@ -2081,9 +2081,9 @@ export default function App() {
             </div>
 
             <div className="bg-[#fcfbfa] border border-[#1A1A1A] shadow-[4px_4px_0px_#1A1A1A] p-6 flex flex-col justify-between">
-              <div className="space-y-4">
-                <span className="bg-[#1A1A1A] text-white px-2 py-1 font-mono text-[10px] font-bold uppercase tracking-wider">PROJE KÜNYESİ</span>
-                <div className="text-xs space-y-3 font-mono">
+              <div>
+                <span className="inline-block bg-[#1A1A1A] text-white px-2 py-1 font-mono text-[10px] font-bold uppercase tracking-wider mb-4">PROJE KÜNYESİ</span>
+                <div className="text-xs space-y-4 font-mono">
                   <div>
                     <span className="text-zinc-500 block">DANIŞMAN HOCA:</span>
                     <strong className="text-zinc-800 text-sm block">Dr. Öğr. Üyesi Deniz Efendioğlu</strong>
