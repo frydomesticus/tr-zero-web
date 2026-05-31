@@ -720,7 +720,7 @@ export default function App() {
               mainActiveTab === "hakkinda" ? "bg-[#1b355a] text-white" : "text-zinc-700 hover:text-[#00adc4]"
             }`}
           >
-            Bölüm Hakkında
+            Proje Hakkında
           </button>
           <span className="text-zinc-350 self-center">|</span>
           <span className="py-2 px-3 text-zinc-400 cursor-not-allowed select-none">Öğrenim</span>
