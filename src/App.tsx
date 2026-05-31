@@ -1947,12 +1947,12 @@ export default function App() {
               className="space-y-6"
             >
               <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
-                <HelpCircle className="text-teal-700" size={22} /> Teknik Detaylar, MAC Eğrisi ve Karar Modeli Künyesi
+                <HelpCircle className="text-teal-700" size={22} /> {t("simulator.technical.title")}
               </h2>
 
               {/* MAC Option visual cards block */}
               <div className="bg-white p-5 rounded-xl shadow-xs border border-slate-200">
-                <h3 className="text-xs font-bold text-slate-900 mb-4 uppercase tracking-wider text-slate-500">💹 TÜRKİYE SANAYİ SEKTÖRÜ MARJİNAL AZALTIM MALİYETİ (MAC) SEÇENEKLERİ</h3>
+                <h3 className="text-xs font-bold text-slate-900 mb-4 uppercase tracking-wider text-slate-500">{t("simulator.technical.macSectorsHeader")}</h3>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                   {MAC_CURVE.map((opt, i) => {
@@ -1965,19 +1965,19 @@ export default function App() {
                           <span className={`text-[9px] uppercase font-extrabold px-1.5 py-0.5 rounded leading-none ${
                             isProfitable ? "bg-emerald-100 text-emerald-800" : "bg-slate-200 text-slate-700"
                           }`}>
-                            {opt.sektor_etiket} Sektörü
+                            {t("simulator.technical.sectorLabel", { sector: t(opt.sektor_etiket) })}
                           </span>
-                          <h4 className="font-bold text-sm text-slate-900 mt-2">{opt.teknoloji}</h4>
+                          <h4 className="font-bold text-sm text-slate-900 mt-2">{t(opt.teknoloji)}</h4>
                         </div>
                         <div className="mt-4 pt-3 border-t border-slate-100/80 flex justify-between items-end">
                           <div>
-                            <span className="text-[10px] text-slate-400 block font-semibold uppercase">Azaltım Maliyeti</span>
+                            <span className="text-[10px] text-slate-400 block font-semibold uppercase">{t("simulator.technical.abatementCost")}</span>
                             <span className={`text-sm font-mono font-black ${isProfitable ? "text-emerald-700" : "text-slate-800"}`}>
                               {opt.mac > 0 ? `+${opt.mac}` : opt.mac} €/tCO₂
                             </span>
                           </div>
                           <div className="text-right">
-                            <span className="text-[10px] text-slate-400 block font-semibold uppercase">Max Potansiyel</span>
+                            <span className="text-[10px] text-slate-400 block font-semibold uppercase">{t("simulator.technical.maxPotential")}</span>
                             <span className="text-xs font-mono font-bold text-slate-800">%{Math.round(opt.potansiyel * 100)}</span>
                           </div>
                         </div>
@@ -1990,20 +1990,20 @@ export default function App() {
               {/* Power plants table */}
               <div className="bg-white rounded-xl shadow-xs border border-slate-200 overflow-hidden">
                 <div className="p-4 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
-                  <h3 className="text-sm font-bold text-slate-800 flex items-center gap-1.5">13 Gerçek Kömür Santrali Detaylı Envanter Kataloğu</h3>
-                  <span className="text-[10px] text-slate-400">Kaynak: EPDK & GEM 2026 Lisans Veri Seti</span>
+                  <h3 className="text-sm font-bold text-slate-800 flex items-center gap-1.5">{t("simulator.technical.plantsCatalogTitle")}</h3>
+                  <span className="text-[10px] text-slate-400">{t("simulator.technical.plantsCatalogSource")}</span>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full text-left border-collapse text-xs text-slate-705">
                     <thead className="bg-slate-100 text-slate-600 font-bold uppercase">
                       <tr>
-                        <th className="p-3">Santral Adı</th>
-                        <th className="p-3">Yakıt Yakma Sınıfı</th>
-                        <th className="p-3 text-right">Referans Yıllık Emisyon (Mt)</th>
-                        <th className="p-3 text-center">Komisyon Yılı</th>
-                        <th className="p-3 text-center">Lisans Bitiş Yılı</th>
-                        <th className="p-3 text-right">Kalan Lisans Ömrü</th>
-                        <th className="p-3 text-right">Durum Seviyesi</th>
+                        <th className="p-3">{t("simulator.technical.thPlantName")}</th>
+                        <th className="p-3">{t("simulator.technical.thFuelClass")}</th>
+                        <th className="p-3 text-right">{t("simulator.technical.thRefEmissions")}</th>
+                        <th className="p-3 text-center">{t("simulator.technical.thCommissionYear")}</th>
+                        <th className="p-3 text-center">{t("simulator.technical.thLicenseEndYear")}</th>
+                        <th className="p-3 text-right">{t("simulator.technical.thRemainingLicense")}</th>
+                        <th className="p-3 text-right">{t("simulator.technical.thStatusLevel")}</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100 font-mono">
@@ -2014,14 +2014,14 @@ export default function App() {
                         return (
                           <tr key={plant.id} className="hover:bg-slate-50 transition-colors">
                             <td className="p-3 font-semibold font-sans text-slate-900">{plant.tesis_adi}</td>
-                            <td className="p-3 font-sans text-slate-600">{plant.yakit}</td>
+                            <td className="p-3 font-sans text-slate-600">{t(plant.yakit)}</td>
                             <td className="p-3 text-right text-slate-950 font-bold">{plant.emisyon_mt.toFixed(1)} Mt</td>
                             <td className="p-3 text-center text-slate-550">{plant.komisyon_yili}</td>
                             <td className="p-3 text-center text-slate-550">{plant.lisans_bitis}</td>
-                            <td className="p-3 text-right font-bold text-slate-800">{remaining} Yıl</td>
+                            <td className="p-3 text-right font-bold text-slate-800">{t("simulator.technical.yearsLabel", { count: remaining })}</td>
                             <td className="p-3 text-right">
                               <span className={`inline-block border px-2 py-0.5 rounded text-[10px] font-sans font-semibold ${statusColor}`}>
-                                {remaining > 15 ? "Yüksek Yatırım Ömrü" : "Tasfiye Ömrü Yakın"}
+                                {remaining > 15 ? t("simulator.technical.statusHighLife") : t("simulator.technical.statusNearDecom")}
                               </span>
                             </td>
                           </tr>
@@ -2036,18 +2036,18 @@ export default function App() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 
                 <div className="bg-white p-5 rounded-xl shadow-xs border border-slate-200 md:col-span-2">
-                  <h3 className="text-sm font-bold text-slate-900 mb-3 block">KARAR DESTEK DEVRİMİ: AJAN TABANLI MİMARİ (ABM)</h3>
+                  <h3 className="text-sm font-bold text-slate-900 mb-3 block">{t("simulator.technical.abmTitle")}</h3>
                   <div className="text-xs text-slate-600 space-y-3 leading-relaxed">
                     <p>
-                      Klasik optimizasyon programlarının aksine, TR-ETS pazar mekanizmalarındaki insan ve yatırımcı davranış modellerini simüle eder. Ajanlar kendi hedefleri doğrultusunda karar alan özerk varlıklardır:
+                      {t("simulator.technical.abmDesc")}
                     </p>
                     <ul className="list-disc pl-5 space-y-1">
-                      <li><strong>Piyasa Operatörü:</strong> Arz-talep ve kota dengesine göre her gün dinamik karbon fiyati sinyali hesaplar.</li>
-                      <li><strong>Santral Yatırımcıları:</strong> NPV tabanında yatırım kararı vererek liyakat sırası (merit-order) karlarını ve SKDM yükümlülüklerini kontrol eder.</li>
-                      <li><strong>Proje Geliştiricileri:</strong> Teknoloji teşvik katsayılarına göre yeşil fonları yenilenebilir rüzgar & güneş hibrit sistemlerine kaydırır.</li>
+                      <li>{t("simulator.technical.roleOperator")}</li>
+                      <li>{t("simulator.technical.roleInvestors")}</li>
+                      <li>{t("simulator.technical.roleDevelopers")}</li>
                     </ul>
                     <p>
-                      Modelin tutarlılığı, 54 adet entegre lojik kohezyon testi (test_v4_logic.py) ve regresyon katsayıları kullanılarak doğrulanmıştır.
+                      {t("simulator.technical.modelValidation")}
                     </p>
                   </div>
                 </div>

@@ -41,6 +41,17 @@ const resources = {
       "Liman, Cam & Petrokimya": "Liman, Cam & Petrokimya",
       // Santral/Durum
       "Bulunmamaktadır (Sadece Ağır Sanayi)": "Bulunmamaktadır (Sadece Ağır Sanayi)",
+      // Fuels and technologies
+      "Linyit": "Linyit",
+      "Ithal_Komur": "İthal Kömür",
+      "Asfaltit": "Asfaltit",
+      "Yerli Linyit": "Yerli Linyit",
+      "İthal Kömür": "İthal Kömür",
+      "Kazan Verimliliği": "Kazan Verimliliği",
+      "Yük Optimizasyonu": "Yük Optimizasyonu",
+      "Yüksek Gaz Ko-firing": "Yüksek Gaz Ko-firing",
+      "GES/RES Hibritleşmesi": "GES/RES Hibritleşmesi",
+      "Karbon Yakalama (CCS)": "Karbon Yakalama (CCS)",
       header: {
         school: "ANKARA YILDIRIM BEYAZIT ÜNİVERSİTESİ",
         department: "ENDÜSTRİ MÜHENDİSLİĞİ BÖLÜMÜ",
@@ -454,8 +465,33 @@ const resources = {
           cite1: "Aşıcı, A. A. (2024). 'Türkiye'nin Karbon Fiyatlandırma Politikaları ve Emisyon Ticaret Sistemi Tasarımı'. İTÜ İklim Değişikliği Merkezi Raporu.",
           cite2: "Kat, G., Gungor, A. & Sari, R. (2024). 'Decarbonizing Turkey's Power Sector: An Agent-Based Simulation of ETS and Subsidies'. Energy Economics, 131, 107382.",
           cite3: "Bassart-i-Loré, P. (2026). 'Hybrid policy mixes in emission markets: Interactions between carbon prices and green subsidies'. Technological Forecasting and Social Change, 222, 124372.",
-          cite4: "Wang, Y. et al. (2025). 'Wait-and-see behaviors of heavy emitters under pilot carbon pricing schemes'. Energy Policy, 194, 114120."
-        }
+          cite4: "Wang, Y. et al. (2025). 'Wait-and-see behaviors of heavy emitters under pilot carbon pricing schemes'. Energy Policy, 194, 114120.",
+
+          macSectorsHeader: "💹 TÜRKİYE SANAYİ SEKTÖRÜ MARJİNAL AZALTIM MALİYETİ (MAC) SEÇENEKLERİ",
+          sectorLabel: "{{sector}} Sektörü",
+          abatementCost: "Azaltım Maliyeti",
+          maxPotential: "Max Potansiyel",
+          plantsCatalogTitle: "13 Gerçek Kömür Santrali Detaylı Envanter Kataloğu",
+          plantsCatalogSource: "Kaynak: EPDK & GEM 2026 Lisans Veri Seti",
+          thPlantName: "Santral Adı",
+          thFuelClass: "Yakıt Yakma Sınıfı",
+          thRefEmissions: "Referans Yıllık Emisyon (Mt)",
+          thCommissionYear: "Komisyon Yılı",
+          thLicenseEndYear: "Lisans Bitiş Yılı",
+          thRemainingLicense: "Kalan Lisans Ömrü",
+          thStatusLevel: "Durum Seviyesi",
+          yearsLabel: "{{count}} Yıl",
+          statusHighLife: "Yüksek Yatırım Ömrü",
+          statusNearDecom: "Tasfiye Ömrü Yakın",
+          abmTitle: "KARAR DESTEK DEVRİMİ: AJAN TABANLI MİMARİ (ABM)",
+          abmDesc: "Klasik optimizasyon programlarının aksine, TR-ETS pazar mekanizmalarındaki insan ve yatırımcı davranış modellerini simüle eder. Ajanlar kendi hedefleri doğrultusunda karar alan özerk varlıklardır:",
+          roleOperator: "Piyasa Operatörü: Arz-talep ve kota dengesine göre her gün dinamik karbon fiyati sinyali hesaplar.",
+          roleInvestors: "Santral Yatırımcıları: NPV tabanında yatırım kararı vererek liyakat sırası (merit-order) karlarını ve SKDM yükümlülüklerini kontrol eder.",
+          roleDevelopers: "Proje Geliştiricileri: Teknoloji teşvik katsayılarına göre yeşil fonları yenilenebilir rüzgar & güneş hibrit sistemlerine kaydırır.",
+          modelValidation: "Modelin tutarlılığı, 54 adet entegre lojik kohezyon testi (test_v4_logic.py) ve regresyon katsayıları kullanılarak doğrulanmıştır.",
+          dbTitle: "Veri Kaynak Künyesi Projesi",
+          integrated: "ENTEGRE ✅"
+        },
       }
     }
   },
@@ -498,6 +534,17 @@ const resources = {
       "Liman, Cam & Petrokimya": "Port, Glass & Petrochemical",
       // Power Plant Status
       "Bulunmamaktadır (Sadece Ağır Sanayi)": "None (Heavy Industry Only)",
+      // Fuels and technologies
+      "Linyit": "Lignite",
+      "Ithal_Komur": "Imported Coal",
+      "Asfaltit": "Asphaltite",
+      "Yerli Linyit": "Domestic Lignite",
+      "İthal Kömür": "Imported Coal",
+      "Kazan Verimliliği": "Boiler Efficiency",
+      "Yük Optimizasyonu": "Load Optimization",
+      "Yüksek Gaz Ko-firing": "High Gas Co-firing",
+      "GES/RES Hibritleşmesi": "Solar/Wind Hybridization",
+      "Karbon Yakalama (CCS)": "Carbon Capture & Storage (CCS)",
       header: {
         school: "ANKARA YILDIRIM BEYAZIT UNIVERSITY",
         department: "DEPARTMENT OF INDUSTRIAL ENGINEERING",
@@ -913,8 +960,33 @@ const resources = {
           cite1: "Asici, A. A. (2024). 'Carbon Pricing Policies and Emission Trading System Design for Turkey'. ITU Climate Change Center Report.",
           cite2: "Kat, G., Gungor, A. & Sari, R. (2024). 'Decarbonizing Turkey's Power Sector: An Agent-Based Simulation of ETS and Subsidies'. Energy Economics, 131, 107382.",
           cite3: "Bassart-i-Loré, P. (2026). 'Hybrid policy mixes in emission markets: Interactions between carbon prices and green subsidies'. Technological Forecasting and Social Change, 222, 124372.",
-          cite4: "Wang, Y. et al. (2025). 'Wait-and-see behaviors of heavy emitters under pilot carbon pricing schemes'. Energy Policy, 194, 114120."
-        }
+          cite4: "Wang, Y. et al. (2025). 'Wait-and-see behaviors of heavy emitters under pilot carbon pricing schemes'. Energy Policy, 194, 114120.",
+
+          macSectorsHeader: "💹 TURKEY POWER SECTOR MARGINAL ABATEMENT COST (MAC) OPTIONS",
+          sectorLabel: "{{sector}} Sector",
+          abatementCost: "Abatement Cost",
+          maxPotential: "Max Potential",
+          plantsCatalogTitle: "Detailed Inventory Catalog of 13 Real Coal Power Plants",
+          plantsCatalogSource: "Source: EMRA & GEM 2026 License Data Set",
+          thPlantName: "Plant Name",
+          thFuelClass: "Fuel Combustion Class",
+          thRefEmissions: "Reference Annual Emissions (Mt)",
+          thCommissionYear: "Commissioning Year",
+          thLicenseEndYear: "License End Year",
+          thRemainingLicense: "Remaining License Life",
+          thStatusLevel: "Status Level",
+          yearsLabel: "{{count}} Years",
+          statusHighLife: "High Investment Life",
+          statusNearDecom: "Close to Decommissioning",
+          abmTitle: "DECISION SUPPORT REVOLUTION: AGENT-BASED ARCHITECTURE (ABM)",
+          abmDesc: "Unlike classical optimization programs, TR-ETS simulates human and investor behavioral models in market mechanisms. Agents are autonomous entities that make decisions in line with their own objectives:",
+          roleOperator: "Market Operator: Calculates dynamic carbon price signals daily based on supply-demand and quota balance.",
+          roleInvestors: "Power Plant Investors: Make NPV-based investment decisions, checking merit-order profits and CBAM liabilities.",
+          roleDevelopers: "Project Developers: Direct green funds to renewable wind & solar hybrid systems based on technology subsidy coefficients.",
+          modelValidation: "The consistency of the model has been verified using 54 integrated logical cohesion tests (test_v4_logic.py) and regression coefficients.",
+          dbTitle: "Data Source Metadata Project",
+          integrated: "INTEGRATED ✅"
+        },
       }
     }
   }
