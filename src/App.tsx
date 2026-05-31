@@ -733,6 +733,34 @@ export default function App() {
       {/* Page Content based on mainActiveTab */}
       {mainActiveTab === "simulasyon" ? (
         <>
+          {/* Orijinal Simülatör Başlığı ve Kapsam Tablosu */}
+          <header id="hero-header" className="max-w-7xl w-full mx-auto flex flex-col md:flex-row justify-between items-end border-b border-[#1A1A1A] pb-6 mb-8 shrink-0 mt-4">
+            <div className="flex-1">
+              <p className="text-[10px] uppercase tracking-widest font-bold mb-2 text-[#1A1A1A]/80">Phase 1 Focus: Electricity Generation Sector (Coal-Fired Thermal Power Plants)</p>
+              <h1 className="text-3xl md:text-5xl font-serif italic tracking-tight leading-none text-[#1A1A1A] font-bold">
+                TR-ETS: <span className="not-italic font-bold uppercase tracking-normal text-2xl md:text-4xl">SIMULATION OF AGENT-BASED EMISSION TRADING SYSTEM OF TURKEY</span>
+              </h1>
+              <p className="text-[#1A1A1A]/80 text-sm md:text-[15px] mt-6 max-w-3xl leading-loose font-light italic">
+                Bu Karar Destek Sistemi; AYBÜ Endüstri Mühendisliği bünyesinde İbrahim Hakkı Keleş, Oğuz Gökdemir ve Melis Mağden tarafından 
+                Dr. Deniz Efendioğlu danışmanlığında geliştirilen Ajan-Tabanlı Türkiye ETS Simülasyon modelidir.
+              </p>
+            </div>
+            <div className="text-right flex flex-col gap-1.5 mt-6 md:mt-0 bg-white p-4 border border-[#1A1A1A] shadow-[4px_4px_0px_#1A1A1A] font-mono text-xs max-w-xs w-full">
+              <span className="bg-[#1A1A1A] text-white px-2 py-1 font-bold uppercase tracking-wider text-center block leading-none">SİMÜLASYON KAPSAMI</span>
+              <div className="flex justify-between gap-6 text-[11px] text-[#1A1A1A] border-b border-zinc-200 pb-1 pt-1">
+                <span>Kömür Santralleri:</span>
+                <span className="font-bold font-mono">{GERCEK_KOMUR_SANTRALLERI.length} Tesis</span>
+              </div>
+              <div className="flex justify-between gap-6 text-[11px] text-[#1A1A1A] border-b border-zinc-200 pb-1">
+                <span>Pilot Bölge:</span>
+                <span className="font-bold font-mono">10 Kritik İl</span>
+              </div>
+              <div className="flex justify-between gap-6 text-[11px] text-[#1A1A1A] pb-0.5">
+                <span>Çözüm Motoru:</span>
+                <span className="font-bold  font-mono">Ajan-Tabanlı</span>
+              </div>
+            </div>
+          </header>
           {/* 3. Global Information Banner */}
           <div className="max-w-7xl w-full mx-auto mb-8 shrink-0">
             <div className="bg-white p-6 border border-[#1A1A1A] shadow-[4px_4px_0px_#1A1A1A] flex items-start gap-4">
