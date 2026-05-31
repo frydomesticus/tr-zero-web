@@ -2399,7 +2399,7 @@ export default function App() {
                 id: "01",
                 name: "KARBON EMİSYON MODELLEME YAKLAŞIMLARI",
                 desc: "Küresel ve ulusal ölçekte emisyon tahmin modelleri, sektörel salınım senaryoları ve simülasyon metodolojilerini içeren akademik çalışmalar.",
-                link: "https://drive.google.com/drive/folders/1hGD7GdbNWPDDQStDICZa1KTeoFzXg7HP?usp=sharing"
+                link: "https://drive.google.com/drive/folders/153X_-j4qc4om6GiXY-e5kGz7PNNF4Pp_?usp=sharing"
               },
               {
                 id: "02",
@@ -2428,24 +2428,18 @@ export default function App() {
             ].map((folder) => (
               <div 
                 key={folder.id} 
-                className="bg-[#fcfbfa] border border-[#1A1A1A] shadow-[4px_4px_0px_#1A1A1A] p-5 flex flex-col justify-between hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#1A1A1A] transition-all min-h-[250px]"
+                className="bg-[#fcfbfa] border border-[#1A1A1A] shadow-[4px_4px_0px_#1A1A1A] p-5 flex flex-col justify-between hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#1A1A1A] transition-all min-h-[220px]"
               >
                 <div>
-                  <div className="flex justify-between items-center mb-4">
-                    <div className="flex items-center gap-2">
-                      <span className="w-8 h-8 rounded-xs bg-[#00adc4]/10 border border-[#00adc4]/20 flex items-center justify-center text-[#00adc4]">
-                        <Folder size={16} />
-                      </span>
-                      <span className="bg-[#1b355a] text-white px-2 py-0.5 text-[9px] font-mono font-bold tracking-wider rounded-xs">
-                        KLASÖR {folder.id}
-                      </span>
-                    </div>
-                    <span className="text-[10px] text-zinc-400 font-mono">DRIVE</span>
+                  <div className="flex items-start gap-3.5">
+                    <span className="w-9 h-9 rounded-xs bg-[#00adc4]/10 border border-[#00adc4]/20 flex items-center justify-center text-[#00adc4] shrink-0 mt-0.5 select-none">
+                      <Folder size={18} />
+                    </span>
+                    <h4 className="font-serif italic text-[14px] text-zinc-900 font-bold leading-snug uppercase tracking-tight">
+                      {folder.name}
+                    </h4>
                   </div>
-                  <h4 className="font-serif italic text-md text-zinc-900 mt-2 font-bold leading-tight uppercase">
-                    {folder.name}
-                  </h4>
-                  <p className="text-xs text-zinc-650 mt-3 font-mono leading-relaxed">
+                  <p className="text-xs text-zinc-650 mt-4 font-mono leading-relaxed">
                     {folder.desc}
                   </p>
                 </div>
@@ -2455,7 +2449,7 @@ export default function App() {
                   rel="noopener noreferrer"
                   className="mt-6 w-full text-center bg-[#1b355a] hover:bg-[#00adc4] text-white font-mono font-bold text-xs py-2 px-4 transition-colors border border-[#1A1A1A] shadow-[2px_2px_0px_#1A1A1A] block uppercase"
                 >
-                  Klasörü Drive'da Aç ↗
+                  AÇ ↗
                 </a>
               </div>
             ))}
