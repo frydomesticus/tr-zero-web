@@ -232,7 +232,7 @@ const resources = {
           etsAuctionRevenue: "ETS İHALE GELİRİ",
           directCarbonTax: "DOĞRUDAN KARBON VERGİSİ"
         },
-        nir: {
+        inventory: {
           title: "Türkiye Emisyon Profili, NIR Envanteri ve Pilot İller",
           dataSource: "VERİ KAYNAĞI: TÜİK NIR KATALOĞU",
           nationalEmissions: "Ulusal Emisyon (2025)",
@@ -728,7 +728,7 @@ const resources = {
           etsAuctionRevenue: "ETS AUCTION REVENUE",
           directCarbonTax: "DIRECT CARBON TAX"
         },
-        nir: {
+        inventory: {
           title: "Turkey's Emission Profile, NIR Inventory & Pilot Provinces",
           dataSource: "DATA SOURCE: TURKSTAT NIR CATALOGUE",
           nationalEmissions: "National Emissions (2025)",

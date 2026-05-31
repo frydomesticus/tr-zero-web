@@ -125,7 +125,7 @@ const CustomHistTooltip = ({ active, payload, label }: any) => {
         <div className="space-y-1">
           {payload.map((item: any) => (
             <div key={item.name} className="flex justify-between items-center font-mono" style={{ color: item.stroke }}>
-              <span className="font-semibold">{item.name === "Enerji Sektörü" ? t("Enerji Sektörü", "Enerji Sektörü") : item.name === "Sanayi Prosesleri (IPPU)" ? t("Sanayi (IPPU)", "Sanayi (IPPU)") : t("Tarımsal Salınım", "Tarımsal Salınım")}:</span>
+              <span className="font-semibold">{item.dataKey === "Enerji Sektörü" ? t("Enerji Sektörü", "Enerji Sektörü") : item.dataKey === "Sanayi Prosesleri (IPPU)" ? t("Sanayi (IPPU)", "Sanayi (IPPU)") : t("Tarımsal Salınım", "Tarımsal Salınım")}:</span>
               <span className="font-bold">{item.value.toFixed(1)} Mt</span>
             </div>
           ))}
