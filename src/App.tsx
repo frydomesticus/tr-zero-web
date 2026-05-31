@@ -1323,23 +1323,23 @@ export default function App() {
                             <h3 className="text-2xl font-serif italic font-bold mt-1 text-white">{selectedProvince.Il_Adi} {i18n.language === "tr" ? "İli" : "Province"}</h3>
                             <div className="h-px bg-zinc-700 my-4" />
                             
-                            <div className="space-y-4 text-xs font-mono">
-                              <div className="flex justify-between items-center py-0.5 border-b border-zinc-800">
-                                <span className="text-zinc-400">{t("simulator.inventory.geoRegion", "COĞRAFİ BÖLGE:")}</span>
-                                <span className="font-bold text-white">{selectedProvince.Bolge.toUpperCase()}</span>
-                              </div>
-                              <div className="flex justify-between items-center py-0.5 border-b border-zinc-800">
-                                <span className="text-zinc-400">{t("simulator.inventory.dominantIndustry", "DOMİNANT SANAYİ SEKTÖRÜ:")}</span>
-                                <span className="font-bold text-zinc-200">{selectedProvince.Dominant_Sektor.toUpperCase()}</span>
-                              </div>
-                              <div className="flex justify-between items-center py-0.5 border-b border-zinc-800">
-                                <span className="text-zinc-400">{t("simulator.inventory.estAnnualEts", "EST. YILLIK ETS KAPSAMI:")}</span>
-                                <span className="text-base font-bold text-yellow-400">{selectedProvince.ETS_Kapsam_Tahmini_MtCO2.toFixed(1)} MtCO₂</span>
-                              </div>
-                              <div className="flex justify-between items-center py-0.5 border-b border-zinc-800">
-                                <span className="text-zinc-400">{t("simulator.inventory.coalPlantsInProvince", "İLDEKİ KÖMÜR SANTRALİ:")}</span>
-                                <span className="font-bold text-teal-400 text-right text-[11px]">{PROVINCE_POWER_PLANTS[selectedProvince.Il_Adi]?.mw > 0 ? PROVINCE_POWER_PLANTS[selectedProvince.Il_Adi]?.plants : t("simulator.inventory.noPlants", "Bulunmamaktadır")}</span>
-                              </div>
+                              <div className="space-y-4 text-xs font-mono">
+                                <div className="flex justify-between items-center py-0.5 border-b border-zinc-800">
+                                  <span className="text-zinc-400">{t("simulator.inventory.geoRegion", "COĞRAFİ BÖLGE:")}</span>
+                                  <span className="font-bold text-white">{t(selectedProvince.Bolge).toUpperCase()}</span>
+                                </div>
+                                <div className="flex justify-between items-center py-0.5 border-b border-zinc-800">
+                                  <span className="text-zinc-400">{t("simulator.inventory.dominantIndustry", "DOMİNANT SANAYİ SEKTÖRÜ:")}</span>
+                                  <span className="font-bold text-zinc-200">{t(selectedProvince.Dominant_Sektor).toUpperCase()}</span>
+                                </div>
+                                <div className="flex justify-between items-center py-0.5 border-b border-zinc-800">
+                                  <span className="text-zinc-400">{t("simulator.inventory.estAnnualEts", "EST. YILLIK ETS KAPSAMI:")}</span>
+                                  <span className="text-base font-bold text-yellow-400">{selectedProvince.ETS_Kapsam_Tahmini_MtCO2.toFixed(1)} MtCO₂</span>
+                                </div>
+                                <div className="flex justify-between items-center py-0.5 border-b border-zinc-800">
+                                  <span className="text-zinc-400">{t("simulator.inventory.coalPlantsInProvince", "İLDEKİ KÖMÜR SANTRALİ:")}</span>
+                                  <span className="font-bold text-teal-400 text-right text-[11px]">{PROVINCE_POWER_PLANTS[selectedProvince.Il_Adi]?.mw > 0 ? t(PROVINCE_POWER_PLANTS[selectedProvince.Il_Adi]?.plants) : t("simulator.inventory.noPlants", "Bulunmamaktadır")}</span>
+                                </div>
                               <div className="flex justify-between items-center py-0.5 border-b border-zinc-800">
                                 <span className="text-zinc-400">{t("simulator.inventory.installedPower", "KURULU TERMİK GÜÇ:")}</span>
                                 <span className="font-bold text-white">{PROVINCE_POWER_PLANTS[selectedProvince.Il_Adi]?.mw > 0 ? `${PROVINCE_POWER_PLANTS[selectedProvince.Il_Adi]?.mw} MW` : "0 MW"}</span>
@@ -1407,11 +1407,11 @@ export default function App() {
                             <td className="p-4 font-bold text-[#1A1A1A] flex items-center gap-1.5">
                               <span className="w-2 h-2 bg-[#1A1A1A]" /> {p.Il_Adi}
                             </td>
-                            <td className="p-4 text-zinc-650 font-mono">{p.Bolge.toUpperCase()}</td>
-                            <td className="p-4 font-bold text-zinc-700 font-mono text-[11px]">{p.Dominant_Sektor.toUpperCase()}</td>
+                            <td className="p-4 text-zinc-650 font-mono">{t(p.Bolge).toUpperCase()}</td>
+                            <td className="p-4 font-bold text-zinc-700 font-mono text-[11px]">{t(p.Dominant_Sektor).toUpperCase()}</td>
                             <td className="p-4 text-xs font-mono font-bold text-teal-800">
                               {plantData.mw > 0 ? (
-                                <span>⚡ {plantData.plants} <span className="text-zinc-500 font-normal">({plantData.mw} MW)</span></span>
+                                <span>⚡ {t(plantData.plants)} <span className="text-zinc-500 font-normal">({plantData.mw} MW)</span></span>
                               ) : (
                                 <span className="text-zinc-400 font-normal">-</span>
                               )}
