@@ -2115,44 +2115,92 @@ export default function App() {
             <FileText size={20} /> Akademik Çıktılar (Tez & Sunum Raporları)
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="border border-[#1A1A1A] p-5 shadow-[4px_4px_0px_#1A1A1A] flex flex-col justify-between bg-white hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#1A1A1A] transition-all">
-              <div>
-                <div className="flex justify-between items-start">
-                  <span className="bg-[#1b355a] text-white px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider">LİSANS TEZİ</span>
-                  <span className="text-[10px] text-zinc-500 font-mono">PDF (875 KB)</span>
+            {/* Sol Sütun - 2. Dönem Nihai Çalışmaları (Yayında Olmayanlar) */}
+            <div className="space-y-6">
+              {/* 2. Dönem Tez Raporu */}
+              <div className="border border-[#1A1A1A] p-5 shadow-[4px_4px_0px_#1A1A1A] flex flex-col justify-between bg-white hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#1A1A1A] transition-all min-h-[220px]">
+                <div>
+                  <div className="flex justify-between items-start">
+                    <span className="bg-[#1b355a] text-white px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider">LİSANS TEZİ (2. DÖNEM)</span>
+                    <span className="text-[10px] text-zinc-500 font-mono">NİHAİ</span>
+                  </div>
+                  <h4 className="font-serif italic text-lg text-zinc-900 mt-3 font-bold">AYBÜ Endüstri Mühendisliği Lisans Tez Raporu</h4>
+                  <p className="text-xs text-zinc-650 mt-2 font-mono">
+                    Ajan-Tabanlı Modelleme ile Türkiye ETS Simülasyonu ve Karar Destek Sistemi Tezi (Nihai Rapor).
+                  </p>
                 </div>
-                <h4 className="font-serif italic text-lg text-zinc-900 mt-3 font-bold">AYBÜ Endüstri Mühendisliği Lisans Tez Raporu</h4>
-                <p className="text-xs text-zinc-600 mt-2 font-mono">
-                  Ajan-Tabanlı Modelleme ile Türkiye ETS Simülasyonu ve Karar Destek Sistemi Tezi (Nihai Rapor).
-                </p>
+                <button
+                  disabled
+                  className="mt-6 w-full text-center bg-zinc-100 text-zinc-400 font-mono font-bold text-xs py-2 px-4 cursor-not-allowed border border-zinc-200"
+                >
+                  YAKINDA SİZLERLE OLACAK ⌛
+                </button>
               </div>
-              <a
-                href="/COMPLETE_THESIS_v2.pdf"
-                download
-                className="mt-6 w-full text-center bg-[#1b355a] hover:bg-[#00adc4] text-white font-mono font-bold text-xs py-2 px-4 transition-colors border border-[#1A1A1A] shadow-[2px_2px_0px_#1A1A1A]"
-              >
-                TEZ RAPORUNU İNDİR (.PDF)
-              </a>
+
+              {/* 2. Dönem Sunum Raporu */}
+              <div className="border border-[#1A1A1A] p-5 shadow-[4px_4px_0px_#1A1A1A] flex flex-col justify-between bg-white hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#1A1A1A] transition-all min-h-[220px]">
+                <div>
+                  <div className="flex justify-between items-start">
+                    <span className="bg-[#00adc4] text-white px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider">SUNUM DOSYASI (2. DÖNEM)</span>
+                    <span className="text-[10px] text-zinc-500 font-mono">NİHAİ</span>
+                  </div>
+                  <h4 className="font-serif italic text-lg text-zinc-900 mt-3 font-bold">Bitirme Projesi 2. Dönem Sunumu</h4>
+                  <p className="text-xs text-zinc-650 mt-2 font-mono">
+                    Projenin tamamlanmış simülasyon aşamalarını, politika çıktılarını ve senaryo karşılaştırmalarını içeren nihai savunma sunumu.
+                  </p>
+                </div>
+                <button
+                  disabled
+                  className="mt-6 w-full text-center bg-zinc-100 text-zinc-400 font-mono font-bold text-xs py-2 px-4 cursor-not-allowed border border-zinc-200"
+                >
+                  YAKINDA SİZLERLE OLACAK ⌛
+                </button>
+              </div>
             </div>
 
-            <div className="border border-[#1A1A1A] p-5 shadow-[4px_4px_0px_#1A1A1A] flex flex-col justify-between bg-white hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#1A1A1A] transition-all">
-              <div>
-                <div className="flex justify-between items-start">
-                  <span className="bg-[#00adc4] text-white px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider">SUNUM DOSYASI</span>
-                  <span className="text-[10px] text-zinc-500 font-mono">PDF (10.5 MB)</span>
+            {/* Sağ Sütun - 1. Dönem Hazırlık Çalışmaları (İndirilebilir) */}
+            <div className="space-y-6">
+              {/* 1. Dönem Sunumu */}
+              <div className="border border-[#1A1A1A] p-5 shadow-[4px_4px_0px_#1A1A1A] flex flex-col justify-between bg-white hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#1A1A1A] transition-all min-h-[220px]">
+                <div>
+                  <div className="flex justify-between items-start">
+                    <span className="bg-[#00adc4] text-white px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider">SUNUM DOSYASI (1. DÖNEM)</span>
+                    <span className="text-[10px] text-zinc-500 font-mono">PDF (10.5 MB)</span>
+                  </div>
+                  <h4 className="font-serif italic text-lg text-zinc-900 mt-3 font-bold">Bitirme Projesi 1. Dönem Sunumu</h4>
+                  <p className="text-xs text-zinc-650 mt-2 font-mono">
+                    Tez literatür taraması, metodoloji tasarımı ve ilk simülasyon sonuçlarını içeren savunma sunumu.
+                  </p>
                 </div>
-                <h4 className="font-serif italic text-lg text-zinc-900 mt-3 font-bold">Bitirme Projesi 1. Dönem Sunumu</h4>
-                <p className="text-xs text-zinc-650 mt-2 font-mono">
-                  Tez literatür taraması, metodoloji tasarımı ve ilk simülasyon sonuçlarını içeren savunma sunumu.
-                </p>
+                <a
+                  href="/Graduation_Presentation_Term1.pdf"
+                  download
+                  className="mt-6 w-full text-center bg-[#00adc4] hover:bg-[#1b355a] text-white font-mono font-bold text-xs py-2 px-4 transition-colors border border-[#1A1A1A] shadow-[2px_2px_0px_#1A1A1A] block"
+                >
+                  SUNUM DOSYASINI İNDİR (.PDF)
+                </a>
               </div>
-              <a
-                href="/Graduation_Presentation_Term1.pdf"
-                download
-                className="mt-6 w-full text-center bg-[#00adc4] hover:bg-[#1b355a] text-white font-mono font-bold text-xs py-2 px-4 transition-colors border border-[#1A1A1A] shadow-[2px_2px_0px_#1A1A1A]"
-              >
-                SUNUM DOSYASINI İNDİR (.PDF)
-              </a>
+
+              {/* 1. Dönem Tez Raporu */}
+              <div className="border border-[#1A1A1A] p-5 shadow-[4px_4px_0px_#1A1A1A] flex flex-col justify-between bg-white hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#1A1A1A] transition-all min-h-[220px]">
+                <div>
+                  <div className="flex justify-between items-start">
+                    <span className="bg-[#1b355a] text-white px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider">LİSANS TEZİ (1. DÖNEM)</span>
+                    <span className="text-[10px] text-zinc-500 font-mono">DOCX (133 KB)</span>
+                  </div>
+                  <h4 className="font-serif italic text-lg text-zinc-900 mt-3 font-bold">Bitirme Projesi 1. Dönem Tez Raporu</h4>
+                  <p className="text-xs text-zinc-650 mt-2 font-mono">
+                    Ajan-Tabanlı Türkiye ETS Simülasyonu ve Karar Destek Sistemi 1. Dönem Raporu (Tasarım ve Ön Bulgular).
+                  </p>
+                </div>
+                <a
+                  href="/Graduation_Report_Term1.docx"
+                  download
+                  className="mt-6 w-full text-center bg-[#1b355a] hover:bg-[#00adc4] text-white font-mono font-bold text-xs py-2 px-4 transition-colors border border-[#1A1A1A] shadow-[2px_2px_0px_#1A1A1A] block"
+                >
+                  TEZ RAPORUNU İNDİR (.DOCX)
+                </a>
+              </div>
             </div>
           </div>
         </div>
