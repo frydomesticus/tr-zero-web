@@ -1875,7 +1875,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
           <div className="text-center md:text-left">
             <p className="font-bold text-slate-800">TR-ETS v5.0 | SIMULATION OF AGENT-BASED EMISSION TRADING SYSTEM OF TURKEY</p>
-            <p className="mt-0.5">Endüstri Mühendisliği Karar Analizi Bitirme Tezi · Mayıs 2026</p>
+            <p className="mt-0.5">Endüstri Mühendisliği Karar Analizi Bitirme Tezi · Haziran 2026</p>
           </div>
           <div className="text-center md:text-right font-sans">
             <p>İbrahim Hakkı Keleş · Oğuz Gökdemir · Melis Mağden</p>
