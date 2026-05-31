@@ -1790,7 +1790,7 @@ export default function App() {
                           </div>
                           <div className="text-right">
                             <span className="text-[10px] text-slate-400 block font-semibold uppercase">Max Potansiyel</span>
-                            <span className="text-xs font-mono font-bold text-slate-800">%{opt.potansiyel * 100}</span>
+                            <span className="text-xs font-mono font-bold text-slate-800">%{Math.round(opt.potansiyel * 100)}</span>
                           </div>
                         </div>
                       </div>
