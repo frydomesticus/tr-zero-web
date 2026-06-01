@@ -16,6 +16,19 @@ export interface PilotProvince {
   ETS_Kapsam_Tahmini_MtCO2: number;
   Enlem: number;
   Boylam: number;
+  // İki katmanlı pilot il metodolojisi (Haziran 2026):
+  // "birincil" → ABM modelindeki 13 kömür santralinden birinin bulunduğu il.
+  //   ETS_Kapsam değeri ABM santral toplamından türetilmiştir (gerçek veri).
+  // "ikincil"  → Kömür santrali bulunmayan, ancak enerji-yoğun sanayi yapısı
+  //   ve AB SKDM/CBAM maruziyeti nedeniyle ETS'ten dolaylı etkilenecek il.
+  //   ETS_Kapsam değeri ekonomik bağlam göstergesidir, simülasyon çıktısı değil.
+  etki_tipi: "birincil" | "ikincil";
+  // Birincil iller için: ildeki ABM santrallerinin adları
+  santraller?: string[];
+  // Birincil iller için: toplam modellenen kapasite (MW)
+  toplam_kapasite_mw?: number;
+  // İkincil iller için: SKDM/CBAM ve dolaylı ETS etki notu
+  skdm_risk_notu?: string;
 }
 
 export interface SectoralEmission {
@@ -57,18 +70,153 @@ export const GERCEK_KOMUR_SANTRALLERI: PowerPlant[] = [
   { id: "T016", tesis_adi: "Kangal", yakit: "Linyit", kapasite_mw: 457, emisyon_mt: 2.8, komisyon_yili: 1989, lisans_bitis: 2052 }
 ];
 
-export const PILOT_ILLER: PilotProvince[] = [
-  { id: "il1", Il_Adi: "Kocaeli", Bolge: "Marmara", Dominant_Sektor: "Demir Çelik & Kimya", ETS_Kapsam_Tahmini_MtCO2: 18.4, Enlem: 40.76, Boylam: 29.92 },
-  { id: "il2", Il_Adi: "Hatay", Bolge: "Akdeniz", Dominant_Sektor: "Demir Çelik & Çimento", ETS_Kapsam_Tahmini_MtCO2: 15.2, Enlem: 36.20, Boylam: 36.16 },
-  { id: "il3", Il_Adi: "Zonguldak", Bolge: "Karadeniz", Dominant_Sektor: "Ağır Sanayi & Termik", ETS_Kapsam_Tahmini_MtCO2: 14.1, Enlem: 41.45, Boylam: 31.79 },
-  { id: "il4", Il_Adi: "İzmir", Bolge: "Ege", Dominant_Sektor: "Rafineri & Çimento", ETS_Kapsam_Tahmini_MtCO2: 12.8, Enlem: 38.42, Boylam: 27.14 },
-  { id: "il5", Il_Adi: "Adana", Bolge: "Akdeniz", Dominant_Sektor: "Enerji & Çimento", ETS_Kapsam_Tahmini_MtCO2: 11.3, Enlem: 36.99, Boylam: 35.32 },
-  { id: "il6", Il_Adi: "Kahramanmaraş", Bolge: "Akdeniz", Dominant_Sektor: "Tekstil & Metalürji", ETS_Kapsam_Tahmini_MtCO2: 9.4, Enlem: 37.58, Boylam: 36.93 },
-  { id: "il7", Il_Adi: "Bursa", Bolge: "Marmara", Dominant_Sektor: "Otomotiv & Çimento", ETS_Kapsam_Tahmini_MtCO2: 8.7, Enlem: 40.18, Boylam: 29.06 },
-  { id: "il8", Il_Adi: "Ankara", Bolge: "İç Anadolu", Dominant_Sektor: "Savunma & Cam/Çimento", ETS_Kapsam_Tahmini_MtCO2: 7.1, Enlem: 39.93, Boylam: 32.85 },
-  { id: "il9", Il_Adi: "Gaziantep", Bolge: "Güneydoğu Anadolu", Dominant_Sektor: "Gıda & Plastik Dokuma", ETS_Kapsam_Tahmini_MtCO2: 5.6, Enlem: 37.06, Boylam: 37.38 },
-  { id: "il10", Il_Adi: "Mersin", Bolge: "Akdeniz", Dominant_Sektor: "Liman, Cam & Petrokimya", ETS_Kapsam_Tahmini_MtCO2: 4.8, Enlem: 36.81, Boylam: 34.63 }
+// =============================================================================
+// BİRİNCİL PILOT İLLER — ABM modelindeki 13 kömür santralinin bulunduğu 11 il
+// ETS_Kapsam değerleri ABM'deki santral emisyon toplamından türetilmiştir (gerçek veri).
+// İki il (Kahramanmaraş, Adana) birden fazla santral barındırmaktadır.
+// Kaynak: GERCEK_KOMUR_SANTRALLERI verisi; GEM Ocak 2026 + EPDK lisans veritabanı.
+// =============================================================================
+export const PRIMARY_ILLER: PilotProvince[] = [
+  {
+    id: "p01", Il_Adi: "Kahramanmaraş", Bolge: "Akdeniz",
+    Dominant_Sektor: "Kömür Enerjisi (Linyit)",
+    ETS_Kapsam_Tahmini_MtCO2: 22.2,  // Afşin-Elbistan A (10.9) + B (11.3)
+    Enlem: 37.58, Boylam: 36.93, etki_tipi: "birincil",
+    santraller: ["Afşin-Elbistan A", "Afşin-Elbistan B"],
+    toplam_kapasite_mw: 2795
+  },
+  {
+    id: "p02", Il_Adi: "Zonguldak", Bolge: "Karadeniz",
+    Dominant_Sektor: "Kömür Enerjisi (İthal)",
+    ETS_Kapsam_Tahmini_MtCO2: 17.0,  // Zonguldak Eren
+    Enlem: 41.45, Boylam: 31.79, etki_tipi: "birincil",
+    santraller: ["Zonguldak Eren"],
+    toplam_kapasite_mw: 2790
+  },
+  {
+    id: "p03", Il_Adi: "Adana", Bolge: "Akdeniz",
+    Dominant_Sektor: "Kömür Enerjisi (İthal & Linyit)",
+    ETS_Kapsam_Tahmini_MtCO2: 10.3,  // Hunutlu (7.2) + Tufanbeyli (3.1)
+    Enlem: 36.99, Boylam: 35.32, etki_tipi: "birincil",
+    santraller: ["Hunutlu", "Tufanbeyli"],
+    toplam_kapasite_mw: 1770
+  },
+  {
+    id: "p04", Il_Adi: "Hatay", Bolge: "Akdeniz",
+    Dominant_Sektor: "Kömür Enerjisi (İthal)",
+    ETS_Kapsam_Tahmini_MtCO2: 7.8,   // İskenderun İSKEN
+    Enlem: 36.20, Boylam: 36.16, etki_tipi: "birincil",
+    santraller: ["İskenderun İSKEN"],
+    toplam_kapasite_mw: 1320
+  },
+  {
+    id: "p05", Il_Adi: "Çanakkale", Bolge: "Marmara",
+    Dominant_Sektor: "Kömür Enerjisi (İthal)",
+    ETS_Kapsam_Tahmini_MtCO2: 7.5,   // Cenal Karabiga
+    Enlem: 40.15, Boylam: 26.41, etki_tipi: "birincil",
+    santraller: ["Cenal Karabiga"],
+    toplam_kapasite_mw: 1320
+  },
+  {
+    id: "p06", Il_Adi: "Manisa", Bolge: "Ege",
+    Dominant_Sektor: "Kömür Enerjisi (Linyit)",
+    ETS_Kapsam_Tahmini_MtCO2: 7.5,   // Soma B
+    Enlem: 38.61, Boylam: 27.43, etki_tipi: "birincil",
+    santraller: ["Soma B"],
+    toplam_kapasite_mw: 990
+  },
+  {
+    id: "p07", Il_Adi: "Muğla", Bolge: "Ege",
+    Dominant_Sektor: "Kömür Enerjisi (Linyit)",
+    ETS_Kapsam_Tahmini_MtCO2: 4.4,   // Kemerköy
+    Enlem: 37.21, Boylam: 28.36, etki_tipi: "birincil",
+    santraller: ["Kemerköy"],
+    toplam_kapasite_mw: 630
+  },
+  {
+    id: "p08", Il_Adi: "Ankara", Bolge: "İç Anadolu",
+    Dominant_Sektor: "Kömür Enerjisi (Linyit)",
+    ETS_Kapsam_Tahmini_MtCO2: 4.0,   // Çayırhan
+    Enlem: 39.93, Boylam: 32.85, etki_tipi: "birincil",
+    santraller: ["Çayırhan"],
+    toplam_kapasite_mw: 620
+  },
+  {
+    id: "p09", Il_Adi: "Kütahya", Bolge: "Ege",
+    Dominant_Sektor: "Kömür Enerjisi (Linyit)",
+    ETS_Kapsam_Tahmini_MtCO2: 3.7,   // Seyitömer
+    Enlem: 39.42, Boylam: 29.98, etki_tipi: "birincil",
+    santraller: ["Seyitömer"],
+    toplam_kapasite_mw: 600
+  },
+  {
+    id: "p10", Il_Adi: "Şırnak", Bolge: "Güneydoğu Anadolu",
+    Dominant_Sektor: "Kömür Enerjisi (Asfaltit)",
+    ETS_Kapsam_Tahmini_MtCO2: 2.9,   // Silopi
+    Enlem: 37.57, Boylam: 42.45, etki_tipi: "birincil",
+    santraller: ["Silopi"],
+    toplam_kapasite_mw: 405
+  },
+  {
+    id: "p11", Il_Adi: "Sivas", Bolge: "İç Anadolu",
+    Dominant_Sektor: "Kömür Enerjisi (Linyit)",
+    ETS_Kapsam_Tahmini_MtCO2: 2.8,   // Kangal
+    Enlem: 39.75, Boylam: 37.01, etki_tipi: "birincil",
+    santraller: ["Kangal"],
+    toplam_kapasite_mw: 457
+  }
 ];
+
+// =============================================================================
+// İKİNCİL PILOT İLLER — Doğrudan kömür santrali bulunmayan, ancak enerji-yoğun
+// sanayi yapısı ve AB SKDM/CBAM maruziyeti nedeniyle ETS'ten dolaylı etkilenecek
+// 5 büyük sanayi ili. ETS_Kapsam değerleri ekonomik bağlam göstergesidir;
+// simülasyon çıktısı değil, il bazlı sanayi GSYH ağırlığından türetilmiştir.
+// Kaynak: TÜİK İl Bazında GSYH 2022; Yıllık Sanayi ve Hizmet İstatistikleri 2022.
+// =============================================================================
+export const SECONDARY_ILLER: PilotProvince[] = [
+  {
+    id: "s01", Il_Adi: "Kocaeli", Bolge: "Marmara",
+    Dominant_Sektor: "Demir Çelik & Kimya",
+    ETS_Kapsam_Tahmini_MtCO2: 18.4,
+    Enlem: 40.76, Boylam: 29.92, etki_tipi: "ikincil",
+    skdm_risk_notu: "Türkiye demir-çelik ihracatının ~%40'ı bu ilde üretilir; AB SKDM doğrudan etkiler."
+  },
+  {
+    id: "s02", Il_Adi: "İzmir", Bolge: "Ege",
+    Dominant_Sektor: "Rafineri & Çimento",
+    ETS_Kapsam_Tahmini_MtCO2: 12.8,
+    Enlem: 38.42, Boylam: 27.14, etki_tipi: "ikincil",
+    skdm_risk_notu: "TÜPRAŞ rafinerisi ve çimento sektörü ETS dolaylı enerji maliyeti baskısıyla karşı karşıya."
+  },
+  {
+    id: "s03", Il_Adi: "Bursa", Bolge: "Marmara",
+    Dominant_Sektor: "Otomotiv & Çimento",
+    ETS_Kapsam_Tahmini_MtCO2: 8.7,
+    Enlem: 40.18, Boylam: 29.06, etki_tipi: "ikincil",
+    skdm_risk_notu: "Otomotiv tedarik zinciri AB pazarına bağlı; artan enerji maliyeti rekabet gücünü etkiler."
+  },
+  {
+    id: "s04", Il_Adi: "Gaziantep", Bolge: "Güneydoğu Anadolu",
+    Dominant_Sektor: "Tekstil & Plastik",
+    ETS_Kapsam_Tahmini_MtCO2: 5.6,
+    Enlem: 37.06, Boylam: 37.38, etki_tipi: "ikincil",
+    skdm_risk_notu: "Tekstil ve plastik sektörü enerji-yoğun; AB ihracat bağımlılığı SKDM riskini artırır."
+  },
+  {
+    id: "s05", Il_Adi: "Mersin", Bolge: "Akdeniz",
+    Dominant_Sektor: "Liman & Petrokimya",
+    ETS_Kapsam_Tahmini_MtCO2: 4.8,
+    Enlem: 36.81, Boylam: 34.63, etki_tipi: "ikincil",
+    skdm_risk_notu: "Türkiye'nin en büyük konteyner limanı; petrokimya ve çimento ihracatı SKDM kapsamında."
+  }
+];
+
+// =============================================================================
+// PILOT_ILLER — Geriye dönük uyumluluk için birincil + ikincil iller birleşimi.
+// App.tsx bu diziyi kullanmaya devam eder; etki_tipi alanıyla iki katman ayırt edilir.
+// =============================================================================
+export const PILOT_ILLER: PilotProvince[] = [...PRIMARY_ILLER, ...SECONDARY_ILLER];
 
 export const SEKTOREL_EMISYONLAR: SectoralEmission[] = [
   // Kaynak: sektorel_emisyonlar_v2.csv — TÜİK (2026) Sera Gazı Emisyon İstatistikleri, 1990-2024

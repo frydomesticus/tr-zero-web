@@ -99,6 +99,9 @@ const TAM_UYGULAMA = 2028;
 const UYGULAMA_UCRETSIZ_ORAN = 0.7; // YAZAR VARSAYIMI: Yönetmelik oranı Karbon Piyasası Kurulu'na bırakır (Md.13); %70 AB-ETS benzeri kabul
 const EUR_TRY = 40.22; // derived from OVP USD_TRY (37.0) / parite (0.92)
 // NOT (cap tasarımı): Bu model AB-ETS tipi MUTLAK azalan cap kullanır; gerçek TR-ETS yoğunluk-bazlı benchmark cap öngörür. Normatif/karşı-olgusal test (bkz. DENETİM_RAPORU Bölüm H.3).
+// NOT (RNG): Web arayüzü deterministik Math.sin(seed++) kullanır; Python motoru numpy Mersenne Twister kullanır.
+// Bu nedenle web tek-koşum sayıları Python Monte Carlo ortalamasıyla birebir eşleşmez.
+// Resmi ve istatistiksel olarak geçerli sonuçlar Python MC çıktısıdır (output/final/). Web göstergesi yalnızca görsel referans amaçlıdır.
 
 interface PlantSimState {
   id: string;

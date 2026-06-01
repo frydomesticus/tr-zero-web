@@ -290,24 +290,46 @@ const CustomRevenueTooltip = ({ active, payload, label }: any) => {
 // Plate number lookup for pilot provinces (Option B Map integration)
 const getPilotProvinceByPlate = (plate: number) => {
   switch (plate) {
-    case 1: return PILOT_ILLER.find(p => p.Il_Adi === "Adana");
-    case 6: return PILOT_ILLER.find(p => p.Il_Adi === "Ankara");
-    case 16: return PILOT_ILLER.find(p => p.Il_Adi === "Bursa");
-    case 27: return PILOT_ILLER.find(p => p.Il_Adi === "Gaziantep");
-    case 31: return PILOT_ILLER.find(p => p.Il_Adi === "Hatay");
-    case 33: return PILOT_ILLER.find(p => p.Il_Adi === "Mersin");
-    case 35: return PILOT_ILLER.find(p => p.Il_Adi === "İzmir");
-    case 41: return PILOT_ILLER.find(p => p.Il_Adi === "Kocaeli");
+    // --- BİRİNCİL İLLER (ABM kömür santrali olan 11 il) ---
     case 46: return PILOT_ILLER.find(p => p.Il_Adi === "Kahramanmaraş");
     case 67: return PILOT_ILLER.find(p => p.Il_Adi === "Zonguldak");
+    case 1:  return PILOT_ILLER.find(p => p.Il_Adi === "Adana");
+    case 31: return PILOT_ILLER.find(p => p.Il_Adi === "Hatay");
+    case 17: return PILOT_ILLER.find(p => p.Il_Adi === "Çanakkale");
+    case 45: return PILOT_ILLER.find(p => p.Il_Adi === "Manisa");
+    case 48: return PILOT_ILLER.find(p => p.Il_Adi === "Muğla");
+    case 6:  return PILOT_ILLER.find(p => p.Il_Adi === "Ankara");
+    case 43: return PILOT_ILLER.find(p => p.Il_Adi === "Kütahya");
+    case 73: return PILOT_ILLER.find(p => p.Il_Adi === "Şırnak");
+    case 58: return PILOT_ILLER.find(p => p.Il_Adi === "Sivas");
+    // --- İKİNCİL İLLER (SKDM/dolaylı etki 5 il) ---
+    case 41: return PILOT_ILLER.find(p => p.Il_Adi === "Kocaeli");
+    case 35: return PILOT_ILLER.find(p => p.Il_Adi === "İzmir");
+    case 16: return PILOT_ILLER.find(p => p.Il_Adi === "Bursa");
+    case 27: return PILOT_ILLER.find(p => p.Il_Adi === "Gaziantep");
+    case 33: return PILOT_ILLER.find(p => p.Il_Adi === "Mersin");
     default: return undefined;
   }
 };
 
-// Province-specific thermal power plant mappings (Option B detailed stats)
+// Province-specific thermal power plant mappings
+// Birincil iller: ABM'deki gerçek santral verileri
+// İkincil iller: mw: 0 (kömür santrali yok, dolaylı ETS etkisi)
 const PROVINCE_POWER_PLANTS: Record<string, { plants: string; mw: number }> = {
-  "Kocaeli": { plants: "Bulunmamaktadır (Sadece Ağır Sanayi)", mw: 0 },
-  "Hatay": { plants: "İskenderun İSKEN", mw: 1320 },
+  // BİRİNCİL İLLER
+  "Kahramanmaraş": { plants: "Afşin-Elbistan A & B", mw: 2795 },
+  "Zonguldak":     { plants: "Zonguldak Eren", mw: 2790 },
+  "Adana":         { plants: "Hunutlu & Tufanbeyli", mw: 1770 },
+  "Hatay":         { plants: "İskenderun İSKEN", mw: 1320 },
+  "Çanakkale":     { plants: "Cenal Karabiga", mw: 1320 },
+  "Manisa":        { plants: "Soma B", mw: 990 },
+  "Muğla":         { plants: "Kemerköy", mw: 630 },
+  "Ankara":        { plants: "Çayırhan", mw: 620 },
+  "Kütahya":       { plants: "Seyitömer", mw: 600 },
+  "Şırnak":        { plants: "Silopi", mw: 405 },
+  "Sivas":         { plants: "Kangal", mw: 457 },
+  // İKİNCİL İLLER — kömür santrali yok, dolaylı SKDM/ETS etkisi
+  "Kocaeli": { plants: "Bulunmamaktadır (SKDM Dolaylı Etki)", mw: 0 },
   "Zonguldak": { plants: "Zonguldak Eren (ZETES)", mw: 2790 },
   "İzmir": { plants: "Bulunmamaktadır (Sadece Ağır Sanayi)", mw: 0 },
   "Adana": { plants: "Hunutlu & Tufanbeyli", mw: 1770 },
@@ -353,11 +375,15 @@ export default function App() {
     if (pilotProv) {
       cursor = "pointer";
       if (isSelected) {
-        fill = "#1a1a1a"; // premium charcoal black for active selected pilot province
+        fill = "#1a1a1a";   // seçili il: siyah
         stroke = "#ffffff";
         strokeWidth = "2";
+      } else if (pilotProv.etki_tipi === "birincil") {
+        fill = "#b45309";   // birincil (kömür santrali): amber/turuncu
+        stroke = "#ffffff";
+        strokeWidth = "1.5";
       } else {
-        fill = "#0f766e"; // premium deep teal for pilot provinces
+        fill = "#1d4ed8";   // ikincil (SKDM/dolaylı): mavi
         stroke = "#ffffff";
         strokeWidth = "1.5";
       }
@@ -1302,8 +1328,15 @@ export default function App() {
                       </div>
                     </div>
 
-                    <div className="text-[9px] text-zinc-500 mt-2 block border-t border-zinc-200 pt-2 text-center font-mono">
-                      {t("simulator.inventory.mapNote", "* PİLOT ETS BÖLGELERİ YEŞİL TONLARDA, DİĞER İLLER İSE PASİF OLARAK GRİ GÖSTERİLMİŞTİR. SEÇİLİ İL SİYAH RENKTE VURGULANIR.")}
+                    <div className="text-[9px] text-zinc-500 mt-2 block border-t border-zinc-200 pt-2 text-center font-mono space-y-0.5">
+                      <span className="inline-flex items-center gap-1.5 mr-3">
+                        <span className="w-3 h-3 rounded-sm inline-block" style={{background:"#b45309"}} />
+                        <span>BİRİNCİL — ABM kömür santrali ili (11 il)</span>
+                      </span>
+                      <span className="inline-flex items-center gap-1.5">
+                        <span className="w-3 h-3 rounded-sm inline-block" style={{background:"#1d4ed8"}} />
+                        <span>İKİNCİL — SKDM/dolaylı etki ili (5 il)</span>
+                      </span>
                     </div>
                   </div>
 
@@ -1319,7 +1352,12 @@ export default function App() {
                           className="bg-[#1A1A1A] text-[#F4F1EE] p-6 flex-1 flex flex-col justify-between border border-[#1A1A1A] shadow-[4px_4px_0px_#1A1A1A]"
                         >
                           <div>
-                            <span className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider block font-mono">{t("simulator.inventory.selectedProvinceHeader", "SEÇİLİ PİLOT BÖLGE")}</span>
+                            <span className="text-[10px] font-bold uppercase tracking-wider block font-mono"
+                              style={{color: selectedProvince.etki_tipi === "birincil" ? "#fbbf24" : "#93c5fd"}}>
+                              {selectedProvince.etki_tipi === "birincil"
+                                ? "🔥 BİRİNCİL ETKİ — ABM KÖMÜR SANTRALİ İLİ"
+                                : "🔵 İKİNCİL ETKİ — SKDM / DOLAYLARI ETS İLİ"}
+                            </span>
                             <h3 className="text-2xl font-serif italic font-bold mt-1 text-white">{selectedProvince.Il_Adi} {i18n.language === "tr" ? "İli" : "Province"}</h3>
                             <div className="h-px bg-zinc-700 my-4" />
                             
@@ -1359,11 +1397,19 @@ export default function App() {
                               </p>
                             </div>
 
-                            {PROVINCE_POWER_PLANTS[selectedProvince.Il_Adi]?.mw > 0 && (
-                              <div className="bg-teal-950/40 p-4 border border-teal-900/60 font-mono">
-                                <span className="text-[9px] uppercase font-bold text-teal-400 block tracking-wider">{t("simulator.inventory.thermalIntegrationHeader", "⚡ TERMİK GÜÇ ENTEGRASYONU")}</span>
-                                <p className="text-[10px] text-teal-200 mt-1 leading-relaxed font-sans">
-                                  {t("simulator.inventory.thermalIntegrationDesc", "Bu ildeki termik santraller, tezinizde simüle edilen 13 bağımsız üretim ajanının bir parçası olarak ulusal karbon piyasasında Kocaeli/İzmir gibi sanayi bölgeleriyle doğrudan kota ticareti yapar.")}
+                            {selectedProvince.etki_tipi === "birincil" && PROVINCE_POWER_PLANTS[selectedProvince.Il_Adi]?.mw > 0 && (
+                              <div className="bg-amber-950/40 p-4 border border-amber-900/60 font-mono">
+                                <span className="text-[9px] uppercase font-bold text-amber-400 block tracking-wider">⚡ ABM SİMÜLASYON KAPSAMI</span>
+                                <p className="text-[10px] text-amber-200 mt-1 leading-relaxed font-sans">
+                                  Bu ildeki {PROVINCE_POWER_PLANTS[selectedProvince.Il_Adi]?.plants} ({PROVINCE_POWER_PLANTS[selectedProvince.Il_Adi]?.mw} MW), modeldeki 13 bağımsız kömür santrali ajanından biridir. ETS kapsam değeri ({selectedProvince.ETS_Kapsam_Tahmini_MtCO2.toFixed(1)} Mt) ABM santral verisinden türetilmiştir.
+                                </p>
+                              </div>
+                            )}
+                            {selectedProvince.etki_tipi === "ikincil" && (
+                              <div className="bg-blue-950/40 p-4 border border-blue-900/60 font-mono">
+                                <span className="text-[9px] uppercase font-bold text-blue-400 block tracking-wider">🌐 SKDM / DOLAYLARI ETS ETKİSİ</span>
+                                <p className="text-[10px] text-blue-200 mt-1 leading-relaxed font-sans">
+                                  {selectedProvince.skdm_risk_notu ?? "Bu ilde ABM modelinde kömür santrali bulunmamaktadır. Enerji-yoğun sanayi yapısı ve AB ihracat bağımlılığı nedeniyle ETS'ten dolaylı etkilenecek bir ildir."}
                                 </p>
                               </div>
                             )}
@@ -1405,7 +1451,13 @@ export default function App() {
                             onClick={() => setSelectedProvince(p)}
                           >
                             <td className="p-4 font-bold text-[#1A1A1A] flex items-center gap-1.5">
-                              <span className="w-2 h-2 bg-[#1A1A1A]" /> {p.Il_Adi}
+                              <span className="w-2 h-2 rounded-sm inline-block"
+                                style={{background: p.etki_tipi === "birincil" ? "#b45309" : "#1d4ed8"}} />
+                              {p.Il_Adi}
+                              <span className="text-[8px] font-mono font-normal ml-1"
+                                style={{color: p.etki_tipi === "birincil" ? "#b45309" : "#1d4ed8"}}>
+                                {p.etki_tipi === "birincil" ? "ABM" : "SKDM"}
+                              </span>
                             </td>
                             <td className="p-4 text-zinc-650 font-mono">{t(p.Bolge).toUpperCase()}</td>
                             <td className="p-4 font-bold text-zinc-700 font-mono text-[11px]">{t(p.Dominant_Sektor).toUpperCase()}</td>
