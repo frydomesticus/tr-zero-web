@@ -25,6 +25,7 @@ export interface SimulationParams {
   seed: number;
   bitis_yili: number;
   tesvik_katsayi?: number;
+  eurTry?: number;  // EUR/TRY kuru — teşvik TL→€ dönüşümü için (OVP 2026-2028 varsayılanı: 50.33)
 }
 
 // 5 reference scenarios exactly synchronized with Python v4.2 and based on policy references
@@ -97,7 +98,8 @@ const PILOT_BASLANGIC = 2026;
 const PILOT_BITIS = 2027;
 const TAM_UYGULAMA = 2028;
 const UYGULAMA_UCRETSIZ_ORAN = 0.7; // YAZAR VARSAYIMI: Yönetmelik oranı Karbon Piyasası Kurulu'na bırakır (Md.13); %70 AB-ETS benzeri kabul
-const EUR_TRY = 40.22; // derived from OVP USD_TRY (37.0) / parite (0.92)
+export const EUR_TRY_DEFAULT = 50.33; // OVP 2026-2028 (SBB, Eylül 2025): USD/TRY≈46.60 × EUR/USD≈1.08 → EUR/TRY≈50.33
+export const EUR_USD_DEFAULT = 1.08;  // Piyasa paritesi (Haziran 2026); OVP 2026-2028 beklentisiyle uyumlu
 // NOT (cap tasarımı): Bu model AB-ETS tipi MUTLAK azalan cap kullanır; gerçek TR-ETS yoğunluk-bazlı benchmark cap öngörür. Normatif/karşı-olgusal test (bkz. DENETİM_RAPORU Bölüm H.3).
 // NOT (RNG): Web arayüzü deterministik Math.sin(seed++) kullanır; Python motoru numpy Mersenne Twister kullanır.
 // Bu nedenle web tek-koşum sayıları Python Monte Carlo ortalamasıyla birebir eşleşmez.
@@ -124,7 +126,9 @@ function getEnUygunYatirim(
   ps: PlantSimState,
   carbonPrice: number,
   year: number,
-  tesvikKatsayi: number
+  tesvikKatsayi: number,
+  tesvikMiktari: number = 0,   // TL/MW yıllık teşvik
+  eurTry: number = 50.33       // EUR/TRY dönüşüm kuru
 ) {
   const lisansKalan = ps.lisans_bitis - year;
   // SEFiA & E3G (2024) Stranded Asset Kısıtı: Lisans bitimine son 10 yıl kala atıl sermaye riskinden dolayı yatırım yapılmaz.
@@ -152,7 +156,17 @@ function getEnUygunYatirim(
 
     // Bassart-i-Loré (2026: Tech. Forecasting & Social Change 222:124372) & IDASEP E-S.1.x: Teşvikli senaryoda yenilenebilir yatırımlarının MAC'i devlet sübvansiyon oranı kadar (x0.70) azaltılır.
     const isRenewable = opt.teknoloji.includes("GES/RES") || opt.teknoloji.includes("Yenilenebilir");
-    const efektifMac = isRenewable ? mac * tesvikKatsayi : mac;
+    // tesvik_miktari (TL/MW) → €/tCO₂: tesis emisyon yoğunluğu üzerinden normalize edilir.
+    // Formül: (tesvikMiktari / eurTry) / emissionIntensityPerMW
+    // emissionIntensityPerMW = ps.emisyon (Mt) × 1e6 (t/Mt) / ps.kapasite_mw (MW)
+    // Kaynak: ProjeGelistirici._npv() Python model analogu (piyasa_simulasyonu_v4.py)
+    const emissionIntensityPerMW = ps.kapasite_mw > 0
+      ? (ps.emisyon * 1e6) / ps.kapasite_mw  // tCO₂/MW/yıl
+      : 5000;                                  // fallback: ortalama kömür yoğunluğu
+    const tesvikBenefitPerTCO2 = isRenewable && emissionIntensityPerMW > 0
+      ? (tesvikMiktari / eurTry) / emissionIntensityPerMW  // €/tCO₂
+      : 0;
+    const efektifMac = (isRenewable ? mac * tesvikKatsayi : mac) - tesvikBenefitPerTCO2;
 
     if (efektifMac < carbonPrice) {
       const netFayda = (carbonPrice - efektifMac) * opt.potansiyel;
@@ -188,7 +202,8 @@ export function runSimulation(
     dogal_buyume: 0.02,
     seed: 42,
     bitis_yili: 2035,
-    tesvik_katsayi: 1.0
+    tesvik_katsayi: 1.0,
+    eurTry: EUR_TRY_DEFAULT,  // OVP 2026-2028 varsayılanı; kullanıcı App.tsx'ten override edebilir
   };
 
   const scenarioDefaults = scenarioType !== "CUSTOM" ? REFERENCE_SCENARIOS_CFG[scenarioType] : {};
@@ -353,7 +368,12 @@ export function runSimulation(
 
       // Yatırım kararı
       if (ps.durum === "Aktif" || ps.durum === "Temiz") {
-        const enUygun = getEnUygunYatirim(ps, carbonPrice, year, actualParams.tesvik_katsayi || 1.0);
+        const enUygun = getEnUygunYatirim(
+          ps, carbonPrice, year,
+          actualParams.tesvik_katsayi || 1.0,
+          actualParams.tesvik_miktari || 0,
+          actualParams.eurTry || EUR_TRY_DEFAULT
+        );
         if (enUygun) {
           ps.yatirim_durumu = enUygun.teknoloji;
           ps.kalan_yatirim_suresi = enUygun.sure;

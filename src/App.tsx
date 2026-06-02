@@ -60,7 +60,7 @@ import {
   PowerPlant,
   PilotProvince
 } from "./data";
-import { runSimulation, SimulationResultRow } from "./simulation";
+import { runSimulation, SimulationResultRow, EUR_TRY_DEFAULT, EUR_USD_DEFAULT } from "./simulation";
 
 // Custom Recharts Tooltip Components
 const CustomEmissionsTooltip = ({ active, payload, label }: any) => {
@@ -330,12 +330,8 @@ const PROVINCE_POWER_PLANTS: Record<string, { plants: string; mw: number }> = {
   "Sivas":         { plants: "Kangal", mw: 457 },
   // İKİNCİL İLLER — kömür santrali yok, dolaylı SKDM/ETS etkisi
   "Kocaeli": { plants: "Bulunmamaktadır (SKDM Dolaylı Etki)", mw: 0 },
-  "Zonguldak": { plants: "Zonguldak Eren (ZETES)", mw: 2790 },
   "İzmir": { plants: "Bulunmamaktadır (Sadece Ağır Sanayi)", mw: 0 },
-  "Adana": { plants: "Hunutlu & Tufanbeyli", mw: 1770 },
-  "Kahramanmaraş": { plants: "Afşin-Elbistan A & B", mw: 2795 },
   "Bursa": { plants: "Bulunmamaktadır (Sadece Ağır Sanayi)", mw: 0 },
-  "Ankara": { plants: "Çayırhan", mw: 620 },
   "Gaziantep": { plants: "Bulunmamaktadır (Sadece Ağır Sanayi)", mw: 0 },
   "Mersin": { plants: "Bulunmamaktadır (Sadece Ağır Sanayi)", mw: 0 }
 };
@@ -358,6 +354,9 @@ export default function App() {
   const [buyume, setBuyume] = useState<number>(2.0); // BAU % annual growth
   const [seed, setSeed] = useState<number>(42);
   const [bitis, setBitis] = useState<number>(2035);
+  // Kur Parametreleri — OVP 2026-2028 (SBB, Eylül 2025) varsayılanları
+  const [eurTry, setEurTry] = useState<number>(EUR_TRY_DEFAULT); // €/TL
+  const [eurUsd, setEurUsd] = useState<number>(EUR_USD_DEFAULT); // €/$
 
   // Province Highlight on Map (Tab 2)
   const [selectedProvince, setSelectedProvince] = useState<PilotProvince | null>(PILOT_ILLER[0]);
@@ -437,9 +436,10 @@ export default function App() {
       ab_skdm: skdm,
       dogal_buyume: buyume / 100,
       seed: seed,
-      bitis_yili: bitis
+      bitis_yili: bitis,
+      eurTry: eurTry,  // Kullanıcı kur girişi — tesvik TL→€ dönüşümünde kullanılır
     });
-  }, [cap, azalma, tesvik, taban, tavan, katsayi, skdm, buyume, seed, bitis]);
+  }, [cap, azalma, tesvik, taban, tavan, katsayi, skdm, buyume, seed, bitis, eurTry]);
 
   // Dynamic BAU run matching custom parameters (growth, bitis, seed)
   const customBauData = useMemo(() => {
@@ -1573,7 +1573,10 @@ export default function App() {
                   <div className="space-y-1.5">
                     <div className="flex justify-between items-center text-xs">
                       <span className="font-semibold text-slate-800">{t("simulator.design.investmentSubsidy", "Yatırım Teşvik Miktarı")}</span>
-                      <strong className="font-mono text-teal-700 bg-teal-50 px-1.5 py-0.5 rounded">{tesvik.toLocaleString()} TL/MW</strong>
+                      <span className="flex flex-col items-end gap-0.5">
+                        <strong className="font-mono text-teal-700 bg-teal-50 px-1.5 py-0.5 rounded">{tesvik.toLocaleString()} TL/MW</strong>
+                        <span className="font-mono text-[10px] text-slate-400">≈ {(tesvik / eurTry).toFixed(0)} €/MW @ {eurTry.toFixed(2)} TL</span>
+                      </span>
                     </div>
                     <input
                       type="range"
@@ -1705,6 +1708,41 @@ export default function App() {
                   </div>
                 </div>
 
+              </div>
+
+              {/* Kur Parametreleri Paneli */}
+              <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex flex-wrap gap-6 items-center">
+                <span className="text-xs font-bold text-amber-800 uppercase tracking-wider">💱 Kur Parametreleri</span>
+                <div className="flex items-center gap-2">
+                  <label className="text-[11px] font-semibold text-slate-600">EUR/TRY (TL)</label>
+                  <input
+                    type="number"
+                    min={30} max={120} step={0.5}
+                    value={eurTry}
+                    onChange={(e) => setEurTry(Number(e.target.value))}
+                    className="w-24 p-1.5 border border-amber-300 rounded-lg font-mono text-xs focus:ring-1 focus:ring-amber-500 focus:outline-none"
+                  />
+                </div>
+                <div className="flex items-center gap-2">
+                  <label className="text-[11px] font-semibold text-slate-600">EUR/USD</label>
+                  <input
+                    type="number"
+                    min={0.70} max={1.50} step={0.01}
+                    value={eurUsd}
+                    onChange={(e) => setEurUsd(Number(e.target.value))}
+                    className="w-20 p-1.5 border border-amber-300 rounded-lg font-mono text-xs focus:ring-1 focus:ring-amber-500 focus:outline-none"
+                  />
+                </div>
+                <span className="text-[10px] text-amber-700 ml-auto">
+                  Varsayılan: OVP 2026-2028 (SBB, Eyl. 2025) · USD/TRY≈46.60 · Piyasa EUR/USD≈1.08 → EUR/TRY≈50.33 TL
+                  <br/>⚠️ Bu değerler simülasyon hesabını değil, teşvik EUR karşılığı gösterimini etkiler.
+                </span>
+                <button
+                  onClick={() => { setEurTry(EUR_TRY_DEFAULT); setEurUsd(EUR_USD_DEFAULT); }}
+                  className="text-[10px] text-amber-700 border border-amber-300 px-2 py-1 rounded hover:bg-amber-100"
+                >
+                  ↺ OVP Varsayılanı
+                </button>
               </div>
 
               {/* Instant Output KPI Cards */}
