@@ -1,10 +1,10 @@
 # TR-Zero Web Dashboard
 
-Interactive web interface for the TR-Zero Decarbonization Simulation Engine. This frontend visualizes carbon pricing trajectories, agent permit trading interactions, and optimization outputs.
+**Live demo:** [tr-zero-web.vercel.app](https://tr-zero-web.vercel.app)
 
-Built with **React**, **TypeScript**, and **Vite**; configured for deployment on Vercel.
+Interactive web interface for the [TR-Zero Decarbonization Simulation Engine](https://github.com/frydomesticus/tr-zero). This frontend visualizes carbon pricing trajectories, agent permit trading interactions, and optimization outputs produced by the simulation engine.
 
----
+Built with **React**, **TypeScript**, and **Vite**; deployed on Vercel.
 
 ## Interface Features
 
@@ -13,15 +13,11 @@ Built with **React**, **TypeScript**, and **Vite**; configured for deployment on
 * **Analytical Dashboards:** Displays energy generation distributions and carbon intensity indexes using optimized charting libraries.
 * **Structured Natural Language Querying:** Integrates with the Gemini API to query database logs using natural language.
 
----
-
 ## Technical Specifications
 
 * **State Management:** React Context API for localized theme and database run states.
 * **Styles:** Vanilla CSS utilizing custom properties for high-performance dark themes.
 * **Module Bundler:** Vite for optimized tree-shaking and production bundling.
-
----
 
 ## Installation and Deployment
 
@@ -47,4 +43,3 @@ To build the optimized static assets:
 npm run build
 ```
 The output directory will be `dist/`, which is ready to be hosted on Vercel or Netlify.
-```
